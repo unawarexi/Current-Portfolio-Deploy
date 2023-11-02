@@ -1,0 +1,135 @@
+#Services > h5 {
+  font-size: 30px;
+}
+
+.Services_intro {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5rem;
+}
+
+.Services_intro > h5 {
+  font-size: 30px;
+}
+
+.Services_intro > h2 {
+  color: var(--color-primary);
+}
+
+.services__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.service {
+  background: var(--color-bg-variant);
+  padding: 0 0 2rem 2rem;
+  border: 1px solid var(--color-primary);
+  height: fit-content;
+  transition: var(--transiton);
+  /* border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 9rem;
+  border-top-left-radius: 9rem; */
+}
+
+.service:hover {
+  background: transparent;
+  border: var(--color-primary-variant);
+  cursor: default;
+}
+
+.service__head {
+  background: var(--color-primary);
+  padding: 2rem;
+  border-radius: 0 0 0rem 9rem;
+  box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.8);
+}
+
+.service__head h3 {
+  color: var(--color-bg);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.service__list {
+  padding: 2rem;
+}
+
+.service__list li {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.service__list-icon {
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.service__list p {
+  font-size: 0.9rem;
+}
+
+/*================= RESPONSIVENESS ================= */
+/* for tablets*/
+
+@media screen and (max-width: 1024px) {
+  .services__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .service {
+    height: auto;
+  }
+
+  .service__head {
+    padding: 1rem;
+  }
+
+  .service__head h3 {
+    font-size: 0.8rem;
+  }
+}
+
+/* for mobile*/
+
+@media screen and (max-width: 600px) {
+  #Services {
+    margin-top: -0.7rem;
+  }
+  .services__container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .service {
+    padding: 0 0 1rem 1rem;
+  }
+
+  .Services_intro > h5 {
+    font-size: 1rem;
+  }
+
+  .Services_intro > small {
+    font-size: 0.7rem;
+  }
+
+  .service__head {
+    padding: 0.9rem;
+  }
+
+  .service__head h3 {
+    font-size: 0.7rem;
+  }
+
+  .service__list {
+    padding: 1rem;
+  }
+
+  .service__list p {
+    font-size: 0.7rem;
+  }
+}
