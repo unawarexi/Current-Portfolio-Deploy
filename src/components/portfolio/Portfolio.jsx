@@ -7,20 +7,12 @@ import Portfolio4 from "../../assets/portfolio4.jpg";
 import Portfolio5 from "../../assets/portfolio5.png";
 import Portfolio6 from "../../assets/portfolio6.jpg";
 
-// import Swiper core and required modules
-//  import { Pagination, Autoplay,} from "swiper/modules";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-//Import Swiper styles
-//   import "swiper/css";
-//  import "swiper/css/pagination";
-
 import "animate.css";
 import { Animation } from "../../Animations/Stargerred";
 import useIntersectionObserver from "../../Hooks/IntersectObserver";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+
 
 const data = [
   {
@@ -74,28 +66,30 @@ const Portfolio = () => {
     threshold: 0.5, // Trigger when 50% of the element is in the viewport
   });
 
-  const [animate, setAnimate] = useState(false);
+  const [anime, setAnime] = useState(false);
 
   // Add a useEffect to trigger the animation when isIntersecting changes
   useEffect(() => {
     if (isIntersecting) {
-      setAnimate(true);
+      setAnime(true);
     }
   }, [isIntersecting]);
 
+  
+
   return (
     <motion.section ref={targetRef} id="Portfolio" {...Animation}>
-      {animate && (
+      {anime && (
         <div>
           <div className="portfolio_intro animate__animated animate__flipInX  animated__delay-1s">
             <h5 className="animate__slideInUp"> My Recent Works </h5>
             <h2 className="animate__slideInUp"> Portfolio </h2>
           </div>
 
-          <motion.div className="container portfolio__container animate__animated animate__bounceInUp animated__delay-1s">
+          <motion.div className="container portfolio__container paused-animation  animate__animated animate__bounceInUp animated__delay-1s">
             {data.map(({ id, image, title, github, demo }) => {
               return (
-                <article key={id} className="portfolio__item">
+                <article key={id} className="portfolio__item paused-animation">
                   <motion.div
                     {...Animation}
                     className="portfolio__item-image animate__animated animate__pulse animate__backInUp animated__delay-1s"
