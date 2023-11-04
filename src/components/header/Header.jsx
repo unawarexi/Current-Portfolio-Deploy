@@ -93,7 +93,7 @@ const Header = () => {
 
       <header>
         <motion.div {...Animation} className=" container header_container">
-          <motion.h5 className="">Hello Im</motion.h5>
+          <motion.h5 className="">Hello I'm</motion.h5>
 
           <h1 className="">Andrew J Chukwuweike</h1>
           <h6 className=" sec_h5 text-light">
