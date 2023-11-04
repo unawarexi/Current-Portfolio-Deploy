@@ -223,6 +223,9 @@ header {
 
   .nav_button {
     font-size: 0.6rem;
+    position: fixed;
+    right: 0;
+    margin-right: 2rem;
   }
 
   .cta {
