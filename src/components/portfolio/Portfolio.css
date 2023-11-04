@@ -199,7 +199,6 @@
   .portfolio__item-image {
     width: 100%;
     height: auto;
-    box-shadow: 3px 3px 5px  rgba(255, 150, 140, 0.603), -7px -7px 3px #0f0f0f;
     border-radius: 15px;
     
   }
