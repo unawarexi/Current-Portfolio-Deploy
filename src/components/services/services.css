@@ -38,6 +38,7 @@
   background: transparent;
   border: var(--color-primary-variant);
   cursor: default;
+  transition: ease-in-out 1s;
 }
 
 .service__head {
@@ -130,6 +131,6 @@
   }
 
   .service__list p {
-    font-size: 0.7rem;
+    font-size: 0.5rem;
   }
 }
