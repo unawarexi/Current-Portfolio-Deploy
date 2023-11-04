@@ -34,7 +34,7 @@ html {
   --container-width-md: 86%;
   --container-width-sm: 90%;
 
-  --transition: all 400ms ease;
+  --transition: ease-in-out 1s;
 
 }
 
