@@ -18,14 +18,14 @@ const data = [
   {
     id: 1,
     image: Portfolio1,
-    title: "Team Management Dashboard | Task Manager",
+    title: "Team Mgt. Dashboard",
     github: "https://github.com",
     demo: "https://dribbble.com/shots/19248211-Team-Management-Dashboard-Kanban-Task-Manager",
   },
   {
     id: 2,
     image: Portfolio2,
-    title: "Sales Dashboard | Analytics | Web App",
+    title: "Sales Dashboard | Analytics ",
     github: "https://github.com",
     demo: "https://dribbble.com/shots/19031656-Sales-Dashboard-Analytics-Web-App",
   },
@@ -46,7 +46,7 @@ const data = [
   {
     id: 5,
     image: Portfolio5,
-    title: "Management table | HRM dashboard",
+    title: " HRM dashboard",
     github: "https://github.com",
     demo: "https://dribbble.com/shots/19064533-Management-table-Table-components-HRM-dashboard",
   },
@@ -86,10 +86,10 @@ const Portfolio = () => {
             <h2 className="animate__slideInUp"> Portfolio </h2>
           </div>
 
-          <motion.div className="container portfolio__container paused-animation  animate__animated animate__bounceInUp animated__delay-1s">
+          <motion.div className="container portfolio__container   animate__animated animate__bounceInUp animated__delay-1s">
             {data.map(({ id, image, title, github, demo }) => {
               return (
-                <article key={id} className="portfolio__item paused-animation">
+                <article key={id} className="portfolio__item ">
                   <motion.div
                     {...Animation}
                     className="portfolio__item-image animate__animated animate__pulse animate__backInUp animated__delay-1s"
