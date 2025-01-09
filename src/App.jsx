@@ -1,28 +1,38 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import MainLayout from "./layout/MainLayout";
 import Header from "./components/header/Header";
-import Nav from "./components/nav/Nav";
 import About from "./components/about/About";
-import Experience from "./components/experience/Experience";
-import Services from "./components/services/Services";
-import Testimonials from "./components/testimonials/Testimonials";
-import Contact from "./components/contact/Contact";
+import Experience from "./components/experience/experience";
 import Portfolio from "./components/portfolio/Portfolio";
-import Footer from "./components/footer/Footer";
+import Contact from "./components/contact/Contact";
 
+// import Dashboard from "./admin/Dashboard";
 
 const App = () => {
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<SectionsApp />} />
+        </Route>
+
+        {/* <Route path="/admin" element={<Dashboard />} /> */}
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+const SectionsApp = () => {
+  return (
     <div>
       <Header />
-      <Nav />
       <About />
       <Experience />
-      <Services />
       <Portfolio />
-      <Testimonials />
       <Contact />
-      <Footer />
+      {/* <Nav /> */}
     </div>
   );
 };

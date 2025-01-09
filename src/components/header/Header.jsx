@@ -1,123 +1,77 @@
-import React, { useState } from "react";
-import "./Header.css";
-import Cta from "./Cta";
-import ME from "../../assets/me.jpg";
-import Headersocials from "./Headersocials";
-
-import { motion } from "framer-motion";
-
-import { Animation } from "../../Animations/Stargerred";
-import "animate.css";
+import React from 'react';
+import Images from '../../constants/ImageStrings';
+import { FaDownload, FaBriefcase } from 'react-icons/fa';
+import useResponsive from '../../Hooks/useResponsive';
 
 const Header = () => {
-  const [activeTopNav, setActiveTopNav] = useState("#");
-
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   return (
-    <>
-      <div className="heading">
-        <div className="first_nav bd_grid">
-          <div>
-            <a href="#" className="nav_logo">
-              Andrew<span className="nav_logo-span">-Corp</span>
-            </a>
-          </div>
-
-          <div className="nav_menu" id="nav_menu">
-            <ul className="nav_list">
-              <li className="nav_items">
-                <a
-                  href="#"
-                  onClick={() => setActiveTopNav("#")}
-                  className={activeTopNav === "#" ? "active" : ""}
-                >
-                  {" "}
-                  Home
-                </a>
-              </li>
-
-              <li className="nav_items">
-                <a
-                  href="#About"
-                  onClick={() => setActiveTopNav("#About")}
-                  className={activeTopNav === "#About" ? "active" : ""}
-                >
-                  {" "}
-                  About
-                </a>
-              </li>
-
-              <li className="nav_items">
-                <a
-                  href="#Experience"
-                  onClick={() => setActiveTopNav("#Experience")}
-                  className={activeTopNav === "#Experience" ? "active" : ""}
-                >
-                  {" "}
-                  Skills
-                </a>
-              </li>
-
-              <li className="nav_items">
-                <a
-                  href="#Portfolio"
-                  onClick={() => setActiveTopNav("#Portfolio")}
-                  className={activeTopNav === "#Portfolio" ? "active" : ""}
-                >
-                  {" "}
-                  Portfolio
-                </a>
-              </li>
-
-              <li className="nav_items">
-                <a
-                  href="#Contact"
-                  onClick={() => setActiveTopNav("#Contact")}
-                  className={activeTopNav === "#Contact" ? "active" : ""}
-                >
-                  {" "}
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="nav_button" id="nav_toggle">
-            <button>
-              <a href="https://github.com/unawarexi">More Projects </a>{" "}
-            </button>
-          </div>
-        </div>
+    <div className="relative h-[100vh] md:h-[70vh]">
+      {/* Image container with overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={Images.backgroundImage} 
+          alt="background" 
+          className="object-cover w-full h-full"
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
 
-      {/* {=============================== the body contents ================================} */}
-
-      <header>
-        <motion.div {...Animation} className=" container header_container">
-          <motion.h5 className="">Hello I'm</motion.h5>
-
-          <h1 className="">Andrew J Chukwuweike</h1>
-          <h6 className=" sec_h5 text-light">
-            {" "}
-            FullStack Developer (Web and Mobile applications)
-          </h6>
-          <Cta />
-          <Headersocials />
-
-          <div className="me">
-            <img
-              src={ME}
-              alt="me"
-              className="animate__animated animate__bounceIn"
-            />
+      {/* Section content on top of image */}
+      <section className="text-gray-600 body-font absolute inset-0 z-10 flex items-center justify-center">
+        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+          <div className="lg:flex-grow lg:w-1/2 md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-left">
+            <h1 className="title-font md:text-4xl text-xl mb-4 font-medium text-white ">
+              Expert in Web Development, Mobile Apps, and <span className='text-indigo-700'>Blockchain / SmartContracts Integration</span>
+            </h1>
+            <p className="mb-8 leading-relaxed text-white">
+              Bringing innovative digital solutions to life with expertise in modern web technologies, mobile application development, and secure blockchain integrations. Let's create something great together!
+            </p>
+           
+             {!isMobile && <>
+              <div className="flex w-full md:justify-start justify-center items-end">
+             <div className="relative mr-4 md:w-full lg:w-full xl:w-1/2 w-2/4">
+                <label htmlFor="hero-field" className="leading-7 text-sm text-gray-300">
+                  Let’s start a conversation
+                </label>
+                <input 
+                  type="text" 
+                  id="hero-field" 
+                  name="hero-field" 
+                  className="w-full bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" 
+                />
+              </div>
+              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 lg:px-6 md:px-2 md:w-40 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                Contact Me
+              </button>
+            </div>
+            <p className="text-sm mt-2 text-gray-300 mb-8 w-full">
+              Let's connect and discuss how I can help bring your ideas to life.
+            </p>
+            </> }
+            <div className="grid space-y-4 w-full md:flex md:space-x-4 md:flex-row">
+              <button className="bg-[#070b18] w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-lg shadow-blue-300">
+                <FaDownload className="w-6 h-6" />
+                <span className="ml-4 flex items-start flex-col leading-none">
+                  <span className="text-xs text-gray-600 mb-1">DOWNLOAD</span>
+                  <span className="title-font font-medium text-sm md:text-base text-blue-300">Resume & Portfolio</span>
+                </span>
+              </button>
+              <button className="bg-[#070b18] w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-lg shadow-blue-300">
+              <FaBriefcase className="w-6 h-6" />
+                <span className="ml-4  md:w-full flex items-start flex-col leading-none">
+                  <span className="text-xs text-gray-600 mb-1">CHECK OUT</span>
+                  <span className="title-font font-medium text-blue-300">My Experience</span>
+                </span>
+              </button>
+            </div>
           </div>
-
-          <a href="#Contact" className="scroll__down">
-            {" "}
-            Scroll Down
-          </a>
-        </motion.div>
-      </header>
-    </>
+          {!isMobile && !isTablet && <><div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+            <img className="object-cover object-center rounded" alt="hero" src={Images.subBackgroundImage} />
+          </div></> }
+        </div>
+      </section>
+    </div>
   );
 };
 
