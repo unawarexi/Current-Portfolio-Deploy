@@ -243,13 +243,13 @@ const Experience = () => {
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                   </div>
-                  <div className="flex-grow sm:pl-6 mt-6 sm:mt-0 bg-transparent md:mx-4 p-2 md:bg-blue-50 md:p-10 rounded-lg">
+                  <div className="flex-grow pl-2 sm:pl-6 mt-6 sm:mt-0 bg-transparent md:mx-4 p-2 md:bg-blue-50 md:p-10 rounded-lg">
                     {/* <!-- Role and Company --> */}
                     {isMobile ? (
                       <>
                         {" "}
                         <h2 className="font-medium title-font text-gray-900 mb-1 text-lg md:text-xl">
-                          {job.role} at <br /> <span className="text-indigo-300">{job.company}</span>
+                          {job.role} at <br /> <span className="text-indigo-300 font-bold">{job.company}</span>
                         </h2>
                       </>
                     ) : (
@@ -262,7 +262,7 @@ const Experience = () => {
                     )}
 
                     {/* <!-- Description --> */}
-                    <p className="leading-relaxed text-sm md:text-base">
+                    <p className="leading-relaxed text-[13px] md:text-base">
                       {job.description}
                     </p>
 
@@ -272,15 +272,15 @@ const Experience = () => {
                     </p>
 
                     {/* <!-- Skills Section --> */}
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center mt-2 space-y-2 sm:space-y-0">
-                      <strong>Skills:</strong>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center md:mt-2 mt-4 space-x-2 space-y-2 sm:space-y-0">
+                     {!isMobile &&  <p>Skills:</p>}
 
                       {/* <!-- Skills list on smaller screens wraps, but stays inline on larger screens --> */}
-                      <div className="flex flex-wrap sm:flex-nowrap space-x-1 space-y-2 sm:space-y-0 sm:space-x-4 text-blue-700 list-disc pl-6">
+                      <div className="  grid grid-cols-3 sm:flex items-center justify-center text-center sm:flex-nowrap space-x-1 space-y-2 sm:space-y-0 sm:space-x-4 text-blue-700 list-disc">
                         {job.skills.map((skill, index) => (
                           <span
                             key={index}
-                            className="bg-blue-200 px-4 py-2 rounded-full"
+                            className="bg-blue-200 md:px-4 w-full px-2 py-2 rounded-full md:text-base text-[10px]"
                           >
                             {skill}
                           </span>
