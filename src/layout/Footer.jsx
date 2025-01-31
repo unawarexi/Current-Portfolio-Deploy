@@ -63,29 +63,28 @@ const Footer = () => {
         </div>
       </div>
       <div className="border-t border-gray-200">
-  <div className="container px-5 py-8 flex flex-wrap mx-auto items-center">
-    <div className="flex flex-col md:flex-row md:flex-nowrap w-full justify-center md:justify-between items-center">
-      <p className="text-gray-500 text-center text-[10px] md:text-sm mb-4 md:mb-0">
-        Stay connected with us - Follow us on social media
-      </p>
-      <span className="inline-flex justify-center md:justify-end w-full md:w-auto">
-        <a className="text-gray-500 hover:text-indigo-500">
-          <FaFacebookF className="w-5 h-5" />
-        </a>
-        <a className="ml-3 text-gray-500 hover:text-indigo-500">
-          <FaTwitter className="w-5 h-5" />
-        </a>
-        <a className="ml-3 text-gray-500 hover:text-indigo-500">
-          <FaInstagram className="w-5 h-5" />
-        </a>
-        <a className="ml-3 text-gray-500 hover:text-indigo-500">
-          <FaLinkedinIn className="w-5 h-5" />
-        </a>
-      </span>
-    </div>
-  </div>
-</div>
-
+        <div className="container px-5 py-8 flex flex-wrap mx-auto items-center">
+          <div className="flex flex-col md:flex-row md:flex-nowrap w-full justify-center md:justify-between items-center">
+            <p className="text-gray-500 text-center text-[10px] md:text-sm mb-4 md:mb-0">
+              Stay connected with us - Follow us on social media
+            </p>
+            <span className="inline-flex justify-center md:justify-end w-full md:w-auto">
+              <a className="text-gray-500 hover:text-indigo-500">
+                <FaFacebookF className="w-5 h-5" />
+              </a>
+              <a className="ml-3 text-gray-500 hover:text-indigo-500">
+                <FaTwitter className="w-5 h-5" />
+              </a>
+              <a className="ml-3 text-gray-500 hover:text-indigo-500">
+                <FaInstagram className="w-5 h-5" />
+              </a>
+              <a className="ml-3 text-gray-500 hover:text-indigo-500">
+                <FaLinkedinIn className="w-5 h-5" />
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
 
       <div className="bg-gray-100">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
