@@ -75,7 +75,7 @@ const Contact = () => {
         <div className="bg-gray-50 bg-opacity-90 rounded-lg p-6 shadow-lg relative z-10">
           <h2 className="text-3xl font-bold text-indigo-900 mb-4">Get in Touch</h2>
           <p className="text-gray-600 mb-8 text-sm">
-            Feel free to contact us, and we will get back to you as soon as possible.
+            Feel free to Reach Out, and get a response as soon as possible.
           </p>
   
           <div className="space-y-4">
@@ -115,8 +115,8 @@ const Contact = () => {
                 </svg>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm mb-1">Our Location</h4>
-                  <p className="text-gray-600 text-sm">123 Business Street</p>
-                  <p className="text-gray-600 text-sm">New York, NY 10001</p>
+                  <p className="text-gray-600 text-sm">Nigeria</p>
+                  <p className="text-gray-600 text-sm">Benin City, Edo. - Lagos </p>
                 </div>
               </div>
   
@@ -126,7 +126,7 @@ const Contact = () => {
                 </svg>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm mb-1">Phone Number</h4>
-                  <p className="text-gray-600 text-sm">+1 (555) 123-4567</p>
+                  <p className="text-gray-600 text-sm">+234 (902) 837-8837</p>
                 </div>
               </div>
   
@@ -136,7 +136,7 @@ const Contact = () => {
                 </svg>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm mb-1">Email Address</h4>
-                  <p className="text-gray-600 text-sm">contact@business.com</p>
+                  <p className="text-gray-600 md:text-sm text-[12px] font-bold">code.chukwuweike.corpdev@gmail.com</p>
                 </div>
               </div>
             </div>

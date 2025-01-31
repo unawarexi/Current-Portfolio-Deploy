@@ -41,6 +41,18 @@ import expoImg from "../assets/icons/icons8-expo.svg";
 import githubImg from "../assets/icons/icons8-github.svg";
 import macOs from "../assets/icons/icons8-apple-logo.svg";
 import windows from "../assets/icons/icons8-windows-11.svg";
+import sqlLite from "../assets/icons/sqllite.jpeg";
+import clerk from "../assets/icons/clerk.jpeg";
+import bell from "../assets/icons/alarm.png";
+import cloudinary from "../assets/icons/cloudinary.png";
+import speaker from "../assets/icons/3d-speaker_10490226.png";
+import technician from "../assets/icons/mechanic_15560289.png";
+import foundry from "../assets/icons/foundry.jpeg";
+import vyper from "../assets/icons/vyper.png";
+import team from "../assets/icons/team.png";
+import documentation from "../assets/icons/documentation.png";
+import detail from "../assets/icons/detail.png";
+import ideas from "../assets/icons/ideas.png";
 
 //about
 import aboutImg from "../assets/images/me-about.jpg";
@@ -93,6 +105,18 @@ const Images = {
   githubImg,
   macOs,
   windows,
+  sqlLite,
+  bell,
+  speaker,
+  cloudinary,
+  clerk,
+  technician,
+  foundry,
+  vyper,
+  team,
+  detail,
+  ideas,
+  documentation,
 
   //expertise
   expertiseBG,

@@ -114,7 +114,7 @@ const Metrics = () => {
 
         {/* For Desktop or Tablet */}
         {(isDesktop || isTablet) && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="container  mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {metricsData.map((metric, index) => (
               <div
                 key={index}

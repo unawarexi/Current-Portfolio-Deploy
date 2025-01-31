@@ -26,7 +26,7 @@ const skillSets = [
       { name: "Flutter", icon: Images.flutterImg },
       { name: "Ether.js", icon: Images.etherImg },
       { name: "Web3.js", icon: Images.web3Img },
-      { name: "Vyper", icon: <></> },
+      { name: "Vyper", icon: Images.vyper },
     ],
   },
   {
@@ -45,17 +45,17 @@ const skillSets = [
       { name: "MongoDB", icon: Images.mongoImg },
       { name: "PostgreSQL", icon: Images.postgresImg },
       { name: "MySQL", icon: Images.mySQL },
-      { name: "SQLite", icon: <></> },
+      { name: "SQLite", icon: Images.sqlLite },
     ],
   },
   {
     category: "SaaS Tools and Cloud",
     skills: [
       { name: "Firebase", icon: Images.firebaseImg },
-      { name: "Clerk", icon: <></> },
+      { name: "Clerk", icon: Images.clerk },
       { name: "Supabase", icon: Images.supabaseImg },
-      { name: "AWS", icon: Images.awsImG },
-      { name: "Cloudinary", icon: <></> },
+      { name: "AWS", icon: Images.awsImg },
+      { name: "Cloudinary", icon: Images.cloudinary },
     ],
   },
   {
@@ -66,6 +66,7 @@ const skillSets = [
       { name: "Hardhat", icon: Images.hardhatImg },
       { name: "Expo", icon: Images.expoImg },
       { name: "Git", icon: Images.gitImg },
+      { name: "foundry", icon: Images.foundry },
       { name: "Github", icon: Images.githubImg },
       { name: "Postman", icon: Images.postmanImg },
       { name: "Redux", icon: Images.reduxImg },
@@ -77,17 +78,17 @@ const skillSets = [
       { name: "Linux OS", icon: Images.linuxImg },
       { name: "Mac OS", icon: Images.macOs },
       { name: "Windows", icon: Images.windows },
-      { name: "IT Technician", icon: <></> },
+      { name: "IT Technician", icon: Images.technician },
     ],
   },
   {
     category: "Soft Qualities",
     skills: [
-      { name: "Active Communication", icon: <></> },
-      { name: "Attention to Detail", icon: <></> },
-      { name: "Brainstorming Ideas", icon: <></> },
-      { name: "Team Adaptability", icon: <></> },
-      { name: "Project Documentation", icon: <></> },
+      { name: "Active Communication", icon: Images.speaker },
+      { name: "Attention to Detail", icon: Images.detail },
+      { name: "Brainstorming Ideas", icon: Images.ideas },
+      { name: "Team Adaptability", icon: Images.team },
+      { name: "Project Documentation", icon: Images.documentation },
     ],
   },
 ];
@@ -120,8 +121,8 @@ const Skills = () => {
   };
 
   return (
-    <section className="text-gray-600 body-font">
-      <div className="lg:container px-5 py-16 mx-auto">
+    <section className="text-gray-600 body-font items-center justify-center">
+      <div className="lg:container px-5 py-16 mx-auto lg:h-[700px] md:h-[900px] lg:mt-20">
         <div className="h-1 bg-gray-200 rounded overflow-hidden">
           <div className="w-24 h-full bg-indigo-500"></div>
         </div>
@@ -129,7 +130,7 @@ const Skills = () => {
           <h1 className="sm:w-2/5 text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0">
             Skills & Expertise
           </h1>
-          <p className="sm:w-3/5 leading-relaxed text-sm md:text-base sm:pl-10 pl-0">
+          <p className="sm:w-3/5 leading-relaxed text-[10px] md:text-base sm:pl-10 pl-0">
             A comprehensive overview of my technical proficiencies, spanning
             modern programming languages, frameworks, and tools. These skills
             empower me to build scalable, efficient, and user-centric solutions
@@ -138,7 +139,7 @@ const Skills = () => {
         </div>
         {/* Category Tabs */}
         {isDesktop && (
-          <div className="flex justify-center mb-8">
+          <div className="flex flex-row justify-center mb-8">
             {skillSets.map((category, index) => (
               <div
                 key={index}
@@ -161,10 +162,10 @@ const Skills = () => {
               <div
                 key={index}
                 onClick={() => setCurrentCategory(index)}
-                className={`cursor-pointer mx-4 px-4 py-2 font-medium text-sm ${
+                className={`cursor-pointer mx-4 px-4 py-2 font-medium md:text-sm text-[12px] ${
                   currentCategory === index
                     ? "border-b-2 border-indigo-500 text-indigo-600 w-[70%]"
-                    : "text-gray-500 hover:text-indigo-600"
+                    : "text-gray-500 hover:text-blue-300"
                 }`}
               >
                 {category.category}
@@ -175,57 +176,95 @@ const Skills = () => {
 
         {/* Slider Controls */}
         <div className="relative">
-          <button
-            onClick={handlePrev}
-            className="absolute top-1/2 transform -translate-y-1/2 z-10 left-0 p-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
-          >
-            <FaChevronLeft size={24} />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute top-1/2 transform -translate-y-1/2 z-10 right-0 p-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
-          >
-            <FaChevronRight size={24} />
-          </button>
+          {isDesktop && (
+            <>
+              {" "}
+              <button
+                onClick={handlePrev}
+                className="absolute top-1/2 transform -translate-y-1/2 z-10 left-0 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 ease-in-out"
+              >
+                <FaChevronLeft size={20} />
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute top-1/2 transform -translate-y-1/2 z-10 right-0 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 ease-in-out"
+              >
+                <FaChevronRight size={20} />
+              </button>
+            </>
+          )}
 
           {/* Carousel Slider */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentCategory}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-wrap sm:mx-auto sm:mb-2 -mx-2 "
-            >
-              {skillSets[currentCategory].skills.map((skill, index) => (
-                <div key={index} className="container  lg:w-1/4 md:w-1/2 p-2 items-center justify-center">
+          {isDesktop && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentCategory}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className={`flex space-x-4 overflow-x-auto my-16 px-2 items-center justify-center`}
+              >
+                {skillSets[currentCategory].skills.map((skill, index) => (
                   <motion.div
-                    className=" bg-[#1b2a5b53]  shadow-md  shadow-blue-300 backdrop-blur-lg p-4 rounded-lg flex flex-col items-center justify-center h-full"
+                    key={index}
+                    className="bg-[#1b2a5b53] shadow-lg p-3 rounded-lg flex items-center space-x-3"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <img
                       src={skill.icon}
                       alt={`${skill.name} icon`}
-                      className="w-12 h-12 mb-4"
+                      className="w-8 h-8"
                     />
-                    <span className="text-lg font-medium text-gray-800">
+                    <span className="text-sm font-medium text-gray-500">
                       {skill.name}
                     </span>
                   </motion.div>
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          )}
+
+{(isTablet || isMobile) && (
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={currentCategory}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5 }}
+      className={`grid grid-cols-3 gap-4 my-10 px-2 items-center justify-center mx-auto`}
+    >
+      {skillSets[currentCategory].skills.map((skill, index) => (
+        <motion.div
+          key={index}
+          className="bg-[#1b2a5b53] shadow-lg p-3 rounded-lg flex flex-col items-center justify-center space-y-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={skill.icon}
+            alt={`${skill.name} icon`}
+            className="w-6 h-6"
+          />
+          <span className="md:text-sm text-[10px] text-center font-medium text-gray-500">
+            {skill.name}
+          </span>
+        </motion.div>
+      ))}
+    </motion.div>
+  </AnimatePresence>
+)}
+
 
           {/* Category Indicator */}
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center lg:mt-32 mt-10">
             {skillSets.map((category, index) => (
               <span
                 key={index}
                 onClick={() => setCurrentCategory(index)}
-                className={`h-2 w-10 mx-1 rounded-full cursor-pointer ${
+                className={`h-1 md:h-2 w-5 md:w-10 mx-1 rounded-full cursor-pointer ${
                   index === currentCategory ? "bg-indigo-600" : "bg-gray-400"
                 }`}
               />

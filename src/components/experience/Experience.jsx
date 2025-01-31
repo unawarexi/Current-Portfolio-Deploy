@@ -160,9 +160,9 @@ const Experience = () => {
 
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 py-10 mx-auto">
+      <div className="container px-5 py-10 mx-auto h-[auto]">
         {/* Section Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 mt-10">
           <h1 className="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4">
             My Work Experience
           </h1>
@@ -223,13 +223,17 @@ const Experience = () => {
                 key={index}
                 className="flex relative pb-10  sm:items-center md:w-2/3 mx-auto "
               >
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                <div className="h-full md:w-6 w-2 absolute inset-0 flex items-center justify-center">
                   <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
                 </div>
+
+                {/* ---------- number ----------------- */}
                 <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-indigo-500 text-white relative z-10 title-font font-medium text-sm">
                   {index + 1}
                 </div>
-                <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+
+                {/* --------- for icons   ------------- */}
+                <div className="flex-grow md:pl-8 pl-2 flex sm:items-center items-start flex-col sm:flex-row">
                   <div className="flex-shrink-0 md:w-24 md:h-24 w-14 h-14 bg-indigo-100 text-indigo-500 rounded-full inline-flex items-center justify-center">
                     <svg
                       fill="none"
@@ -243,7 +247,7 @@ const Experience = () => {
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                   </div>
-                  <div className="flex-grow pl-2 sm:pl-6 mt-6 sm:mt-0 bg-transparent md:mx-4 p-2 md:bg-blue-50 md:p-10 rounded-lg">
+                  <div className="flex-grow pl-2 md:pl-6 md:mt-6 mt-2 sm:mt-0 bg-transparent md:mx-4 p-2 md:bg-blue-50 md:p-10 rounded-lg">
                     {/* <!-- Role and Company --> */}
                     {isMobile ? (
                       <>
@@ -262,7 +266,7 @@ const Experience = () => {
                     )}
 
                     {/* <!-- Description --> */}
-                    <p className="leading-relaxed text-[13px] md:text-base">
+                    <p className="leading-relaxed text-[12px] md:text-base">
                       {job.description}
                     </p>
 
@@ -272,15 +276,15 @@ const Experience = () => {
                     </p>
 
                     {/* <!-- Skills Section --> */}
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center md:mt-2 mt-4 space-x-2 space-y-2 sm:space-y-0">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center md:mt-2 mt-4 space-y-2 sm:space-y-0">
                      {!isMobile &&  <p>Skills:</p>}
 
                       {/* <!-- Skills list on smaller screens wraps, but stays inline on larger screens --> */}
-                      <div className="  grid grid-cols-3 sm:flex items-center justify-center text-center sm:flex-nowrap space-x-1 space-y-2 sm:space-y-0 sm:space-x-4 text-blue-700 list-disc">
+                      <div className="  grid grid-cols-3 sm:flex items-center justify-center text-center sm:flex-nowrap space-x-1 space-y-2 sm:space-y-0 sm:space-x-4 text-blue-700 ">
                         {job.skills.map((skill, index) => (
                           <span
                             key={index}
-                            className="bg-blue-200 md:px-4 w-full px-2 py-2 rounded-full md:text-base text-[10px]"
+                            className="bg-blue-200 md:px-4 w-full px-1 py-2 rounded-full md:text-base text-[10px]"
                           >
                             {skill}
                           </span>
