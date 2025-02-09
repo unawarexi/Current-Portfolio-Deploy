@@ -1,57 +1,57 @@
 import React, { useState } from 'react';
-import { FaHome, FaUser, FaBriefcase, FaProjectDiagram, FaEnvelope } from 'react-icons/fa'; // Icons from react-icons
+import { FaHome, FaUser, FaBriefcase, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 
-const FloatingNavBar = () => {
-  const location = useLocation();
-  const [activeIndex, setActiveIndex] = useState(0);
-
+const FloatingNavbar = () => {
+  const [activeNav, setActiveNav] = useState('home');
   const navItems = [
-    { icon: <FaHome size={24} />, link: '/', name: 'Home' },
-    { icon: <FaUser size={24} />, link: '/about', name: 'About' },
-    { icon: <FaBriefcase size={24} />, link: '/experience', name: 'Experience' },
-    { icon: <FaProjectDiagram size={24} />, link: '/portfolio', name: 'Portfolio' },
-    { icon: <FaEnvelope size={24} />, link: '/contact', name: 'Contact' },
+    { icon: <FaHome />, to: 'home', name: 'Home', scroll: true },
+    { icon: <FaUser />, to: 'about', name: 'About', scroll: true },
+    { icon: <FaBriefcase />, to: 'experience', name: 'Experience', scroll: true },
+    { icon: <FaProjectDiagram />, to: '/portfolio', name: 'Portfolio', scroll: false },
+    { icon: <FaEnvelope />, to: 'contact', name: 'Contact', scroll: true },
   ];
 
-  // Update active nav based on route path
-  const updateActiveIndex = () => {
-    const currentPath = location.pathname;
-    const foundIndex = navItems.findIndex((item) => item.link === currentPath);
-    if (foundIndex !== -1) {
-      setActiveIndex(foundIndex);
-    }
-  };
-
-  React.useEffect(() => {
-    updateActiveIndex();
-  }, [location]);
-
   return (
-    <motion.div
-      className="fixed bottom-10 left-1/2 transform -translate-x-1.5 z-50 w-[90%] md:w-[50%] bg-white/30 backdrop-blur-lg rounded-full shadow-lg flex justify-around py-2"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {navItems.map((item, index) => (
-        <Link
-          to={item.link}
-          key={index}
-          onClick={() => setActiveIndex(index)}
-          className={`relative flex items-center justify-center p-4 cursor-pointer ${
-            activeIndex === index ? 'text-indigo-500' : 'text-gray-500'
-          }`}
-        >
-          {item.icon}
-          {activeIndex === index && (
-            <span className="absolute inset-0 w-full h-full rounded-full bg-indigo-500 opacity-20"></span>
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
+      transition={{ duration: 0.8 }}
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-black bg-opacity-60 backdrop-blur-lg shadow-lg rounded-2xl p-2 flex items-center justify-between w-72 sm:w-80 md:w-96 lg:w-[32rem] xl:w-[36rem] max-w-full">
+      {navItems.map((item) => (
+        <div key={item.name} className="group relative flex items-center">
+          {item.scroll ? (
+            <ScrollLink
+              to={item.to}
+              smooth={true}
+              duration={500}
+              className={`cursor-pointer p-2 text-white text-sm sm:text-base md:text-lg ${
+                activeNav === item.to ? 'text-blue-400' : 'text-gray-300'
+              } transition-colors duration-300 ease-in-out hover:text-blue-400`}
+              onSetActive={() => setActiveNav(item.to)}
+            >
+              {item.icon}
+            </ScrollLink>
+          ) : (
+            <Link
+              to={item.to}
+              className={`cursor-pointer p-2 text-white text-sm sm:text-base md:text-lg ${
+                activeNav === item.to ? 'text-blue-400' : 'text-gray-300'
+              } transition-colors duration-300 ease-in-out hover:text-blue-400`}
+              onClick={() => setActiveNav(item.to)}
+            >
+              {item.icon}
+            </Link>
           )}
-        </Link>
+          <span className="absolute bottom-12 opacity-0 group-hover:opacity-100 text-xs sm:text-sm bg-gray-800 text-white rounded-lg px-2 py-1 transition-opacity duration-300">
+            {item.name}
+          </span>
+        </div>
       ))}
     </motion.div>
   );
 };
 
-export default FloatingNavBar;
+export default FloatingNavbar;

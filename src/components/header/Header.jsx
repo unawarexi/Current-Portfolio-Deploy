@@ -6,7 +6,7 @@ import useResponsive from '../../Hooks/useResponsive';
 const Header = () => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
   return (
-    <div className="relative h-[100vh] md:h-[70vh]">
+    <div className="relative h-[80vh]  md:h-[70vh]">
       {/* Image container with overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -18,13 +18,13 @@ const Header = () => {
       </div>
 
       {/* Section content on top of image */}
-      <section className="text-gray-600 body-font absolute inset-0 z-10 flex items-center justify-center">
+      <section className="text-gray-600 body-font absolute inset-0 z-10 flex items-center justify-center mt-20 ">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow lg:w-1/2 md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-left">
-            <h1 className="title-font md:text-4xl text-xl mb-4 font-medium text-white ">
-              Expert in Web Development, Mobile Apps, and <span className='text-indigo-700'>Blockchain / SmartContracts Integration</span>
+            <h1 className="title-font md:text-4xl text-lg mb-4 font-medium text-white ">
+              Expert in Web Development, Mobile Apps, and <span className='text-indigo-300'>Blockchain / SmartContracts Integration</span>
             </h1>
-            <p className="mb-8 leading-relaxed text-white">
+            <p className="mb-8 leading-relaxed text-white md:text-base text-[13px]">
               Bringing innovative digital solutions to life with expertise in modern web technologies, mobile application development, and secure blockchain integrations. Let's create something great together!
             </p>
            
@@ -50,18 +50,18 @@ const Header = () => {
             </p>
             </> }
             <div className="grid space-y-4 w-full md:flex md:space-x-4 md:flex-row">
-              <button className="bg-[#070b18] w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-lg shadow-blue-300">
+              <button className="bg-[#070b18] w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-md shadow-blue-300">
                 <FaDownload className="w-6 h-6" />
                 <span className="ml-4 flex items-start flex-col leading-none">
                   <span className="text-xs text-gray-600 mb-1">DOWNLOAD</span>
-                  <span className="title-font font-medium text-sm md:text-base text-blue-300">Resume & Portfolio</span>
+                  <span className="title-font font-medium text-sm md:text-base text-blue-300 text-[13px] ">Resume & Cover Letter</span>
                 </span>
               </button>
-              <button className="bg-[#070b18] w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-lg shadow-blue-300">
+              <button className=" w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-md shadow-blue-300">
               <FaBriefcase className="w-6 h-6" />
                 <span className="ml-4  md:w-full flex items-start flex-col leading-none">
                   <span className="text-xs text-gray-600 mb-1">CHECK OUT</span>
-                  <span className="title-font font-medium text-blue-300">My Experience</span>
+                  <span className="title-font font-medium text-blue-300 ">My Portfolio</span>
                 </span>
               </button>
             </div>

@@ -277,7 +277,7 @@ const Experience = () => {
 
                     {/* <!-- Skills Section --> */}
                     <div className="flex flex-col sm:flex-row items-start sm:items-center md:mt-2 mt-4 space-y-2 sm:space-y-0">
-                     {!isMobile &&  <p>Skills:</p>}
+                     {!isMobile &&  <p className="mx-2">Skills:</p>}
 
                       {/* <!-- Skills list on smaller screens wraps, but stays inline on larger screens --> */}
                       <div className="  grid grid-cols-3 sm:flex items-center justify-center text-center sm:flex-nowrap space-x-1 space-y-2 sm:space-y-0 sm:space-x-4 text-blue-700 ">

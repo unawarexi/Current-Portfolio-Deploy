@@ -38,11 +38,11 @@ html {
   
   /* Dark mode specific heading styles */
   .dark h1 {
-    @apply text-white;
+    @apply text-indigo-500;
   }
   
   .dark h2 {
-    @apply text-gray-200;
+    @apply text-indigo-400;
   }
   
   /* Add similar classes for other elements as needed */

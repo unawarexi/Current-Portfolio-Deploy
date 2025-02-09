@@ -27,14 +27,24 @@ const App = () => {
 const SectionsApp = () => {
   return (
     <div>
-      <Header />
-      <About />
-      <Experience />
-      <Portfolio />
-      <Contact />
-      {/* <Nav /> */}
+      <section id="home">
+        <Header />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      <section id="experience">
+        <Experience />
+      </section>
+      <section id="portfolio">
+        <Portfolio />
+      </section>
+      <section id="contact">
+        <Contact />
+      </section>
     </div>
   );
 };
+
 
 export default App;
