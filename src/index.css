@@ -47,3 +47,19 @@ html {
   
   /* Add similar classes for other elements as needed */
   
+
+/* @media (max-width: 768px) {
+  .absolute.inset-0 {
+    max-width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .absolute.inset-0 {
+    max-width: 80%;
+  }
+}
+@media (min-width: 1024px) {
+  .absolute.inset-0 {
+    max-width: 50%;
+  }
+} */

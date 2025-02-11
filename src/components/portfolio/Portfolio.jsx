@@ -70,7 +70,7 @@ const Portfolio = () => {
             <h1 className="sm:w-2/5 text-gray-900 font-medium title-font md:text-2xl text-xl mb-2 sm:mb-0">
               Portfolio Projects
             </h1>
-            <p className="md:w-3/5 w-full leading-relaxed  pl-0 md:pl-10  md:text-base text-[10px]"> 
+            <p className="md:w-3/5 w-full leading-relaxed  pl-0 md:pl-10  lg:text-base md:text-xs text-[10px]"> 
               Dive into a portfolio of my recent projects, demonstrating
               expertise in full-stack development. These works encompass
               seamless front-end interfaces, efficient back-end architecture,
@@ -103,10 +103,10 @@ const Portfolio = () => {
                 </video>
               </div>
 
-              <h2 className="md:text-xl text-lg font-medium title-font text-gray-900 mt-5">
+              <h2 className="lg:text-xl md:text-md text-sm font-medium title-font text-gray-900 mt-5">
                 {project.title}
               </h2>
-              <p className="md:text-base text-[13px] leading-relaxed mt-2">
+              <p className="lg:text-base md:text-sm text-[11px] leading-relaxed mt-2">
                 {project.description}
               </p>
               <a className="text-indigo-500 inline-flex items-center mt-3">

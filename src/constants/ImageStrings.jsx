@@ -60,6 +60,9 @@ import aboutImg from "../assets/images/me-about.jpg";
 //contact
 import contactBackground from "../assets/images/pexels-duichantran-28828623.jpg";
 
+import ConfirmImg from "../assets/images/confirm2.webp";
+import ConfirmImg2 from "../assets/images/confirm3.webp";
+
 const Images = {
   backgroundImage,
   subBackgroundImage,
@@ -123,6 +126,10 @@ const Images = {
 
   //contact
   contactBackground,
+
+  //confirm
+  ConfirmImg,
+  ConfirmImg2
 };
 
 export default Images;

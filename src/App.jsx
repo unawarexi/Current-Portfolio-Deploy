@@ -7,6 +7,9 @@ import About from "./components/about/About";
 import Experience from "./components/experience/Experience";
 import Portfolio from "./components/portfolio/Portfolio";
 import Contact from "./components/contact/Contact";
+import PortfolioOverview from "./components/portfolio/PortfolioOverview";
+import ProjectForm from "./components/projects/ProjectForm";
+import Confirmation from "./auth/Confirmation";
 
 // import Dashboard from "./admin/Dashboard";
 
@@ -16,6 +19,9 @@ const App = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<SectionsApp />} />
+          <Route path="/overview" element={<PortfolioOverview />} />
+          <Route path="/update" element={<Confirmation />} />
+          <Route path="/project" element={<ProjectForm />} />
         </Route>
 
         {/* <Route path="/admin" element={<Dashboard />} /> */}

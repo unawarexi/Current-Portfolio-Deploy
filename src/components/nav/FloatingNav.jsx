@@ -10,7 +10,7 @@ const FloatingNavbar = () => {
     { icon: <FaHome />, to: 'home', name: 'Home', scroll: true },
     { icon: <FaUser />, to: 'about', name: 'About', scroll: true },
     { icon: <FaBriefcase />, to: 'experience', name: 'Experience', scroll: true },
-    { icon: <FaProjectDiagram />, to: '/portfolio', name: 'Portfolio', scroll: false },
+    { icon: <FaProjectDiagram />, to: '/overview', name: 'Portfolio', scroll: false },
     { icon: <FaEnvelope />, to: 'contact', name: 'Contact', scroll: true },
   ];
 
