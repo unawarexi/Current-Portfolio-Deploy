@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layout/MainLayout";
 import Header from "./components/header/Header";
@@ -10,23 +10,22 @@ import Contact from "./components/contact/Contact";
 import PortfolioOverview from "./components/portfolio/PortfolioOverview";
 import ProjectForm from "./components/projects/ProjectForm";
 import Confirmation from "./auth/Confirmation";
-
-// import Dashboard from "./admin/Dashboard";
+import SinglePortfolio from "./components/portfolio/SinglePortfolio";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<SectionsApp />} />
           <Route path="/overview" element={<PortfolioOverview />} />
           <Route path="/update" element={<Confirmation />} />
           <Route path="/project" element={<ProjectForm />} />
+          <Route path="/projects/:id" element={<SinglePortfolio />} />
         </Route>
-
-        {/* <Route path="/admin" element={<Dashboard />} /> */}
+       
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 
@@ -51,6 +50,5 @@ const SectionsApp = () => {
     </div>
   );
 };
-
 
 export default App;

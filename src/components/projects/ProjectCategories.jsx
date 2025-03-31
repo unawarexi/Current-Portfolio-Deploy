@@ -21,7 +21,7 @@ const ProjectCategories = ({ formData, handleChange }) => {
   ];
 
   return (
-    <div className=' items-center justify-center container'>
+    <div className=' items-center justify-center container bg-white my-4 px-10 py-4 rounded-lg'>
       {/* Categories Section */}
       <div className="border-b pb-6 ">
         <h2 className="text-xl font-semibold text-indigo-600 mb-4">Categories</h2>

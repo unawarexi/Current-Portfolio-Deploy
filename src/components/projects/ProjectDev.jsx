@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
-const ProjectDev = ({ formData, handleChange }) => {
+const ProjectDev = ({ formData, handleChange, handleUploadProfilePicture }) => {
   return (
-    <div className="border-b pb-6 mx-auto">
-      <h2 className="text-xl font-semibold text-indigo-600">Developer Profile</h2>
-      <p className="text-sm text-gray-600 mb-4">This information will help potential employers learn more about you and your skills.</p>
+    <div className="border-b pb-6 mx-auto bg-white my-4 px-10 py-4 rounded-lg">
+      <h2 className="text-xl font-semibold text-indigo-600">
+        Developer Profile
+      </h2>
+      <p className="text-sm text-gray-600 mb-4">
+        This information will help potential employers learn more about you and
+        your skills.
+      </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Profile Picture */}
@@ -15,6 +20,14 @@ const ProjectDev = ({ formData, handleChange }) => {
             name="profilePicture"
             onChange={handleChange}
             className="w-full p-2 border rounded-md"
+          />
+          <input
+            type="text"
+            name="profilePictureUrl"
+            value={formData.profilePicture || ''}
+            onChange={handleChange}
+            className="w-full mt-2 p-2 border rounded-md"
+            placeholder="Uploaded profile picture URL"
           />
         </div>
 
@@ -66,7 +79,6 @@ const ProjectDev = ({ formData, handleChange }) => {
           />
         </div>
 
-
         {/* Experience */}
         <div className="col-span-2">
           <label className="block text-sm font-medium">Experience</label>
@@ -75,7 +87,7 @@ const ProjectDev = ({ formData, handleChange }) => {
             rows={4}
             value={formData.experience}
             onChange={handleChange}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border-2 border-gray-500 rounded-md"
             placeholder="Describe your relevant experience or notable projects"
           />
         </div>

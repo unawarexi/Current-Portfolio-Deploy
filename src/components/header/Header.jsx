@@ -2,6 +2,7 @@ import React from 'react';
 import Images from '../../constants/ImageStrings';
 import { FaDownload, FaBriefcase } from 'react-icons/fa';
 import useResponsive from '../../Hooks/useResponsive';
+import { Link } from 'react-router';
 
 const Header = () => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
@@ -59,10 +60,10 @@ const Header = () => {
               </button>
               <button className=" w-full inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none shadow-md shadow-blue-300">
               <FaBriefcase className="w-6 h-6" />
-                <span className="ml-4  md:w-full flex items-start flex-col leading-none">
+                <Link to = "/overview" className="ml-4  md:w-full flex items-start flex-col leading-none">
                   <span className="text-xs text-gray-600 mb-1">CHECK OUT</span>
                   <span className="title-font font-medium text-blue-300 ">My Portfolio</span>
-                </span>
+                </Link>
               </button>
             </div>
           </div>

@@ -12,18 +12,19 @@ const ProjectStack = ({ formData, handleChange }) => {
     );
   };
 
-  const handleDropdownToggle = () => {
+  const handleDropdownToggle = (e) => {
+    e.preventDefault(); // Prevent form submission
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleSelectClick = () => {
-    // Set the selected technologies into the input field or wherever required
+  const handleSelectClick = (e) => {
+    e.preventDefault(); // Prevent form submission
     handleChange({ target: { name: 'technologies', value: selectedTechnologies } });
     setIsDropdownOpen(false); // Close the dropdown after selection
   };
 
   return (
-    <div>
+    <div className='bg-white my-4 px-10 py-4 rounded-lg'>
       {/* Technology Section */}
       <div className="border-b pb-6">
         <h2 className="text-lg font-semibold">Technologies</h2>
@@ -35,7 +36,7 @@ const ProjectStack = ({ formData, handleChange }) => {
           {/* Display selected technologies */}
           <div className="w-full p-2 border rounded-md">
             {selectedTechnologies.length > 0
-              ? selectedTechnologies.join(', ') // Display selected technologies
+              ? selectedTechnologies.join(', ') 
               : 'Select your technologies'}
           </div>
 
