@@ -14,7 +14,7 @@ import SinglePortfolio from "./components/portfolio/SinglePortfolio";
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<SectionsApp />} />
