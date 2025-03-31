@@ -21,15 +21,15 @@ const ProjectCategories = ({ formData, handleChange }) => {
   ];
 
   return (
-    <div className=' items-center justify-center container bg-white my-4 px-10 py-4 rounded-lg'>
+    <div className="container bg-white my-6 lg:px-8 px-4 py-6 rounded-xl shadow-lg">
       {/* Categories Section */}
-      <div className="border-b pb-6 ">
-        <h2 className="text-xl font-semibold text-indigo-600 mb-4">Categories</h2>
+      <div className="border-b pb-6">
+        <h2 className="text-2xl font-semibold text-indigo-700 mb-4">Categories</h2>
         <select
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full p-3 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
         >
           {categories.map((category) => (
             <option key={category.value} value={category.value}>
@@ -41,24 +41,24 @@ const ProjectCategories = ({ formData, handleChange }) => {
 
       {/* Project Details Section */}
       <div className="border-b pb-6 mt-6">
-        <h2 className="text-xl font-semibold text-indigo-600 mb-4">Project Details</h2>
+        <h2 className="text-2xl font-semibold text-indigo-700 mb-4">Project Details</h2>
 
-        <label className="block text-sm font-medium text-gray-700">Project Description</label>
+        <label className="block text-sm font-medium text-gray-800">Project Description</label>
         <textarea
           name="projectDescription"
           rows={4}
           value={formData.projectDescription}
           onChange={handleChange}
-          className="w-full p-3 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full p-4 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
           placeholder="Describe your project, its goals, and features."
         />
 
-        <label className="block text-sm font-medium text-gray-700 mt-4">Project Type</label>
+        <label className="block text-sm font-medium text-gray-800 mt-4">Project Type</label>
         <select
           name="projectType"
           value={formData.projectType}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full p-3 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
         >
           {projectTypes.map((type) => (
             <option key={type.value} value={type.value}>
@@ -69,43 +69,43 @@ const ProjectCategories = ({ formData, handleChange }) => {
 
         {/* Links Section */}
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-700">Google Play Link (if applicable)</label>
+          <label className="block text-sm font-medium text-gray-800">Google Play Link (if applicable)</label>
           <input
             type="url"
             name="googlePlayLink"
             value={formData.googlePlayLink}
             onChange={handleChange}
-            className="w-full p-3 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-4 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
             placeholder="https://play.google.com/..."
           />
 
-          <label className="block text-sm font-medium text-gray-700 mt-4">App Store Link (if applicable)</label>
+          <label className="block text-sm font-medium text-gray-800 mt-4">App Store Link (if applicable)</label>
           <input
             type="url"
             name="appStoreLink"
             value={formData.appStoreLink}
             onChange={handleChange}
-            className="w-full p-3 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-4 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
             placeholder="https://apps.apple.com/..."
           />
 
-          <label className="block text-sm font-medium text-gray-700 mt-4">Web Live Link (if applicable)</label>
+          <label className="block text-sm font-medium text-gray-800 mt-4">Web Live Link (if applicable)</label>
           <input
             type="url"
             name="webLiveLink"
             value={formData.webLiveLink}
             onChange={handleChange}
-            className="w-full p-3 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-4 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
             placeholder="https://yourproject.com"
           />
 
-          <label className="block text-sm font-medium text-gray-700 mt-4">Deep Enhancements</label>
+          <label className="block text-sm font-medium text-gray-800 mt-4">Deep Enhancements</label>
           <textarea
             name="deepEnhancements"
             rows={4}
             value={formData.deepEnhancements}
             onChange={handleChange}
-            className="w-full p-3 border rounded-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-4 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
             placeholder="Describe any deep enhancements or advanced features you've implemented in this project."
           />
         </div>

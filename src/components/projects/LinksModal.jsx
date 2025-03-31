@@ -8,7 +8,7 @@ const LinksModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const API_URL = import.meta.env.VITE_REACT_APP_API_URL || 'http://localhost:3001/api';
+    const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
     if (isOpen) {
       fetch(`${API_URL}/fetch-images`)
         .then((res) => res.json())

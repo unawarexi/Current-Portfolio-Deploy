@@ -7,16 +7,16 @@ require('dotenv').config();
 
 // Configure Cloudinary with environment variables
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dkt3rfpgz',
-  api_key: process.env.CLOUDINARY_API_KEY || '825467336823896',
-  api_secret: process.env.CLOUDINARY_API_SECRET || 'zER4YhDEw-SJogewHRNTb9GvmYQ'
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Log Cloudinary configuration (sanitized)
-console.log("Cloudinary Configuration:");
-console.log("- Cloud name:", process.env.CLOUDINARY_CLOUD_NAME || 'dkt3rfpgz');
-console.log("- API key configured:", !!process.env.CLOUDINARY_API_KEY || true);
-console.log("- API secret configured:", !!process.env.CLOUDINARY_API_SECRET || true);
+// console.log("Cloudinary Configuration:");
+// console.log("- Cloud name:", process.env.CLOUDINARY_CLOUD_NAME || 'dkt3rfpgz');
+// console.log("- API key configured:", !!process.env.CLOUDINARY_API_KEY || true);
+// console.log("- API secret configured:", !!process.env.CLOUDINARY_API_SECRET || true);
 
 const app = express();
 

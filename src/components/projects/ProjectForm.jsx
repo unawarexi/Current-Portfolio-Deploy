@@ -294,7 +294,7 @@ const ProjectForm = () => {
       
       <form
         onSubmit={handleSubmit}
-        className="space-y-12 mx-auto p-6 text-black container shadow-lg rounded-lg bg-slate-50"
+        className="space-y-12 mx-auto lg:p-6 p-4 text-black container shadow-lg rounded-lg bg-slate-50"
       >
         <div>
           <ProjectDev formData={formData} handleChange={handleChange} handleUploadProfilePicture={handleUploadProfilePicture} />
