@@ -1,34 +1,35 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ConfirmSpinner } from '../constants/Spinners'
-import Images from '../constants/ImageStrings'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ConfirmSpinner } from '../constants/Spinners';
+import Images from '../constants/ImageStrings';
 import { MdWarning } from 'react-icons/md';
 
 const Confirmation = () => {
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const [showModal, setShowModal] = useState(false) // State for password visibility toggle
-  
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const authID = import.meta.env.VITE_APP_PASSWORD; // Make sure this is correctly set in .env
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const ConfirmID = () => {
-    if (input == authID) {
-      setLoading(true)
+    if (input === authID) {
+      setLoading(true);
+      const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour from now
+      localStorage.setItem('authValid', JSON.stringify({ valid: true, expiresAt: expirationTime }));
       setTimeout(() => {
-        setLoading(false)
-        navigate('/project') // Redirect to the form
-      }, 2000)
+        setLoading(false);
+        navigate('/auth/new'); 
+      }, 2000);
     } else {
-        setShowModal(true) 
+      setShowModal(true);
     }
-  }
+  };
 
   const closeModal = () => {
     setShowModal(false); // Close the modal
-  }
-
+  };
 
   return (
     <div className="w-full h-auto bg-cover relative">
@@ -103,7 +104,7 @@ const Confirmation = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Confirmation
+export default Confirmation;

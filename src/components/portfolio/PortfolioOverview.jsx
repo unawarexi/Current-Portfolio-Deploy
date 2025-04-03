@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiEye, FiExternalLink } from 'react-icons/fi';
+import { FiEye, FiExternalLink, FiPlus } from 'react-icons/fi';
 import PortfolioNav from '../nav/PortfolioNav';
 
 const PortfolioOverview = () => {
@@ -100,6 +100,13 @@ const PortfolioOverview = () => {
           {projects.map((project) => renderProjectCard(project))}
         </div>
       </div>
+      {/* Floating Action Button */}
+      <button
+        onClick={() => navigate('/auth/new')}
+        className="fixed bottom-[25%] lg:right-20 right-6 bg-blue-600 text-white rounded-full w-14 h-14 md:w-16 md:h-16 flex items-center justify-center shadow-lg hover:bg-blue-700"
+      >
+        <FiPlus size={24} className="md:text-2xl" />
+      </button>
     </section>
   );
 };

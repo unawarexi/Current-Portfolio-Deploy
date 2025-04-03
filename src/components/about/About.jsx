@@ -76,7 +76,7 @@ const About = () => {
 
 
 
-      <div className="flex flex-col md:flex-row justify-center md:space-x-10 lg:space-x-16 items-center mt-6">
+      <div className="flex flex-col md:flex-row justify-center md:space-x-10 lg:space-x-16 items-center mt-6 ">
         {/* Button Section */}
         <div className="flex space-x-4">
           <a href="#projects">

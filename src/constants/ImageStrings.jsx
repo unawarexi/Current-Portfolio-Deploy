@@ -56,13 +56,18 @@ import ideas from "../assets/icons/ideas.png";
 
 //about
 import aboutImg from "../assets/images/me-about.jpg";
+import aboutImage2 from "../assets/images/about2.png";
+import aboutImage3 from "../assets/images/about4.png";
 
 //contact
 import contactBackground from "../assets/images/pexels-duichantran-28828623.jpg";
 
+// auth images
 import ConfirmImg from "../assets/images/confirm2.webp";
 import ConfirmImg2 from "../assets/images/confirm3.webp";
 
+//form image
+import formImage from "../assets/images/formImage.png";
 const Images = {
   backgroundImage,
   subBackgroundImage,
@@ -123,13 +128,18 @@ const Images = {
 
   //expertise
   expertiseBG,
+  aboutImage2,
+  aboutImage3,
 
   //contact
   contactBackground,
 
   //confirm
   ConfirmImg,
-  ConfirmImg2
+  ConfirmImg2,
+
+  //form
+  formImage,
 };
 
 export default Images;

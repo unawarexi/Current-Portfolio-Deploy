@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
 // Array of project data
 const projects = [
@@ -59,6 +60,8 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const navigate = useNavigate(); // Initialize navigate function
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
@@ -125,6 +128,14 @@ const Portfolio = () => {
               </a>
             </div>
           ))}
+        </div>
+        <div className="flex justify-center mt-10">
+          <button
+            onClick={() => navigate("/projects")} // Navigate to /projects route
+            className="bg-indigo-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-indigo-600"
+          >
+            View All Projects
+          </button>
         </div>
       </div>
     </section>

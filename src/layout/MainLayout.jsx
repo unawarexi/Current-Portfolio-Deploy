@@ -8,9 +8,11 @@ const MainLayout = () => {
   return (
     <>
       <NavBar />
+      {/* Ensure FloatingNavBar uses navigation links */}
       <FloatingNavBar />
-      <Outlet />
-
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

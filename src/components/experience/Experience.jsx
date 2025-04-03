@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useResponsive from "../../Hooks/useResponsive";
+import Images from "../../constants/ImageStrings";
 
 const experienceData = {
   "Web Development": {
@@ -159,17 +160,28 @@ const Experience = () => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
 
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font shadow-slate-400 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.1)] rounded-tr-3xl rounded-tl-3xl">
       <div className="container px-5 py-10 mx-auto h-[auto]">
         {/* Section Header */}
-        <div className="text-center mb-10 mt-10">
-          <h1 className="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4">
-            My Work Experience
-          </h1>
-          <p className="md:text-base text-[10px] text-start md:text-center leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
-            A detailed overview of my professional experience in various domains
-            of software development and IT.
-          </p>
+        <div className="flex flex-col md:flex-row items-center mb-10 mt-10 ">
+          {/* Text Section (60%) */}
+          <div className="md:w-3/5 w-full text-center   ">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
+              My Work Experience
+            </h1>
+            <p className="md:text-base text-[10px] leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto ">
+              A detailed overview of my professional experience in various domains
+              of software development and IT.
+            </p>
+          </div>
+          {/* Image Section (40%) */}
+          <div className="md:w-[30%] w-full mt-6 md:mt-0  flex justify-center ">
+            <img
+              src={Images.aboutImage2}
+              alt="Experience Illustration"
+              className="rounded-lg object-contain"
+            />
+          </div>
         </div>
 
         {/* Tab Navigation */}
@@ -202,7 +214,7 @@ const Experience = () => {
                 key={subcategory}
                 className={`md:px-6 px-3 py-3 cursor-pointer md:text-lg text-[13px] mx-auto md:mx-0 font-medium ${
                   activeSubcategory === subcategory
-                    ? "text-indigo-300 md:border-b-4 border-b-2 border-indigo-500"
+                    ? "dark:text-indigo-300 text-indigo-600 md:border-b-4 border-b-2 border-indigo-500"
                     : "text-gray-600 hover:text-indigo-500"
                 }`}
                 onClick={() => setActiveSubcategory(subcategory)}
@@ -234,7 +246,7 @@ const Experience = () => {
 
                 {/* --------- for icons   ------------- */}
                 <div className="flex-grow md:pl-8 pl-2 flex sm:items-center items-start flex-col sm:flex-row">
-                  <div className="flex-shrink-0 md:w-24 md:h-24 w-14 h-14 bg-indigo-100 text-indigo-500 rounded-full inline-flex items-center justify-center">
+                  <div className="flex-shrink-0 md:w-24 md:h-24 w-14 h-14 dark:bg-black/30 shadow-md dark:shadow-indigo-300 bg-indigo-100 text-indigo-500 rounded-full inline-flex items-center justify-center">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -247,7 +259,7 @@ const Experience = () => {
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                   </div>
-                  <div className="flex-grow pl-2 md:pl-6 md:mt-6 mt-2 sm:mt-0 bg-transparent md:mx-4 p-2 md:bg-blue-50 md:p-10 rounded-lg">
+                  <div className="flex-grow pl-2 md:pl-6 md:mt-6 mt-2 sm:mt-0 dark:bg-black/30 md:mx-4 p-2 shadow-lg shadow-blue-300 bg-blue-50 md:p-10 rounded-lg">
                     {/* <!-- Role and Company --> */}
                     {isMobile ? (
                       <>

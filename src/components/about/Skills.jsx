@@ -34,7 +34,7 @@ const Skills = () => {
 
   return (
     <section className="text-gray-600 body-font items-center justify-center">
-      <div className="lg:container px-5 py-16 mx-auto lg:h-[700px] md:h-[900px] lg:mt-20">
+      <div className="lg:container px-5 py-16 mx-auto lg:h-[800px] h-[900px] md:h-[1000px] lg:mt-20">
         <div className="h-1 bg-gray-200 rounded overflow-hidden">
           <div className="w-24 h-full bg-indigo-500"></div>
         </div>

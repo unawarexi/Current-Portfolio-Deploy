@@ -6,60 +6,35 @@
 
 /* index.css */
 html {
-    scroll-behavior:smooth;
-   
-  }
-  
-  body {
+    scroll-behavior: smooth;
+}
+
+body {
     @apply bg-white text-black; 
-    
-      font-family: "poppins", sans-serif;
-    
-      line-height: 1.7;
-
-      max-width: 100%;
-     overflow-x: hidden;
-   
-  }
-  
-  /* Dark Mode Styles */
-  .dark body {
-    @apply bg-[#070b18] text-white; /* Dark mode background and text color */
-  }
-  
-  /* Example for headings */
-  h1 {
-    @apply text-4xl font-bold;
-  }
-  
-  h2 {
-    @apply text-3xl font-semibold;
-  }
-  
-  /* Dark mode specific heading styles */
-  .dark h1 {
-    @apply text-indigo-500;
-  }
-  
-  .dark h2 {
-    @apply text-indigo-400;
-  }
-  
-  /* Add similar classes for other elements as needed */
-  
-
-/* @media (max-width: 768px) {
-  .absolute.inset-0 {
+    font-family: "poppins", sans-serif;
+    line-height: 1.7;
     max-width: 100%;
-  }
+    overflow-x: hidden;
 }
-@media (min-width: 768px) {
-  .absolute.inset-0 {
-    max-width: 80%;
-  }
+
+.dark body {
+    @apply bg-[#070b18] text-white; /* Dark mode background and text color */
 }
-@media (min-width: 1024px) {
-  .absolute.inset-0 {
-    max-width: 50%;
-  }
-} */
+
+h1 {
+    @apply text-4xl font-bold;
+}
+
+h2 {
+    @apply text-3xl font-semibold;
+}
+
+.dark h1 {
+    @apply text-indigo-500;
+}
+
+.dark h2 {
+    @apply text-indigo-400;
+}
+
+/* Add similar classes for other elements as needed */
