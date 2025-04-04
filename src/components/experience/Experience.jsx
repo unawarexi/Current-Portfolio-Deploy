@@ -172,7 +172,7 @@ const Experience = () => {
           {/* Image Section (40%) */}
           <div className="md:w-[30%] w-full mt-6 md:mt-0  flex justify-center ">
             <img
-              src={Images.aboutImage2}
+              src={Images.aboutImage3}
               alt="Experience Illustration"
               className="rounded-lg object-contain"
             />

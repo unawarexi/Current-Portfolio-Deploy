@@ -59,7 +59,7 @@ import aboutImg from "../assets/images/me-about.jpg";
 
 //metrics bg
 import aboutImage2 from "../assets/images/about2.png";
-import aboutImage3 from "../assets/images/about4.png";
+import aboutImage3 from "../assets/images/aboutImg.png";
 
 //contact
 import contactBackground from "../assets/images/pexels-duichantran-28828623.jpg";
