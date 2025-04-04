@@ -99,7 +99,7 @@ const Metrics = () => {
 
 <div className="absolute inset-0 z-0">
         <img 
-          src={Images.aboutImage3} 
+          src={Images.formImage} 
           alt="background" 
           className="object-cover w-full h-full"
         />

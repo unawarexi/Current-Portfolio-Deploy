@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify"; // Import Toastify and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
-import "./Contact.css";
+
 import { AiOutlineMail } from "react-icons/ai";
 import { FaTwitter } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
@@ -54,7 +54,7 @@ const Contact = () => {
       <ToastContainer position="top-right" autoClose={5000} /> {/* Toastify container */}
       <section className="relative">
         {/* Image container with overlay */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0">
           <img
             src={Images.contactBackground}
             alt="Contact Background"
@@ -64,10 +64,10 @@ const Contact = () => {
         </div>
 
         {/* Contact form container */}
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <div className="relative z-10 md:max-w-7xl -ml-2 md:-ml-0  mx-auto px-4 md:px-8 py-16">
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Contact Form */}
-            <div className="bg-gray-50 bg-opacity-90 rounded-lg p-6 shadow-lg relative z-10">
+            <div className="bg-gray-50 bg-opacity-90 rounded-lg p-6 shadow-lg">
               <h2 className="text-3xl font-bold text-indigo-900 mb-4">
                 Get in Touch
               </h2>
