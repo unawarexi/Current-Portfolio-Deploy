@@ -59,7 +59,7 @@ const NavBar = () => {
 
   return (
     <section>
-      <header className="fixed top-0 w-full z-50 bg-black/5 backdrop-blur-md text-gray-600 body-font">
+      <header className="fixed top-0 w-full z-50 bg-white/30 backdrop-blur-md text-gray-600 body-font md:h-24 h-16 dark:bg-transparent dark:text-blue-300 shadow-lg">
         <div className="container mx-auto flex flex-wrap p-5 flex-row items-center justify-between">
           <Link to="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <div className="ml-3 text-xl lg:text-3xl text-gray-700 font-bold">
@@ -89,13 +89,13 @@ const NavBar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed top-0 right-0 bottom-0 w-64 bg-[#0e162f] h-screen text-blue-300 p-5 shadow-lg z-20"
+              className="fixed top-0 rounded-tl-xl rounded-bl-xl right-0 bottom-0 w-64 bg-white dark:bg-[#0e162f] h-screen text-[#0e162f] dark:text-blue-300 p-5 shadow-lg z-20"
             >
               <div
                 onClick={toggleMenu}
-                className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-800 cursor-pointer ml-auto"
+                className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-400 dark:bg-gray-800 cursor-pointer ml-auto"
               >
-                <FaTimes size={32} className="text-blue-300" />
+                <FaTimes size={32} className="dark:text-blue-300 text-white" />
               </div>
 
               <div className="flex flex-col mt-4 space-y-6">
@@ -113,7 +113,7 @@ const NavBar = () => {
                     <Link
                       key={item}
                       to={item === "Portfolio" ? "/projects" : `/#${item.toLowerCase()}`}
-                      className="text-md hover:text-gray-300 bg-[#070b18] px-4 py-3 shadow-blue-300 shadow-md hover:bg-[#121e47] rounded-full"
+                      className="text-md hover:text-gray-300 bg-white dark:bg-[#070b18]  px-4 py-3 shadow-blue-300 shadow-md hover:bg-[#121e47] rounded-full"
                       onClick={toggleMenu}
                     >
                       {item}

@@ -8,8 +8,10 @@ import { FaTwitter } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import Images from "../../constants/ImageStrings";
 import useIntersectionObserver from "../../Hooks/IntersectObserver";
+import useResponsive from "../../Hooks/useResponsive";
 
 const Contact = () => {
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const { targetRef, isIntersecting } = useIntersectionObserver({
     root: null,
     rootMargin: "0px",
@@ -64,7 +66,7 @@ const Contact = () => {
         </div>
 
         {/* Contact form container */}
-        <div className="relative z-10 md:max-w-7xl -ml-2 md:-ml-0  mx-auto px-4 md:px-8 py-16">
+        <div className={`relative z-10 md:max-w-7xl ${isMobile && "-ml-2"} mx-auto px-4 md:px-8 py-16 `}>
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Contact Form */}
             <div className="bg-gray-50 bg-opacity-90 rounded-lg p-6 shadow-lg">

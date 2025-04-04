@@ -32,7 +32,7 @@ const LinksModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const copyToClipboard = (url, event) => {
-    if (event) event.stopPropagation(); // Ensure the event doesn't propagate
+    if (event) event.stopPropagation();
     navigator.clipboard.writeText(url);
     toast.success('Link copied to clipboard!', {
       position: toast.POSITION.BOTTOM_RIGHT,

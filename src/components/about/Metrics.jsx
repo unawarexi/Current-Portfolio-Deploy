@@ -90,42 +90,35 @@ const Metrics = () => {
   return (
     <section className="relative">
       {/* Background Image */}
-      {/* <div className="absolute inset-0 bg-black opacity-60"></div>
-      <img
-        src={Images.expertiseBG}
-        alt="Background"
-        className="w-full h-full object-cover absolute inset-0"
-      /> */}
-
-<div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         <img 
           src={Images.formImage} 
           alt="background" 
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
 
       {/* Glassmorphism Cards */}
-      <div className="relative z-10 px-4 py-16 font-[sans-serif] max-w-7xl mx-auto">
-        <h1 className="text-indigo-700 md:text-4xl text-2xl sm:text-5xl font-bold md:mb-16 mb-10 text-center">
-          Developer Performance & Expertise Metrics
+      <div className="relative z-10 px-4 py-12 font-[sans-serif] max-w-7xl mx-auto">
+        <h1 className="text-indigo-700 dark:text-indigo-300 text-xl sm:text-3xl md:text-4xl font-bold md:mb-12 mb-8 text-center">
+          Developer Metrics
         </h1>
 
         {/* For Desktop or Tablet */}
         {(isDesktop || isTablet) && (
-          <div className="container  mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="container mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {metricsData.map((metric, index) => (
               <div
                 key={index}
-                className="bg-white hover:bg-indigo-500 hover:bg-opacity-10 bg-opacity-10 backdrop-blur-lg hover:border-indigo-500 hover:border-4 border border-white border-opacity-20 rounded-2xl p-8 shadow-lg transform transition-all hover:scale-105"
+                className="bg-white hover:bg-indigo-500 hover:bg-opacity-10 bg-opacity-10 backdrop-blur-lg hover:border-indigo-500 hover:border-4 border border-white border-opacity-20 rounded-2xl p-6 shadow-lg transform transition-all hover:scale-105"
               >
-                <h3 className="text-white text-2xl font-bold mb-4">
+                <h3 className="text-white text-lg sm:text-xl font-bold mb-3">
                   {metric.title}
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {metric.items.map((item, i) => (
-                    <li key={i} className="flex items-center text-white text-base">
+                    <li key={i} className="flex items-center text-white text-sm sm:text-base">
                       <FaCheckCircle className="text-blue-500 mr-2" /> {item}
                     </li>
                   ))}
@@ -154,19 +147,19 @@ const Metrics = () => {
               {metricsData.map((metric, index) => (
                 <motion.div
                   key={index}
-                  className={`bg-white hover:bg-indigo-500 hover:bg-opacity-10 bg-opacity-10 backdrop-blur-lg hover:border-indigo-500 hover:border-4 border border-white border-opacity-20 rounded-2xl p-8 shadow-lg transform transition-all ${
+                  className={`bg-white hover:bg-indigo-500 hover:bg-opacity-10 bg-opacity-10 backdrop-blur-lg hover:border-indigo-500 hover:border-4 border border-white border-opacity-20 rounded-2xl p-6 shadow-lg transform transition-all ${
                     index === currentIndex ? "block" : "hidden"
                   }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: index === currentIndex ? 1 : 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h3 className="text-white text-2xl font-bold mb-4">
+                  <h3 className="text-white text-lg sm:text-xl font-bold mb-3">
                     {metric.title}
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1">
                     {metric.items.map((item, i) => (
-                      <li key={i} className="flex items-center text-white text-base">
+                      <li key={i} className="flex items-center text-white text-sm sm:text-base">
                         <FaCheckCircle className="text-blue-500 mr-2" /> {item}
                       </li>
                     ))}
@@ -176,11 +169,11 @@ const Metrics = () => {
             </motion.div>
 
             {/* Indicator for mobile */}
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-6">
               {metricsData.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-5 h-1 mx-1 rounded-full ${
+                  className={`w-4 h-1 mx-1 rounded-full ${
                     index === currentIndex ? "bg-blue-300" : "bg-gray-400"
                   }`}
                 ></div>

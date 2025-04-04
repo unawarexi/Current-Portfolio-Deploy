@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 // Slide In from Left
 export const slideInFromLeft = (element) => {
   gsap.from(element, {
@@ -58,7 +59,7 @@ export const scaleUp = (element) => {
     scrollTrigger: {
       trigger: element,
       start: "top 80%",
-     toggleActions: "play reverse play reverse"
+      toggleActions: "play reverse play reverse"
     },
   });
 };
