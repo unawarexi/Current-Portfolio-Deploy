@@ -3,15 +3,17 @@ import { FaBars, FaTimes } from "react-icons/fa"; // Hamburger and close icons
 import ThemeToggle from "../constants/Theme";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import useResponsive from "../Hooks/useResponsive";
 
 const NavBar = () => {
   // State to manage mobile menu visibility
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
   // Navigation items array
-  const navItems = ["Home", "About", "Skills", "Portfolio", "Contact"];
+  const navItems = ["Home", "About", "Experience", "Portfolio", "Contact"];
 
   // Toggle mobile menu
   const toggleMenu = () => {
@@ -58,30 +60,30 @@ const NavBar = () => {
   };
 
   return (
-    <section>
-      <header className="fixed top-0 w-full z-50 bg-white/30 backdrop-blur-md text-gray-600 body-font md:h-24 h-16 dark:bg-transparent dark:text-blue-300 shadow-lg">
-        <div className="container mx-auto flex flex-wrap p-5 flex-row items-center justify-between">
-          <Link to="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <div className="ml-3 text-xl lg:text-3xl text-gray-700 font-bold">
-              D<span className="text-indigo-700">r.</span> Dre
+    <section className="relative">
+      <header className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-md text-gray-600 body-font md:h-20 h-16 dark:bg-transparent dark:text-blue-300 shadow-lg">
+        <div className="relative container mx-auto flex flex-wrap p-5 flex-row items-center justify-between">
+          <Link to="/" className="flex z-[60] font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <div className="ml-3 text-xl lg:text-3xl text-gray-100 font-bold dark:text-white">
+              D<span className="text-indigo-500">r.</span> Dre
             </div>
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex md:ml-auto items-center text-base justify-center space-x-6">
+          <nav className="hidden md:flex absolute top-0 right-0 items-center text-base justify-center space-x-6">
             {navItems.map((item) => renderNavLink(item))}
             <ThemeToggle />
           </nav>
 
           {/* Hamburger Icon for Mobile */}
-          <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-gray-700">
+          <div className="md:hidden flex items-center z-[60]">
+            <button onClick={toggleMenu} className="text-gray-100 dark:text-white">
               {menuOpen ? <></> : <FaBars size={24} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu with Framer Motion */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
@@ -89,7 +91,7 @@ const NavBar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed top-0 rounded-tl-xl rounded-bl-xl right-0 bottom-0 w-64 bg-white dark:bg-[#0e162f] h-screen text-[#0e162f] dark:text-blue-300 p-5 shadow-lg z-20"
+              className="absolute top-0 right-0 w-64 bg-white dark:bg-[#0e162f] h-screen text-[#0e162f] dark:text-blue-300 p-5 shadow-lg z-20"
             >
               <div
                 onClick={toggleMenu}
@@ -113,7 +115,7 @@ const NavBar = () => {
                     <Link
                       key={item}
                       to={item === "Portfolio" ? "/projects" : `/#${item.toLowerCase()}`}
-                      className="text-md hover:text-gray-300 bg-white dark:bg-[#070b18]  px-4 py-3 shadow-blue-300 shadow-md hover:bg-[#121e47] rounded-full"
+                      className="text-md hover:text-gray-300 bg-white dark:bg-[#070b18] px-4 py-3 shadow-blue-300 shadow-md hover:bg-[#121e47] rounded-full"
                       onClick={toggleMenu}
                     >
                       {item}

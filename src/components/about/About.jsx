@@ -125,13 +125,13 @@ const About = () => {
             </span>
           </div>
           
-          <h1 ref={titleRef} className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+          <h1 ref={titleRef} className="text-2xl md:text-5xl font-bold mb-6 text-gray-900">
             Revolutionizing
             <br />
             <span className="text-indigo-600">Software Development</span>
           </h1>
           
-          <p className="leading-relaxed mb-8 text-gray-600">
+          <p className="leading-relaxed mb-8 text-gray-600 text-xs md:text-base">
             I'm a passionate software developer with experience in creating
             dynamic and responsive web applications. With a background in both frontend 
             and backend development, I specialize in building full-stack web applications 
@@ -143,14 +143,14 @@ const About = () => {
             <a href="#contact">
               <button 
                 ref={buttonRef} 
-                className="inline-flex text-white bg-indigo-600 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-700 rounded-full text-lg transition-all duration-300 ease-in-out"
+                className="inline-flex text-white bg-indigo-600 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-700 rounded-full md:text-lg text-xs transition-all duration-300 ease-in-out"
                 onMouseEnter={(e) => handleButtonHover(e.currentTarget, true)}
                 onMouseLeave={(e) => handleButtonHover(e.currentTarget, false)}
               >
                 Contact Me
               </button>
             </a>
-            <a href="#learn-more" className="ml-4 inline-flex items-center text-indigo-600 hover:text-indigo-800 text-lg font-medium transition-all duration-300 ease-in-out">
+            <a href="#learn-more" className="ml-4 inline-flex items-center text-indigo-600 hover:text-indigo-800 md:text-lg text-xs font-medium transition-all duration-300 ease-in-out">
               Learn More
               <span className="ml-2">»»</span>
             </a>
@@ -160,28 +160,28 @@ const About = () => {
           <div ref={statsRef} className="flex flex-wrap -mx-4 mt-auto mb-auto">
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
-                <span className="text-indigo-600 font-bold text-3xl">4+</span>
-                <span className="text-sm text-gray-500">Years Exp</span>
+                <span className="text-indigo-600 font-bold md:text-3xl text-lg">4+</span>
+                <span className="text-sm text-gray-500">Years</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
-                <span className="text-indigo-600 font-bold text-3xl">50+</span>
+                <span className="text-indigo-600 font-bold  md:text-3xl text-lg">50+</span>
                 <span className="text-sm text-gray-500">Projects</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
-                <span className="text-indigo-600 font-bold text-3xl">4.9</span>
+                <span className="text-indigo-600 font-bold  md:text-3xl text-lg">4.9</span>
                 <span className="text-sm text-gray-500">Ratings</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
-                <span className="text-indigo-600 font-bold text-3xl">50+</span>
+                <span className="text-indigo-600 font-bold  md:text-3xl text-lg">50+</span>
                 <span className="text-sm text-gray-500">Clients</span>
               </div>
             </div>
@@ -201,7 +201,7 @@ const About = () => {
       </div>
       
       {/* Features Section */}
-      <div ref={featuresRef} className="container px-5 py-24 mx-auto">
+      <div ref={featuresRef} className="container px-5 py-24 mx-auto -mt-40 ">
         <div className="flex flex-wrap -m-4">
           <div className="p-4 lg:w-1/3">
             <div className="h-full bg-white dark:bg-black/30 p-8 rounded-lg border border-gray-200 shadow-sm">
@@ -210,8 +210,8 @@ const About = () => {
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                 </svg>
               </div>
-              <h2 className="text-lg font-medium title-font mb-4 text-gray-900">Why Choose Me?</h2>
-              <p className="leading-relaxed text-base">
+              <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">Why Choose Me?</h2>
+              <p className="leading-relaxed md:text-base text-xs">
                 I offer a comprehensive suite of development skills, including robust backend systems and beautiful frontend interfaces with collaboration at the core.
               </p>
               <a href="#why-choose-me" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
@@ -228,8 +228,8 @@ const About = () => {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
-              <h2 className="text-lg font-medium title-font mb-4 text-gray-900">My Vision</h2>
-              <p className="leading-relaxed text-base">
+              <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">My Vision</h2>
+              <p className="leading-relaxed md:text-base text-xs">
                 I am committed to transforming the digital landscape by building applications that solve real problems and enhance user experiences.
               </p>
               <a href="#my-vision" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
@@ -246,8 +246,8 @@ const About = () => {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
-              <h2 className="text-lg font-medium title-font mb-4 text-gray-900">My Approach</h2>
-              <p className="leading-relaxed text-base">
+              <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">My Approach</h2>
+              <p className="leading-relaxed md:text-base text-xs">
                 I'm Andrew Chukwuweike, a passionate and dedicated software developer focused on delivering exceptional products and solutions.
               </p>
               <a href="#my-approach" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
