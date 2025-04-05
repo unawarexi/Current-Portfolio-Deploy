@@ -24,17 +24,20 @@ const ProjectStack = ({ formData, handleChange }) => {
   };
 
   return (
-    <div className="my-4 px-10 py-4 rounded-lg bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700">
+    <div
+      className="my-4 py-4 p-6 rounded-lg bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700"
+      style={{ width: '100%' }}
+    >
       {/* Technology Section */}
       <div className="border-b pb-6 border-gray-300 dark:border-gray-700">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Technologies</h2>
+        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Technologies</h2>
         <div className="mt-4">
-          <label htmlFor="technologies" className="block text-sm font-medium text-gray-900 dark:text-gray-300">
+          {/* <label htmlFor="technologies" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300">
             Select Technologies
-          </label>
+          </label> */}
 
           {/* Display selected technologies */}
-          <div className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <div className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm">
             {selectedTechnologies.length > 0
               ? selectedTechnologies.join(', ') 
               : 'Select your technologies'}
@@ -51,12 +54,12 @@ const ProjectStack = ({ formData, handleChange }) => {
           {/* Dropdown with checkboxes */}
           {isDropdownOpen && (
             <div className="mt-2 p-4 border border-indigo-600 rounded-md bg-white dark:bg-gray-900 shadow-lg">
-              <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Choose Technologies</h3>
+              <h3 className="text-md font-medium mb-4 text-gray-900 dark:text-gray-100">Choose Technologies</h3>
 
               {/* Map through categories and skills */}
               {skillSets.map((category) => (
                 <div key={category.category} className="mb-6">
-                  <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100">{category.category}</h4>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{category.category}</h4>
 
                   {/* Map through skills within each category */}
                   {category.skills.map((skill) => (

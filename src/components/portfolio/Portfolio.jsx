@@ -132,7 +132,7 @@ const Portfolio = () => {
         <div className="flex justify-center mt-10">
           <button
             onClick={() => navigate("/projects")} // Navigate to /projects route
-            className="bg-indigo-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-indigo-600"
+            className="bg-indigo-500 text-white px-6 py-2 rounded-lg md:text-lg text-xs hover:bg-indigo-600"
           >
             View All Projects
           </button>

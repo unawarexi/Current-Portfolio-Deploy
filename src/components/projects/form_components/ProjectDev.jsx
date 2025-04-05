@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import LinksModal from './LinksModal';
 
 const ProjectDev = ({ formData, handleChange, handleUploadProfilePicture }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div className="shadow-lg pb-6 mx-auto bg-white dark:bg-[#1a1a2e] my-6 px-12 py-8 rounded-xl border-2 border-gray-300 dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-400">
+    <div
+      className="pb-6 p-6 mx-auto bg-white dark:bg-[#1a1a2e] my-6 py-8 rounded-xl border-2 border-gray-300 dark:border-gray-700"
+      style={{ width: '100%' }}
+    >
+      <h2 className="text-md font-bold text-indigo-700 dark:text-indigo-400">
         Developer Profile
       </h2>
-      <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">
+      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-300 mb-6">
         This information will help potential employers learn more about you and
         your skills.
       </p>
@@ -14,13 +19,25 @@ const ProjectDev = ({ formData, handleChange, handleUploadProfilePicture }) => {
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         {/* Profile Picture */}
         <div className="col-span-2">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Profile Picture</label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
+              Profile Picture
+            </label>
+            <button
+        type="button"
+        onClick={() => setIsModalOpen(true)}
+        className=" px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 transition duration-200"
+      >
+        View Uploaded Links
+      </button>
+      <LinksModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          </div>
           <input
             type="text"
             name="profilePictureUrl"
             value={formData.profilePicture || ''}
             onChange={handleChange}
-            className="w-full mt-3 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="w-full mt-3 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             placeholder="Uploaded profile picture URL"
           />
         </div>
@@ -81,7 +98,7 @@ const ProjectDev = ({ formData, handleChange, handleUploadProfilePicture }) => {
             rows={4}
             value={formData.experience}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             placeholder="Describe your relevant experience or notable projects"
           />
         </div>

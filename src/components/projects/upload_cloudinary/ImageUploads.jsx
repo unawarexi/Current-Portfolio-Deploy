@@ -182,108 +182,108 @@ const ImageUploads = () => {
     input.click();
   };
 
-  const handleProfilePictureUpload = async (e) => {
-    e.preventDefault();
-    if (!formData.profilePicture) {
-      toast.error("Please select a profile picture to upload.");
-      return;
-    }
+  // const handleProfilePictureUpload = async (e) => {
+  //   e.preventDefault();
+  //   if (!formData.profilePicture) {
+  //     toast.error("Please select a profile picture to upload.");
+  //     return;
+  //   }
 
-    setLoading(true);
-    try {
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, profile: 10 }));
+  //   setLoading(true);
+  //   try {
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, profile: 10 }));
       
-      const secureUrl = await uploadImageToCloudinary(formData.profilePicture);
+  //     const secureUrl = await uploadImageToCloudinary(formData.profilePicture);
       
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, profile: 100 }));
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, profile: 100 }));
       
-      if (secureUrl) {
-        toast.success("Profile picture uploaded successfully!");
-        console.log("Uploaded profile picture URL:", secureUrl);
-      } else {
-        toast.error("Failed to upload profile picture.");
-      }
-    } catch (error) {
-      console.error("Error during profile picture upload:", error);
-      toast.error("An error occurred while uploading the profile picture.");
-    } finally {
-      setLoading(false);
-      // Reset progress after a delay
-      setTimeout(() => {
-        setUploadProgress(prev => ({ ...prev, profile: 0 }));
-      }, 3000);
-    }
-  };
+  //     if (secureUrl) {
+  //       toast.success("Profile picture uploaded successfully!");
+  //       console.log("Uploaded profile picture URL:", secureUrl);
+  //     } else {
+  //       toast.error("Failed to upload profile picture.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during profile picture upload:", error);
+  //     toast.error("An error occurred while uploading the profile picture.");
+  //   } finally {
+  //     setLoading(false);
+  //     // Reset progress after a delay
+  //     setTimeout(() => {
+  //       setUploadProgress(prev => ({ ...prev, profile: 0 }));
+  //     }, 3000);
+  //   }
+  // };
 
-  const handleCoverPhotoUpload = async () => {
-    if (formData.coverPhotoUpload.length === 0) {
-      toast.error("Please select a cover photo to upload.");
-      return;
-    }
+  // const handleCoverPhotoUpload = async () => {
+  //   if (formData.coverPhotoUpload.length === 0) {
+  //     toast.error("Please select a cover photo to upload.");
+  //     return;
+  //   }
 
-    setLoading(true);
-    try {
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, cover: 10 }));
+  //   setLoading(true);
+  //   try {
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, cover: 10 }));
       
-      const secureUrls = await uploadMultipleImages(formData.coverPhotoUpload);
+  //     const secureUrls = await uploadMultipleImages(formData.coverPhotoUpload);
       
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, cover: 100 }));
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, cover: 100 }));
       
-      if (secureUrls && secureUrls.length > 0) {
-        toast.success("Cover photos uploaded successfully!");
-        console.log("Uploaded cover photo URLs:", secureUrls);
-      } else {
-        toast.error("Failed to upload cover photos.");
-      }
-    } catch (error) {
-      console.error("Error during cover photo upload:", error);
-      toast.error("An error occurred while uploading the cover photos.");
-    } finally {
-      setLoading(false);
-      // Reset progress after a delay
-      setTimeout(() => {
-        setUploadProgress(prev => ({ ...prev, cover: 0 }));
-      }, 3000);
-    }
-  };
+  //     if (secureUrls && secureUrls.length > 0) {
+  //       toast.success("Cover photos uploaded successfully!");
+  //       console.log("Uploaded cover photo URLs:", secureUrls);
+  //     } else {
+  //       toast.error("Failed to upload cover photos.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during cover photo upload:", error);
+  //     toast.error("An error occurred while uploading the cover photos.");
+  //   } finally {
+  //     setLoading(false);
+  //     // Reset progress after a delay
+  //     setTimeout(() => {
+  //       setUploadProgress(prev => ({ ...prev, cover: 0 }));
+  //     }, 3000);
+  //   }
+  // };
 
-  const handleProjectImagesUpload = async () => {
-    if (formData.projectImageUpload.length === 0) {
-      toast.error("Please select project images to upload.");
-      return;
-    }
+  // const handleProjectImagesUpload = async () => {
+  //   if (formData.projectImageUpload.length === 0) {
+  //     toast.error("Please select project images to upload.");
+  //     return;
+  //   }
 
-    setLoading(true);
-    try {
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, project: 10 }));
+  //   setLoading(true);
+  //   try {
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, project: 10 }));
       
-      const secureUrls = await uploadMultipleImages(formData.projectImageUpload);
+  //     const secureUrls = await uploadMultipleImages(formData.projectImageUpload);
       
-      // Update progress indicator
-      setUploadProgress(prev => ({ ...prev, project: 100 }));
+  //     // Update progress indicator
+  //     setUploadProgress(prev => ({ ...prev, project: 100 }));
       
-      if (secureUrls && secureUrls.length > 0) {
-        toast.success("Project images uploaded successfully!");
-        console.log("Uploaded project image URLs:", secureUrls);
-      } else {
-        toast.error("Failed to upload project images.");
-      }
-    } catch (error) {
-      console.error("Error during project image upload:", error);
-      toast.error("An error occurred while uploading the project images.");
-    } finally {
-      setLoading(false);
-      // Reset progress after a delay
-      setTimeout(() => {
-        setUploadProgress(prev => ({ ...prev, project: 0 }));
-      }, 3000);
-    }
-  };
+  //     if (secureUrls && secureUrls.length > 0) {
+  //       toast.success("Project images uploaded successfully!");
+  //       console.log("Uploaded project image URLs:", secureUrls);
+  //     } else {
+  //       toast.error("Failed to upload project images.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during project image upload:", error);
+  //     toast.error("An error occurred while uploading the project images.");
+  //   } finally {
+  //     setLoading(false);
+  //     // Reset progress after a delay
+  //     setTimeout(() => {
+  //       setUploadProgress(prev => ({ ...prev, project: 0 }));
+  //     }, 3000);
+  //   }
+  // };
 
   const handleUploadAllImages = async () => {
     if (!formData.profilePicture && formData.coverPhotoUpload.length === 0 && formData.projectImageUpload.length === 0) {
@@ -348,8 +348,8 @@ const ImageUploads = () => {
 
       {/* Server status indicator */}
       <div className="mb-4">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Server Status: </span>
-        <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+        <span className="text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">Server Status: </span>
+        <span className={`inline-block px-2 py-1 text-xs md:text-sm rounded-full ${
           serverStatus === "connected" ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100" : 
           serverStatus === "error" ? "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100" : 
           "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
@@ -362,14 +362,14 @@ const ImageUploads = () => {
       <div className="mt-8 grid gap-8 md:grid-cols-1 lg:grid-cols-2">
         {/* Profile Picture */}
         <div className="col-span-1">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Profile Picture
           </label>
           <input
             type="file"
             name="profilePicture"
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs md:text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           />
           
           {formData.profilePicture && (

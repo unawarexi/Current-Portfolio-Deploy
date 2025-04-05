@@ -21,15 +21,18 @@ const ProjectCategories = ({ formData, handleChange }) => {
   ];
 
   return (
-    <div className="container my-6 lg:px-8 px-4 py-6 rounded-xl shadow-lg bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700">
+    <div
+      className="my-6 py-6 p-6 rounded-xl shadow-lg bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700"
+      style={{ width: '100%' }}
+    >
       {/* Categories Section */}
       <div className="border-b pb-6 border-gray-300 dark:border-gray-700">
-        <h2 className="text-2xl font-semibold text-indigo-700 dark:text-indigo-400 mb-4">Categories</h2>
+        <h2 className="text-md font-semibold text-indigo-700 dark:text-indigo-400 mb-4">Categories</h2>
         <select
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
+          className="w-full p-3 border rounded-lg bg-gray-100 dark:bg-gray-800 text-xs sm:text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
         >
           {categories.map((category) => (
             <option key={category.value} value={category.value}>
@@ -41,19 +44,19 @@ const ProjectCategories = ({ formData, handleChange }) => {
 
       {/* Project Details Section */}
       <div className="border-b pb-6 mt-6 border-gray-300 dark:border-gray-700">
-        <h2 className="text-2xl font-semibold text-indigo-700 dark:text-indigo-400 mb-4">Project Details</h2>
+        <h2 className="text-md font-semibold text-indigo-700 dark:text-indigo-400 mb-4">Project Details</h2>
 
-        <label className="block text-sm font-medium text-gray-800 dark:text-gray-300">Project Description</label>
+        <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300">Project Description</label>
         <textarea
           name="projectDescription"
           rows={4}
           value={formData.projectDescription}
           onChange={handleChange}
-          className="w-full p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
+          className="w-full p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
           placeholder="Describe your project, its goals, and features."
         />
 
-        <label className="block text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Project Type</label>
+        <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Project Type</label>
         <select
           name="projectType"
           value={formData.projectType}
@@ -69,17 +72,17 @@ const ProjectCategories = ({ formData, handleChange }) => {
 
         {/* Links Section */}
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-300">Google Play Link (if applicable)</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300">Google Play Link (if applicable)</label>
           <input
             type="url"
             name="googlePlayLink"
             value={formData.googlePlayLink}
             onChange={handleChange}
-            className="w-full p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
+            className="w-full p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none hover:shadow-md transition-shadow"
             placeholder="https://play.google.com/..."
           />
 
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">App Store Link (if applicable)</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">App Store Link (if applicable)</label>
           <input
             type="url"
             name="appStoreLink"
@@ -89,7 +92,7 @@ const ProjectCategories = ({ formData, handleChange }) => {
             placeholder="https://apps.apple.com/..."
           />
 
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Web Live Link (if applicable)</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Web Live Link (if applicable)</label>
           <input
             type="url"
             name="webLiveLink"
@@ -99,7 +102,7 @@ const ProjectCategories = ({ formData, handleChange }) => {
             placeholder="https://yourproject.com"
           />
 
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Deep Enhancements</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-300 mt-4">Deep Enhancements</label>
           <textarea
             name="deepEnhancements"
             rows={4}

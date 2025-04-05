@@ -22,7 +22,7 @@ const TabbedForm = () => {
     <div className="flex flex-col items-center justify-center min-h-screen">
           <section className="text-gray-600 body-font">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-          <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+          <div className="lg:max-w-lg lg:w-full md:w-[40%] w-5/6 mb-10 md:mb-0">
             <img
               className="object-cover object-center rounded"
               alt="hero"
@@ -41,7 +41,7 @@ const TabbedForm = () => {
           </div>
         </div>
       </section>
-    <div className="container mx-auto p-6 shadow-lg rounded-lg">
+    <div className="container mx-auto p-2 md:p-6  shadow-lg rounded-lg">
       {/* Tab Navigation */}
       <div className="flex border-b mb-6">
       <button

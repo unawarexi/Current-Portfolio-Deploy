@@ -61,6 +61,29 @@ const LinksModal = ({ isOpen, onClose }) => {
     setDragging(false);
   };
 
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 1) {
+      setDragging(true);
+      setOffset({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y,
+      });
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (dragging && e.touches.length === 1) {
+      setPosition({
+        x: e.touches[0].clientX - offset.x,
+        y: e.touches[0].clientY - offset.y,
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setDragging(false);
+  };
+
   useEffect(() => {
     const handleMouseUpGlobal = () => setDragging(false);
     window.addEventListener('mouseup', handleMouseUpGlobal);
@@ -72,7 +95,7 @@ const LinksModal = ({ isOpen, onClose }) => {
   return (
     <div
       ref={modalRef}
-      className="fixed bg-gradient-to-br from-purple-900 to-purple-950 w-96 h-96 overflow-y-auto rounded-lg shadow-xl z-50"
+      className="fixed bg-white dark:bg-indigo-900 w-72 h-72 md:w-96 md:h-96 overflow-y-auto rounded-lg shadow-xl z-50 border border-gray-300 dark:border-indigo-700"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
@@ -80,36 +103,40 @@ const LinksModal = ({ isOpen, onClose }) => {
       }}
       onMouseDown={(e) => e.stopPropagation()}
       onMouseMove={handleMouseMove}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <div
-        className="sticky top-0 bg-gradient-to-br from-purple-900 to-purple-950 z-10 px-4 py-3 border-b border-purple-700 flex justify-between items-center"
+        className="sticky top-0 bg-gray-100 dark:bg-indigo-800 z-10 px-4 py-3 border-b border-gray-300 dark:border-indigo-700 flex justify-between items-center"
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
       >
-        <h2 className="text-lg font-semibold text-white">Uploaded Image Links</h2>
+        <h2 className="text-sm md:text-xl font-semibold text-gray-800">Uploaded Image Links</h2>
         <div
-          className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+          className="text-gray-800 hover:text-gray-600 transition-colors cursor-pointer"
           onClick={onClose}
           aria-label="Close modal"
         >
           <FaTimes size={20} />
         </div>
       </div>
-      
+
       <div className="p-4">
         {loading ? (
           <div className="flex justify-center items-center h-32">
-            <p className="text-white text-lg">Loading...</p>
+            <p className="text-gray-800 dark:text-indigo-200 text-sm md:text-lg">Loading...</p>
           </div>
         ) : (
           <div className="space-y-4">
             {Object.keys(imageLinks).map((date) => (
               <div key={date}>
-                <h3 className="text-md font-medium text-white mb-2">{date}</h3>
+                <h3 className="text-sm md:text-md font-medium text-gray-800 dark:text-indigo-200 mb-2">{date}</h3>
                 <ul className="space-y-4">
                   {imageLinks[date].map((link) => (
                     <li
                       key={link.public_id}
-                      className="bg-white bg-opacity-95 p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      className="bg-gray-50 dark:bg-indigo-700 p-2 md:p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-300 dark:border-indigo-600"
                     >
                       <div className="flex items-center gap-4">
                         <div className="flex-1">
@@ -117,13 +144,13 @@ const LinksModal = ({ isOpen, onClose }) => {
                             href={link.secure_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-purple-800 hover:text-purple-600 break-all text-sm transition-colors"
+                            className="text-indigo-500 dark:text-indigo-300 hover:text-gray-600 dark:hover:text-indigo-100 break-all text-[10px] md:text-sm transition-colors"
                           >
                             {link.secure_url}
                           </a>
                           <div
                             onClick={(e) => copyToClipboard(link.secure_url, e)}
-                            className="ml-2 text-purple-600 hover:text-purple-800 transition-colors cursor-pointer"
+                            className="ml-2 text-gray-600 py-4 md:py-0 dark:text-indigo-300 hover:text-gray-800 dark:hover:text-indigo-100 transition-colors cursor-pointer"
                             aria-label="Copy link"
                           >
                             <FaCopy size={16} />
@@ -132,7 +159,7 @@ const LinksModal = ({ isOpen, onClose }) => {
                         <img
                           src={link.secure_url}
                           alt="Preview"
-                          className="w-12 h-12 object-contain rounded-md border border-gray-300 bg-gray-100"
+                          className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-md border border-gray-300 dark:border-indigo-600 bg-gray-100 dark:bg-indigo-800"
                         />
                       </div>
                     </li>

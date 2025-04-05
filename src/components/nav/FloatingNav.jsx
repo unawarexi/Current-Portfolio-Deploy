@@ -37,7 +37,8 @@ const FloatingNavbar = () => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       transition={{ duration: 0.8 }}
-      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-black bg-opacity-60 backdrop-blur-lg shadow-lg rounded-2xl md:p-4 p-2 flex items-center justify-between w-80 sm:w-96 md:w-[28rem] lg:w-[32rem] xl:w-[36rem] max-w-full space-x-4">
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-black bg-opacity-60 backdrop-blur-lg shadow-lg rounded-2xl 
+       p-2 flex items-center justify-evenly w-80 md:w-[28rem] lg:w-[32rem] xl:w-[36rem] max-w-full md:space-x-4 space-x-2">
       {navItems.map((item) => {
         // Special case for Portfolio
         if (item.to === 'portfolio' && !isHomePage && location.pathname.includes('/projects')) {

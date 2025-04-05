@@ -40,12 +40,15 @@ const ProjectImage_Upload = ({ formData, handleChange }) => {
   };
 
   return (
-    <div className="my-4 px-8 py-6 rounded-lg shadow-md bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700">
-      <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-400 mb-6">Project Images</h2>
+    <div
+      className="my-4 py-6 p-6  rounded-lg shadow-md bg-white dark:bg-[#1a1a2e] border-2 border-gray-300 dark:border-gray-700"
+      style={{ width: '100%' }}
+    >
+      <h2 className="text-md font-semibold text-indigo-600 dark:text-indigo-400 mb-6">Project Images</h2>
 
       {/* Cover image links */}
       <div className="mb-8">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Cover Image Links</h3>
+        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Cover Image Links</h3>
         {formData.coverImageLinks && formData.coverImageLinks.map((link, index) => (
           <div key={index} className="flex items-center gap-4 mb-4">
             <input
@@ -54,7 +57,7 @@ const ProjectImage_Upload = ({ formData, handleChange }) => {
               value={link}
               onChange={(e) => updateLink('coverImageLinks', index, e.target.value)}
               placeholder="Enter cover image URL"
-              className="w-full lg:w-3/4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-indigo-400"
+              className="w-full lg:w-3/4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-indigo-400 text-xs sm:text-sm"
             />
             <button
               type="button"
@@ -77,7 +80,7 @@ const ProjectImage_Upload = ({ formData, handleChange }) => {
 
       {/* Project image links */}
       <div className="mb-8">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Project Image Links</h3>
+        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Project Image Links</h3>
         {formData.projectImageLinks && formData.projectImageLinks.map((link, index) => (
           <div key={index} className="flex items-center gap-4 mb-4">
             <input
@@ -86,7 +89,7 @@ const ProjectImage_Upload = ({ formData, handleChange }) => {
               value={link}
               onChange={(e) => updateLink('projectImageLinks', index, e.target.value)}
               placeholder="Enter project image URL"
-              className="w-full lg:w-3/4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-indigo-400"
+              className="w-full lg:w-3/4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-indigo-400 text-xs sm:text-sm"
             />
             <button
               type="button"

@@ -92,16 +92,16 @@ const experienceData = {
           skills: ["Solidity", "Ethereum", "Truffle", "Hardhat", "Web3.js", "Chainlink", "Ethers.js"],
         },
       ],
-      // "dApp Developer": [
-      //   {
-      //     company: "Decentralized Solutions",
-      //     role: "dApp Developer",
-      //     year: "2022 - Present",
-      //     description:
-      //       "Developed decentralized applications with React and integrated them with blockchain.",
-      //     skills: ["React", "Web3.js", "IPFS", "Ethereum", "Metamask"],
-      //   },
-      // ],
+      "dApp Developer": [
+        // {
+        //   company: "Decentralized Solutions",
+        //   role: "dApp Developer",
+        //   year: "2022 - Present",
+        //   description:
+        //     "Developed decentralized applications with React and integrated them with blockchain.",
+        //   skills: ["React", "Web3.js", "IPFS", "Ethereum", "Metamask"],
+        // },
+      ],
     },
   },
   Others: {
@@ -170,7 +170,7 @@ const Experience = () => {
             </p>
           </div>
           {/* Image Section (40%) */}
-          <div className="md:w-[30%] w-full mt-6 md:mt-0  flex justify-center ">
+          <div className="md:w-[30%] w-[50%] mt-6 md:mt-0  flex justify-center ">
             <img
               src={Images.aboutImage3}
               alt="Experience Illustration"

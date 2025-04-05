@@ -109,13 +109,7 @@ const About = () => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
-      <header
-        className={`fixed top-0 w-full z-50 ${
-          (isDesktop || isTablet || isMobile) ? "bg-white/30" : ""
-        } backdrop-blur-md text-gray-600 body-font md:h-0 h-16 dark:bg-transparent dark:text-blue-300 shadow-lg`}
-      >
-        {/* Header content */}
-      </header>
+      
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col justify-evenly">
         {/* Left Column */}
         <div ref={contentRef} className="lg:w-1/2 w-full mb-10 lg:mb-0 flex flex-col">
@@ -161,39 +155,39 @@ const About = () => {
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
                 <span className="text-indigo-600 font-bold md:text-3xl text-lg">4+</span>
-                <span className="text-sm text-gray-500">Years</span>
+                <span className="md:text-sm text-[10px] text-gray-500">Years</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
                 <span className="text-indigo-600 font-bold  md:text-3xl text-lg">50+</span>
-                <span className="text-sm text-gray-500">Projects</span>
+                <span className="md:text-sm text-[10px] text-gray-500">Projects</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
                 <span className="text-indigo-600 font-bold  md:text-3xl text-lg">4.9</span>
-                <span className="text-sm text-gray-500">Ratings</span>
+                <span className="md:text-sm text-[10px] text-gray-500">Ratings</span>
               </div>
             </div>
             
             <div className="w-1/4 px-4">
               <div className="flex flex-col items-center">
                 <span className="text-indigo-600 font-bold  md:text-3xl text-lg">50+</span>
-                <span className="text-sm text-gray-500">Clients</span>
+                <span className="md:text-sm text-[10px] text-gray-500">Clients</span>
               </div>
             </div>
           </div>
         </div>
         
         {/* Right Column - Image */}
-        <div ref={imageRef} className="lg:w-1/2 w-full lg:pl-10 flex justify-center">
+        <div ref={imageRef} className="lg:w-1/2 w-full md:hidden lg:flex lg:pl-10 justify-center">
           <div className="rounded-lg overflow-hidden">
             <img
               alt="developer workspace"
-              className="object-cover object-center w-full h-full"
+              className="object-cover object-center lg:w-full w-[70%] mx-auto md:mx-0 h-full"
               src={Images.aboutImage2}
             />
           </div>
@@ -211,7 +205,7 @@ const About = () => {
                 </svg>
               </div>
               <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">Why Choose Me?</h2>
-              <p className="leading-relaxed md:text-base text-xs">
+              <p className="leading-relaxed md:text-base text-[10px]">
                 I offer a comprehensive suite of development skills, including robust backend systems and beautiful frontend interfaces with collaboration at the core.
               </p>
               <a href="#why-choose-me" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
@@ -229,7 +223,7 @@ const About = () => {
                 </svg>
               </div>
               <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">My Vision</h2>
-              <p className="leading-relaxed md:text-base text-xs">
+              <p className="leading-relaxed md:text-base text-[10px]">
                 I am committed to transforming the digital landscape by building applications that solve real problems and enhance user experiences.
               </p>
               <a href="#my-vision" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
@@ -247,7 +241,7 @@ const About = () => {
                 </svg>
               </div>
               <h2 className="md:text-lg text-sm font-medium title-font mb-4 text-gray-900">My Approach</h2>
-              <p className="leading-relaxed md:text-base text-xs">
+              <p className="leading-relaxed md:text-base text-[10px]">
                 I'm Andrew Chukwuweike, a passionate and dedicated software developer focused on delivering exceptional products and solutions.
               </p>
               <a href="#my-approach" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-4 transition-all duration-300 ease-in-out">
