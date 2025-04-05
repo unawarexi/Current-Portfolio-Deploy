@@ -37,7 +37,7 @@ const ProjectForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); // Ensure this updates the correct property
   };
 
   const handleSubmit = async (e) => {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { FaTimes, FaCopy } from 'react-icons/fa';
+import { FaTimes, FaCopy, FaGripLines } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useResponsive from '../../../Hooks/useResponsive';
 
 const LinksModal = ({ isOpen, onClose }) => {
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [imageLinks, setImageLinks] = useState({});
   const [loading, setLoading] = useState(true);
   const modalRef = useRef(null);
@@ -103,16 +105,20 @@ const LinksModal = ({ isOpen, onClose }) => {
       }}
       onMouseDown={(e) => e.stopPropagation()}
       onMouseMove={handleMouseMove}
-      onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <div
         className="sticky top-0 bg-gray-100 dark:bg-indigo-800 z-10 px-4 py-3 border-b border-gray-300 dark:border-indigo-700 flex justify-between items-center"
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
       >
-        <h2 className="text-sm md:text-xl font-semibold text-gray-800">Uploaded Image Links</h2>
+        <div
+          className={`flex items-center ${isMobile ? 'cursor-grab' : ''}`}
+          onMouseDown={(isMobile || isTablet || isDesktop) ? handleMouseDown : undefined}
+          onTouchStart={(isMobile || isTablet || isDesktop) ? handleTouchStart : undefined}
+        >
+          {(isMobile || isTablet || isDesktop) && <FaGripLines size={20} className="mr-2 text-gray-800 dark:text-indigo-200" />}
+          <h2 className="text-sm md:text-xl font-semibold text-gray-800">Uploaded Image Links</h2>
+        </div>
         <div
           className="text-gray-800 hover:text-gray-600 transition-colors cursor-pointer"
           onClick={onClose}

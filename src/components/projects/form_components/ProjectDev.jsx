@@ -34,7 +34,7 @@ const ProjectDev = ({ formData, handleChange, handleUploadProfilePicture }) => {
           </div>
           <input
             type="text"
-            name="profilePictureUrl"
+            name="profilePicture" // Updated to match the formData property
             value={formData.profilePicture || ''}
             onChange={handleChange}
             className="w-full mt-3 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
