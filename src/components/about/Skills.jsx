@@ -4,7 +4,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import useResponsive from "../../Hooks/useResponsive";
 import skillSets from "../../data/TechStacks";
 
-
 const Skills = () => {
   const [currentCategory, setCurrentCategory] = useState(0);
   const { isMobile, isTablet, isDesktop } = useResponsive();
@@ -138,37 +137,36 @@ const Skills = () => {
             </AnimatePresence>
           )}
 
-{(isTablet || isMobile) && (
-  <AnimatePresence mode="wait">
-    <motion.div
-      key={currentCategory}
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
-      transition={{ duration: 0.5 }}
-      className={`grid grid-cols-3 gap-4 my-10 px-2 items-center justify-center mx-auto`}
-    >
-      {skillSets[currentCategory].skills.map((skill, index) => (
-        <motion.div
-          key={index}
-          className="bg-[#1b2a5b53] shadow-lg p-3 rounded-lg flex flex-col items-center justify-center space-y-2"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <img
-            src={skill.icon}
-            alt={`${skill.name} icon`}
-            className="w-6 h-6"
-          />
-          <span className="md:text-sm text-[10px] text-center font-medium text-gray-500">
-            {skill.name}
-          </span>
-        </motion.div>
-      ))}
-    </motion.div>
-  </AnimatePresence>
-)}
-
+          {(isTablet || isMobile) && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentCategory}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className={`grid grid-cols-3 gap-4 my-10 px-2 items-center justify-center mx-auto`}
+              >
+                {skillSets[currentCategory].skills.map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-[#1b2a5b53] shadow-lg p-3 rounded-lg flex flex-col items-center justify-center space-y-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <img
+                      src={skill.icon}
+                      alt={`${skill.name} icon`}
+                      className="w-6 h-6"
+                    />
+                    <span className="md:text-sm text-[10px] text-center font-medium text-gray-500">
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          )}
 
           {/* Category Indicator */}
           <div className="flex justify-center lg:mt-32 mt-10">

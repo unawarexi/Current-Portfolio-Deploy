@@ -1,7 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 
-// Array of project data
+
+
+const Portfolio = () => {
+  const navigate = useNavigate();
+  
+  // Array of project data
 const projects = [
   {
     title: "Django Ecommerce",
@@ -58,9 +63,7 @@ const projects = [
       "https://cdn.dribbble.com/userupload/10293344/file/original-94eaa164ccebdbd25aed56710dd14ebd.mp4",
   },
 ];
-
-const Portfolio = () => {
-  const navigate = useNavigate(); // Initialize navigate function
+// Initialize navigate function
 
   return (
     <section className="text-gray-600 body-font">
@@ -106,7 +109,7 @@ const Portfolio = () => {
                 </video>
               </div>
 
-              <h2 className="lg:text-xl md:text-md text-sm font-medium title-font text-gray-900 mt-5">
+              <h2 className="lg:text-xl md:text-md text-xs font-medium title-font text-gray-900 mt-5">
                 {project.title}
               </h2>
               <p className="lg:text-base md:text-sm text-[11px] leading-relaxed mt-2">

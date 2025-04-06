@@ -1,0 +1,21 @@
+.custom-toast {
+  max-width: 90%; /* Adjust width for mobile */
+  margin: 0 auto; /* Center the toast */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  font-size: 14px; /* Smaller font size */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.custom-toast-body {
+  padding: 10px; /* Add padding */
+  text-align: center; /* Center-align text */
+}
+
+@media (min-width: 768px) {
+  .custom-toast {
+    max-width: 400px; /* Larger width for tablets and above */
+    font-size: 16px; /* Adjust font size */
+  }
+}

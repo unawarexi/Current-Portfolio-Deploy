@@ -6,35 +6,44 @@
 
 /* index.css */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    @apply bg-white text-black; 
-    font-family: "poppins", sans-serif;
-    line-height: 1.7;
-    max-width: 100%;
-    overflow-x: hidden;
+  @apply bg-white text-black;
+  font-family: "poppins", sans-serif;
+  line-height: 1.7;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .dark body {
-    @apply bg-[#070b18] text-white; /* Dark mode background and text color */
+  @apply bg-[#070b18] text-white; /* Dark mode background and text color */
 }
 
 h1 {
-    @apply text-4xl font-bold;
+  @apply text-4xl font-bold;
 }
 
 h2 {
-    @apply text-3xl font-semibold;
+  @apply text-3xl font-semibold;
 }
 
 .dark h1 {
-    @apply text-indigo-500;
+  @apply text-indigo-500;
 }
 
 .dark h2 {
-    @apply text-indigo-400;
+  @apply text-indigo-400;
 }
 
+.portfolio {
+  background: rgb(0, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.158) 24%,
+    rgba(15, 15, 15, 0.893) 50%,
+    rgb(0, 0, 0) 93%
+  );
+}
 /* Add similar classes for other elements as needed */

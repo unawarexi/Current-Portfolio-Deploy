@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../styles/toastify.css"; 
 
 import { AiOutlineMail } from "react-icons/ai";
 import { FaTwitter } from "react-icons/fa";
@@ -53,7 +54,12 @@ const Contact = () => {
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={5000} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        toastClassName="custom-toast" // Apply custom class
+        bodyClassName="custom-toast-body" // Apply custom body class
+      />
       <section className="relative w-full overflow-hidden">
         {/* Image container with overlay */}
         <div className="absolute inset-0">
