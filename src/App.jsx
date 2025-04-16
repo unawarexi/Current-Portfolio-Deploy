@@ -11,6 +11,7 @@ import PortfolioOverview from "./components/portfolio/PortfolioOverview";
 import TabbedForm from "./components/projects/TabbedForm";
 import Confirmation from "./auth/Confirmation";
 import SinglePortfolio from "./components/portfolio/SinglePortfolio";
+import { PortfolioProvider } from './context/PortfolioContext';
 
 // Scroll to hash component
 const ScrollToHash = () => {
@@ -42,32 +43,34 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   return (
-    <Router basename="/">
-      <ScrollToHash />
-      <Routes>
-        {/* Main layout wraps all routes */}
-        <Route element={<MainLayout />}>
-          {/* Home route */}
-          <Route path="/" element={<SectionsApp />} />
-          
-          {/* Other routes */}
-          <Route path="/projects" element={<PortfolioOverview />} />
-          <Route path="/projects/:id" element={<SinglePortfolio />} />
-       
+    <PortfolioProvider>
+      <Router basename="/">
+        <ScrollToHash />
+        <Routes>
+          {/* Main layout wraps all routes */}
+          <Route element={<MainLayout />}>
+            {/* Home route */}
+            <Route path="/" element={<SectionsApp />} />
+            
+            {/* Other routes */}
+            <Route path="/projects" element={<PortfolioOverview />} />
+            <Route path="/projects/:id" element={<SinglePortfolio />} />
+        
 
-        {/* Auth and project form flow */}
-        <Route path="/auth" element={<Confirmation />} />
-        <Route
-          path="/auth/new"
-          element={
-            <ProtectedRoute>
-              <TabbedForm />
-            </ProtectedRoute>
-          }
-        />
-         </Route>
-      </Routes>
-    </Router>
+          {/* Auth and project form flow */}
+          <Route path="/auth" element={<Confirmation />} />
+          <Route
+            path="/auth/new"
+            element={
+              <ProtectedRoute>
+                <TabbedForm />
+              </ProtectedRoute>
+            }
+          />
+          </Route>
+        </Routes>
+      </Router>
+    </PortfolioProvider>
   );
 };
 

@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { FiExternalLink, FiPlus } from 'react-icons/fi';
 import PortfolioNav from '../nav/PortfolioNav';
 import projects from '../../data/PortfolioData'; // Import your project data
+import { usePortfolio } from '../../context/PortfolioContext';
 
 const PortfolioOverview = () => {
   const navigate = useNavigate();
+  const { setSelectedProject } = usePortfolio();
 
   const handleCaseStudyClick = (project) => {
-    navigate(`/projects/${project.title.replace(/\s+/g, '-').toLowerCase()}`, { state: { project: { ...project, video: project.video } } });
+    setSelectedProject({ ...project, video: project.video });
+    navigate(`/projects/${project.title.replace(/\s+/g, '-').toLowerCase()}`);
   };
 
   const renderProjectCard = (project, index) => (

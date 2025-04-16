@@ -1,35 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useResponsive from '../../Hooks/useResponsive';
 import { motion } from 'framer-motion';
+import { usePortfolio } from '../../context/PortfolioContext';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const SinglePortfolio = () => {
+  const { selectedProject, setSelectedProject } = usePortfolio();
   const location = useLocation();
-  const [project, setProject] = useState(() => {
-    // Initialize project from localStorage or location.state
-    const storedProject = localStorage.getItem('project');
-    return storedProject ? JSON.parse(storedProject) : location.state?.project || null;
-  });
+
+  // Try to get project from context, then location.state, then sessionStorage
+  let project = selectedProject || location.state?.project || null;
+  if (!project) {
+    const stored = sessionStorage.getItem('selectedProject');
+    if (stored) {
+      project = JSON.parse(stored);
+      // Optionally update context for future renders
+      setSelectedProject(project);
+    }
+  }
+
   const { isMobile, isTablet, isDesktop } = useResponsive();
-
-  // Persist project to localStorage whenever it changes
-  useEffect(() => {
-    if (project) {
-      localStorage.setItem('project', JSON.stringify(project));
-    }
-  }, [project]);
-
-  // Ensure project persists across renders
-  useEffect(() => {
-    if (!project && location.state?.project) {
-      setProject(location.state.project);
-    }
-  }, [location.state, project]);
 
   // Refs for GSAP animations
   const heroRef = useRef(null);

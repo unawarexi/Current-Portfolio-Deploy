@@ -248,9 +248,9 @@ const Experience = () => {
                       <svg
                         fill="none"
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         className="md:w-12 md:h-12 w-8 h-8"
                         viewBox="0 0 24 24"
                       >

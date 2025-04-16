@@ -15,6 +15,8 @@ const FloatingNavbar = () => {
       setActiveNav(location.hash.substring(1)); // Remove the # character
     } else if (location.pathname.includes('/projects')) {
       setActiveNav('portfolio');
+    }  else if (location.pathname.includes('/')) {
+      setActiveNav('portfolio');
     } else {
       setActiveNav(isHomePage ? 'home' : '');
     }
@@ -24,7 +26,7 @@ const FloatingNavbar = () => {
     { icon: <FaHome />, to: 'home', name: 'Home' },
     { icon: <FaUser />, to: 'about', name: 'About' },
     { icon: <FaBriefcase />, to: 'experience', name: 'Experience' },
-    { icon: <FaProjectDiagram />, to: '/projects', name: 'Portfolio' },
+    { icon: <FaProjectDiagram />, to: 'portfolio', name: 'Portfolio' },
     { icon: <FaEnvelope />, to: 'contact', name: 'Contact' },
   ];
 
@@ -41,14 +43,19 @@ const FloatingNavbar = () => {
        p-2 flex items-center justify-evenly w-80 md:w-[28rem] lg:w-[32rem] xl:w-[36rem] max-w-full md:space-x-4 space-x-2">
       {navItems.map((item) => {
         // Special case for Portfolio
-        if (item.to === 'portfolio' && !isHomePage && location.pathname.includes('/projects')) {
+        if (
+          item.to === 'portfolio' &&
+          !isHomePage &&
+          location.pathname.includes('/projects')
+        ) {
           return (
             <div key={item.name} className="group relative flex items-center">
               <Link
-                to="/projects"
+                to="/#portfolio"
                 className={`cursor-pointer p-3 text-white text-sm sm:text-base md:text-lg ${
                   activeNav === item.to ? 'text-blue-400' : 'text-gray-300'
                 } transition-colors duration-300 ease-in-out hover:text-blue-400`}
+                onClick={() => handleNavigation(item)}
               >
                 {item.icon}
               </Link>
