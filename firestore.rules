@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// All data is managed exclusively through the backend (Firebase Admin SDK),
+// which bypasses these rules. Direct client-side access to Firestore is
+// intentionally blocked.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public read for the projects collection — used by the portfolio frontend
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Everything else is fully locked
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

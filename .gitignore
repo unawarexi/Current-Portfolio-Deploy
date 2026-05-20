@@ -1,0 +1,52 @@
+# ============================================================
+# ROOT — applies to the whole monorepo
+# ============================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment variables — NEVER commit secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+
+# Build artefacts (each sub-project has its own)
+dist/
+build/
+dist-ssr/
+.vite/
+
+# Coverage / test output
+coverage/
+.nyc_output/
+*.lcov
+
+# Editor junk
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history/
+
+# Misc
+*.tgz
+*.tsbuildinfo
+.yarn-integrity
+Thumbs.db
