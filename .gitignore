@@ -20,7 +20,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 *.log
-logs/
+# logs/
 
 # Build artefacts (each sub-project has its own)
 dist/
