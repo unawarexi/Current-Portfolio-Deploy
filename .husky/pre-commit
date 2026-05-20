@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+# ============================================================
+# PRE-COMMIT — runs before every commit
+# Fails the commit if any check exits non-zero.
+# ============================================================
+
+echo "🔍 Running pre-commit checks…"
+
+# ── 1. Lint the frontend ─────────────────────────────────────
+echo "→ Linting Frontend-portfolio…"
+(cd Frontend-portfolio && npm run lint)
+lint_exit=$?
+
+if [ $lint_exit -ne 0 ]; then
+  echo "✖ Lint failed. Fix the errors above, then commit again."
+  exit 1
+fi
+
+echo "✔ All pre-commit checks passed."
