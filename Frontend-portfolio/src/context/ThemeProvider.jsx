@@ -3,7 +3,7 @@
 // ============================================================================
 
 import { useEffect } from 'react';
-import useThemeStore from '@store/Theme.store';
+import useThemeStore from '@store/theme.store';
 
 // ========================
 // COMPONENT
