@@ -172,7 +172,7 @@ export const SearchInput = ({
           onClick={onFilterClick}
           className={cn(
             'absolute top-1/2 -translate-y-1/2 right-3 p-1.5 rounded-md',
-            'text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-700 transition-colors'
+            'text-neutral-500 hover:text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-700 transition-colors'
           )}
         >
           <SlidersHorizontal className="w-4 h-4" />

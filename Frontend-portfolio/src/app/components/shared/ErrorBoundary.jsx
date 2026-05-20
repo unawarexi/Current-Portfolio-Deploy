@@ -109,7 +109,7 @@ export const ErrorFallback = ({
       {/* Error details (dev mode) */}
       {error && process.env.NODE_ENV === 'development' && (
         <details className="mb-6 w-full max-w-lg">
-          <summary className="text-sm text-neutral-500 dark:text-neutral-400 cursor-pointer hover:text-neutral-700 dark:text-neutral-200">
+          <summary className="text-sm text-neutral-500 dark:text-neutral-400 cursor-pointer hover:text-neutral-700 hover:dark:text-neutral-200">
             View error details
           </summary>
           <pre className="mt-2 p-4 bg-neutral-100 dark:bg-neutral-700 rounded-lg text-left text-xs overflow-auto text-error-600">
