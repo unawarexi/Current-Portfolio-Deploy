@@ -6,7 +6,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from '@core/constants/icons';
 import { cn } from '@utils/cn';
-import useThemeStore from '@store/theme.store';
+import useThemeStore from '@store/Theme.store';
 
 const iconVariants = {
   initial: { scale: 0, rotate: -180, opacity: 0 },
