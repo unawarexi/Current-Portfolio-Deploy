@@ -1,0 +1,65 @@
+# =============================================================================
+# Deploy Frontend → Render
+#
+# Triggered on every push to master that touches Frontend-portfolio/.
+# Steps:
+#   1. Install deps & build (Vite) — catches broken builds before deploy
+#   2. Trigger the Render deploy hook via HTTP POST
+#
+# Required GitHub secrets:
+#   RENDER_DEPLOY_HOOK_FRONTEND  — your Render service's deploy hook URL
+#                                  (Render dashboard → service → Settings →
+#                                   Deploy hook)
+#   VITE_API_BASE_URL            — production API URL injected at build time
+# =============================================================================
+
+name: Deploy Frontend to Render
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "Frontend-portfolio/**"
+      - ".github/workflows/deploy-frontend.yml"
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Frontend-portfolio
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Setup Node ─────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Frontend-portfolio/package-lock.json
+
+      # ── 3. Install dependencies ───────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. Lint ───────────────────────────────────────────────────────────
+      - name: Lint
+        run: npm run lint
+        continue-on-error: false
+
+      # ── 5. Build (Vite) ───────────────────────────────────────────────────
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+
+      # ── 6. Trigger Render deploy ──────────────────────────────────────────
+      - name: Trigger Render deploy
+        run: |
+          curl -s --fail -X POST "${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}" \
+            -o /dev/null -w "HTTP status: %{http_code}\n"
