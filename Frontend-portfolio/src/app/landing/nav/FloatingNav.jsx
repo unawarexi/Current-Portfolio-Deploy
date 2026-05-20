@@ -36,11 +36,12 @@ const FloatingNavbar = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50
+      className="fixed bottom-4 z-50
+        left-0 right-0 mx-auto
         flex items-center gap-1 px-4 py-2
         bg-black/60 backdrop-blur-xl
         border border-white/10 rounded-2xl shadow-xl
-        w-auto"
+        w-max max-w-[calc(100vw-2rem)]"
     >
       {navItems.map(({ Icon, to, name }) => {
         const isActive = activeNav === to;

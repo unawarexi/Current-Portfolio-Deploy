@@ -48,6 +48,7 @@ export {
 
   // UI & Actions
   X,
+  Menu,
   Plus,
   Check,
   Layers,
