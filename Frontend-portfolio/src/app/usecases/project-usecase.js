@@ -44,6 +44,7 @@ export const useProjectsUsecase = () => {
  */
 export const useSingleProjectUsecase = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { selectedProject, setSelectedProject } = usePortfolioStore();
   const { data: apiProject, isLoading } = useProject(id);
 
@@ -53,5 +54,17 @@ export const useSingleProjectUsecase = () => {
   }, [apiProject, setSelectedProject]);
 
   const project = apiProject ?? selectedProject ?? null;
-  return { project, isLoading, setProject: setSelectedProject };
+  const handleEdit = () => navigate(`/auth/edit-project/${id}`);
+  return { project, isLoading, setProject: setSelectedProject, handleEdit };
+};
+
+/**
+ * Provides data and navigation for the edit-project admin page.
+ */
+export const useEditProjectUsecase = () => {
+  const { id }   = useParams();
+  const navigate = useNavigate();
+  const { data: project, isLoading } = useProject(id);
+  const onSuccess = () => navigate(`/projects/${id}`);
+  return { id, project, isLoading, onSuccess };
 };

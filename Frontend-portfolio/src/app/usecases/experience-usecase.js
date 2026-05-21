@@ -28,6 +28,7 @@ export const useExperienceUsecase = () => {
 /** Single detail page */
 export const useSingleExperienceUsecase = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { selectedExperience, setSelectedExperience } = useExperienceStore();
   const { data: apiItem, isLoading } = useExperienceItem(id);
 
@@ -35,5 +36,17 @@ export const useSingleExperienceUsecase = () => {
     if (apiItem) setSelectedExperience(apiItem);
   }, [apiItem, setSelectedExperience]);
 
-  return { item: apiItem ?? selectedExperience, isLoading };
+  const handleEdit = () => navigate(`/auth/edit-experience/${id}`);
+  return { item: apiItem ?? selectedExperience, isLoading, id, handleEdit };
+};
+
+/**
+ * Provides data and navigation for the edit-experience admin page.
+ */
+export const useEditExperienceUsecase = () => {
+  const { id }   = useParams();
+  const navigate = useNavigate();
+  const { data: item, isLoading } = useExperienceItem(id);
+  const onSuccess = () => navigate(`/experience/${id}`);
+  return { id, item, isLoading, onSuccess };
 };

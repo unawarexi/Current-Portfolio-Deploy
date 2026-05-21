@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import { z } from 'zod';
-import { useCreateProject } from '@hooks/api-hooks/useProjects';
+import { useCreateProject, useUpdateProject } from '@hooks/api-hooks/useProjects';
 import { toast } from '@store/toast.store';
 
 // ─── Zod schema ─────────────────────────────────────────────────────────────
@@ -66,14 +66,36 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 // ============================================================================
 // HOOK
 // ============================================================================
-export const useProjectFormUsecase = () => {
-  const [form, setForm]                   = useState(INITIAL_FORM);
+export const useProjectFormUsecase = (editItem = null) => {
+  const [form, setForm] = useState(editItem ? {
+    title:          editItem.title          ?? '',
+    description:    editItem.description    ?? '',
+    category:       editItem.category       ?? '',
+    type:           editItem.type           ?? '',
+    status:         editItem.status         ?? '',
+    year:           editItem.year           ?? String(new Date().getFullYear()),
+    client:         editItem.client         ?? '',
+    role:           editItem.role           ?? '',
+    duration:       editItem.duration       ?? '',
+    features:       editItem.features       ?? '',
+    challenges:     editItem.challenges     ?? '',
+    solution:       editItem.solution       ?? '',
+    results:        editItem.results        ?? '',
+    githubLink:     editItem.githubLink     ?? '',
+    googlePlayLink: editItem.googlePlayLink ?? '',
+    appStoreLink:   editItem.appStoreLink   ?? '',
+    webLiveLink:    editItem.webLiveLink    ?? '',
+    videoUrl:       editItem.videoUrl       ?? '',
+    technologies:   editItem.technologies   ?? [],
+  } : INITIAL_FORM);
   const [formErrors, setFormErrors]       = useState({});
-  const [coverImages, setCoverImages]     = useState([]); // File[]
-  const [projectImages, setProjectImages] = useState([]); // File[]
+  const [coverImages, setCoverImages]     = useState([]);
+  const [projectImages, setProjectImages] = useState([]);
   const [activeTab, setActiveTab]         = useState('info');
 
-  const { mutateAsync: createProject, isPending } = useCreateProject();
+  const { mutateAsync: createProject, isPending: isCreating } = useCreateProject();
+  const { mutateAsync: updateProject, isPending: isUpdating } = useUpdateProject();
+  const isPending = isCreating || isUpdating;
 
   // ── Field setter ────────────────────────────────────────────────────────
   const setField = (name, value) => {
@@ -163,9 +185,20 @@ export const useProjectFormUsecase = () => {
     projectImages.forEach((f) => fd.append('projectImages', f));
 
     try {
-      await createProject(fd);
-      toast.success('Project saved!');
-      reset();
+      if (editItem) {
+        // Edit mode: send JSON PATCH (keep existing image URLs)
+        const payload = {
+          ...form,
+          coverImages:   coverImages.length ? undefined : (editItem.coverImages   ?? []),
+          projectImages: projectImages.length ? undefined : (editItem.projectImages ?? []),
+        };
+        await updateProject({ id: editItem.id, data: payload });
+        toast.success('Project updated!');
+      } else {
+        await createProject(fd);
+        toast.success('Project saved!');
+        reset();
+      }
     } catch {
       // error already toasted by useCreateProject onError
     }

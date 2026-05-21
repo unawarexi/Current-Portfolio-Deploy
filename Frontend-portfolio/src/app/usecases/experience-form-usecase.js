@@ -39,6 +39,7 @@ export const useExperienceFormUsecase = (editItem = null) => {
     productsBuilt: (editItem.productsBuilt || []).join('\n'),
   } : INITIAL);
   const [formErrors, setFormErrors] = useState({});
+  const [activeTab, setActiveTab]   = useState('basics');
   const createMut = useCreateExperience();
   const updateMut = useUpdateExperience();
 
@@ -79,8 +80,8 @@ export const useExperienceFormUsecase = (editItem = null) => {
   };
 
   return {
-    form, setField, formErrors, submit,
+    form, setField, formErrors, submit, activeTab, setActiveTab,
     isPending: createMut.isPending || updateMut.isPending,
-    reset: () => { setForm(INITIAL); setFormErrors({}); },
+    reset: () => { setForm(INITIAL); setFormErrors({}); setActiveTab('basics'); },
   };
 };

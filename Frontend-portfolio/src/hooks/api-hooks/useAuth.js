@@ -15,7 +15,7 @@ export const useLogin = () => {
   const { login } = useAuthStore();
 
   return useMutation({
-    mutationFn: (password) => authRepository.login(password),
+    mutationFn: (credentials) => authRepository.login(credentials),
     onSuccess: (res) => {
       const { token, expiresIn } = res.data.data;
       login({ token, expiresIn });

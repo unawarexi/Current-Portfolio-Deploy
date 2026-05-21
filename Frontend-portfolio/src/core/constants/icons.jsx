@@ -51,6 +51,8 @@ export {
   Menu,
   Plus,
   Check,
+  Pencil,
+  BookOpen,
   Layers,
   Home,
   Inbox,
