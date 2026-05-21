@@ -42,17 +42,17 @@ const footerData = [
 const Footer = () => {
   return (
     <footer className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="flex flex-wrap md:text-left text-center -mb-10 -mx-4">
+      <div className="container px-3 sm:px-5 py-12 sm:py-24 mx-auto">
+        <div className="flex flex-wrap md:text-left text-center -mb-10 -mx-2 sm:-mx-4">
           {footerData.map((section, index) => (
-            <div key={index} className="lg:w-1/6 md:w-1/3 w-1/2 px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest md:text-sm  text-[10px] mb-3">
+            <div key={index} className="lg:w-1/6 md:w-1/3 w-1/2 px-2 sm:px-4">
+              <h2 className="title-font font-medium text-gray-900 tracking-widest text-[9px] md:text-sm mb-2 sm:mb-3">
                 {section.title}
               </h2>
-              <nav className="list-none mb-10">
+              <nav className="list-none mb-6 sm:mb-10">
                 {section.links.map((link, idx) => (
                   <li key={idx}>
-                    <a className="text-gray-600 hover:text-gray-800 text-[10px] md:text-sm ">
+                    <a className="text-gray-600 hover:text-gray-800 text-[9px] md:text-sm ">
                       {link}
                     </a>
                   </li>
@@ -63,23 +63,23 @@ const Footer = () => {
         </div>
       </div>
       <div className="border-t border-gray-200">
-        <div className="container px-5 py-8 flex flex-wrap mx-auto items-center">
+        <div className="container px-3 sm:px-5 py-4 sm:py-8 flex flex-wrap mx-auto items-center">
           <div className="flex flex-col md:flex-row md:flex-nowrap w-full justify-center md:justify-between items-center">
-            <p className="text-gray-500 text-center text-[10px] md:text-sm mb-4 md:mb-0">
+            <p className="text-gray-500 text-center text-[9px] md:text-sm mb-2 sm:mb-4 md:mb-0">
               Stay connected with us - Follow us on social media
             </p>
             <span className="inline-flex justify-center md:justify-end w-full md:w-auto">
               <a className="text-gray-500 hover:text-indigo-500">
-                <FaFacebookF className="w-5 h-5" />
+                <FaFacebookF className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
               </a>
-              <a className="ml-3 text-gray-500 hover:text-indigo-500">
-                <FaTwitter className="w-5 h-5" />
+              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
+                <FaTwitter className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
               </a>
-              <a className="ml-3 text-gray-500 hover:text-indigo-500">
-                <FaInstagram className="w-5 h-5" />
+              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
+                <FaInstagram className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
               </a>
-              <a className="ml-3 text-gray-500 hover:text-indigo-500">
-                <FaLinkedinIn className="w-5 h-5" />
+              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
+                <FaLinkedinIn className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
               </a>
             </span>
           </div>

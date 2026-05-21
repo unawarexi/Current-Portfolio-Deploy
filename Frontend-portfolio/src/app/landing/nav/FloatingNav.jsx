@@ -36,9 +36,9 @@ const FloatingNavbar = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="fixed bottom-4 z-50
+      className="fixed bottom-3 sm:bottom-4 z-50
         left-0 right-0 mx-auto
-        flex items-center gap-1 px-4 py-2
+        flex items-center gap-0.5 sm:gap-1 px-2 sm:px-4 py-1.5 sm:py-2
         bg-black/60 backdrop-blur-xl
         border border-white/10 rounded-2xl shadow-xl
         w-max max-w-[calc(100vw-2rem)]"
@@ -48,7 +48,7 @@ const FloatingNavbar = () => {
 
         const itemClass = `
           relative group flex items-center justify-center
-          p-3 rounded-xl cursor-pointer transition-all duration-200
+          p-2 sm:p-3 rounded-xl cursor-pointer transition-all duration-200
           ${isActive
             ? 'text-primary-400 bg-primary-500/15'
             : 'text-gray-400 hover:text-primary-400 hover:bg-white/5'
@@ -57,10 +57,10 @@ const FloatingNavbar = () => {
 
         const inner = (
           <>
-            <Icon size={18} />
+            <Icon size={16} />
             {/* Tooltip */}
             <span className="absolute -top-9 left-1/2 -translate-x-1/2
-              px-2 py-1 rounded-lg text-[10px] font-mono tracking-wide
+              px-2 py-1 rounded-lg text-[9px] font-mono tracking-wide
               bg-gray-900 text-white border border-white/10
               opacity-0 group-hover:opacity-100 pointer-events-none
               transition-opacity duration-200 whitespace-nowrap">

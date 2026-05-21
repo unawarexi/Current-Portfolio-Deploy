@@ -76,7 +76,7 @@ export const glows = {
 
 /** Base class applied to every section for consistent spacing */
 export const sectionBase =
-  'relative w-full overflow-hidden py-20 md:py-28';
+  'relative w-full overflow-hidden py-12 md:py-20 lg:py-28';
 
 /** Thin top-border accent line used to visually separate sections */
 export const sectionDivider =
@@ -88,7 +88,7 @@ export const card =
 
 /** Pill / badge label */
 export const pill =
-  'inline-block px-3 py-1 rounded-full text-xs font-display font-semibold uppercase tracking-widest border border-primary-500/30 text-primary-500 bg-primary-500/10';
+  'inline-block px-2 py-0.5 max-sm:text-[9px] sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-display font-semibold uppercase tracking-widest border border-primary-500/30 text-primary-500 bg-primary-500/10';
 
 /** Glowing border ring on hover */
 export const glowRing =

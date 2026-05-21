@@ -74,40 +74,40 @@ const AboutSection = () => {
       <div className="relative z-10 container mx-auto px-6 md:px-10">
 
         {/* ── Intro row ────────────────────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row gap-16 items-center mb-20">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center mb-10 sm:mb-16 lg:mb-20">
           <motion.div variants={fadeInLeft} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="flex-1">
-            <span className={`${pill} mb-6`}>About Me</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight tracking-wide mb-6">
+            <span className={`${pill} mb-3 sm:mb-6`}>About Me</span>
+            <h2 className="font-display text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight tracking-wide mb-3 sm:mb-6">
               {profile.tagline || (
                 <>Revolutionizing{' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">Software Development</span></>
               )}
             </h2>
-            <p className="font-sans text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-lg">
+            <p className="font-sans text-gray-600 dark:text-gray-400 text-[12px] sm:text-sm md:text-base leading-relaxed mb-4 sm:mb-8 max-w-lg">
               {bio}
             </p>
             {profile.openToWork !== false && (
-              <div className="flex items-center gap-2 mb-4 text-xs text-green-500 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <div className="flex items-center gap-2 mb-3 sm:mb-4 text-[10px] sm:text-xs text-green-500 font-semibold">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse" />
                 {profile.availabilityNote || 'Open to work & collaboration'}
               </div>
             )}
-            <div className="flex flex-wrap gap-4 mb-10">
+            <div className="flex flex-wrap gap-2 sm:gap-4 mb-5 sm:mb-10">
               <motion.a href="#contact" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-display font-semibold tracking-wide text-sm transition-colors">
+                className="px-5 py-2 sm:px-8 sm:py-3 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-display font-semibold tracking-wide text-[11px] sm:text-sm transition-colors">
                 Contact Me
               </motion.a>
               <a href="#skills"
-                className="px-8 py-3 rounded-full border border-primary-500/40 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 font-display font-semibold tracking-wide text-sm transition-colors">
+                className="px-5 py-2 sm:px-8 sm:py-3 rounded-full border border-primary-500/40 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 font-display font-semibold tracking-wide text-[11px] sm:text-sm transition-colors">
                 Skills »
               </a>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-4 gap-4 pt-6 border-t border-gray-200 dark:border-white/10">
+            <div className="grid grid-cols-4 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-gray-200 dark:border-white/10">
               {stats.map(({ value, label }) => (
                 <div key={label} className="flex flex-col items-center">
-                  <span className="font-display text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">{value}</span>
-                  <span className="font-sans text-xs text-gray-500 uppercase tracking-widest mt-1">{label}</span>
+                  <span className="font-display text-base sm:text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">{value}</span>
+                  <span className="font-sans text-[9px] sm:text-xs text-gray-500 uppercase tracking-widest mt-0.5 sm:mt-1">{label}</span>
                 </div>
               ))}
             </div>
@@ -136,16 +136,16 @@ const AboutSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 my-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 my-8 sm:my-16"
         >
           {featureCards.map(({ icon: Icon, title, body }, i) => (
             <motion.div key={title} variants={staggerItem} className="h-full">
-              <Card variant="glass" hoverable className="h-full group p-8">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-500/15 text-primary-600 dark:text-primary-400 mb-5">
-                  <Icon size={20} />
+              <Card variant="glass" hoverable className="h-full group p-4 sm:p-8">
+                <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary-100 dark:bg-primary-500/15 text-primary-600 dark:text-primary-400 mb-3 sm:mb-5">
+                  <Icon size={16} />
                 </div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 dark:text-white tracking-wide mb-3">{title}</h3>
-                <p className="font-sans text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body || '—'}</p>
+                <h3 className="font-display text-sm sm:text-lg font-semibold text-gray-900 dark:text-white tracking-wide mb-2 sm:mb-3">{title}</h3>
+                <p className="font-sans text-[11px] sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body || '—'}</p>
               </Card>
             </motion.div>
           ))}
@@ -171,11 +171,11 @@ const AboutSection = () => {
                   transition={{ duration: 0.35 }}
                   className="overflow-hidden"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pb-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5 pb-4">
                     {extraContent.map(({ label, content }) => (
-                      <div key={label} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.07]">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-primary-500 mb-2">{label}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{content}</p>
+                      <div key={label} className="p-3 sm:p-6 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.07]">
+                        <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-primary-500 mb-1 sm:mb-2">{label}</p>
+                        <p className="text-[11px] sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{content}</p>
                       </div>
                     ))}
                   </div>
@@ -186,7 +186,7 @@ const AboutSection = () => {
         )}
 
         {/* Socials */}
-        <div className="flex justify-center mb-16">
+        <div className="flex justify-center mb-8 sm:mb-16">
           <Socials />
         </div>
       </div>

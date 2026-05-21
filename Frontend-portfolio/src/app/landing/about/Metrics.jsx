@@ -63,7 +63,7 @@ const metricsData = [
 
 const Metrics = () => (
   <div
-    className="relative w-full py-20 px-4 sm:px-8 overflow-hidden bg-[#070b18]"
+    className="relative w-full py-10 sm:py-20 px-3 sm:px-4 lg:px-8 overflow-hidden bg-[#070b18]"
     id="metrics"
   >
     {/* Decorative */}
@@ -72,9 +72,9 @@ const Metrics = () => (
 
     <div className="relative z-10 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-6 sm:mb-12">
         <span className={pill}>Performance</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-wide mt-4 mb-2">
+        <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-bold text-white tracking-wide mt-3 sm:mt-4 mb-2">
           Developer Metrics
         </h2>
         <div className={sectionDivider} />
@@ -86,7 +86,7 @@ const Metrics = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"
       >
         {metricsData.map(({ title, items }) => (
           <motion.div key={title} variants={staggerItem}>
@@ -96,14 +96,14 @@ const Metrics = () => (
               hoverable
               className="h-full group border border-white/[0.07] bg-white/[0.03] hover:border-primary-500/30"
             >
-              <h3 className="font-display text-base sm:text-lg font-semibold text-white tracking-wide mb-4">
+              <h3 className="font-display text-sm sm:text-base lg:text-lg font-semibold text-white tracking-wide mb-2 sm:mb-4">
                 {title}
               </h3>
-              <ul className="space-y-2.5">
+              <ul className="space-y-1.5 sm:space-y-2.5">
                 {items.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-gray-400 text-sm">
+                  <li key={item} className="flex items-start gap-1.5 sm:gap-2.5 text-gray-400 text-[11px] sm:text-sm">
                     <CheckCircle
-                      size={15}
+                      size={13}
                       className="flex-shrink-0 mt-0.5 text-primary-500"
                     />
                     {item}

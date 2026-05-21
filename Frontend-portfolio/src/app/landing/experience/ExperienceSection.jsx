@@ -18,43 +18,48 @@ const getCategories = (items) => {
 
 // ─── Job card ─────────────────────────────────────────────────────────────────
 const JobCard = ({ job, index, onSelect }) => (
-  <motion.div variants={staggerItem} className="flex gap-5 items-start">
-    <div className="flex flex-col items-center">
+  <motion.div variants={staggerItem} className="flex gap-5 items-start max-sm:block max-sm:relative max-sm:mb-0">
+    {/* Desktop: number + vertical connector — hidden on mobile */}
+    <div className="flex flex-col items-center max-sm:hidden">
       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-primary-600 text-white font-display font-bold text-sm flex-shrink-0">
         {index + 1}
       </div>
       <div className="flex-1 w-px bg-white/10 mt-2 min-h-[2rem]" />
     </div>
+
+    {/* Mobile: accent dot on the left border line */}
+    <span className="hidden max-sm:block absolute -left-[22px] top-5 w-3 h-3 rounded-full bg-primary-500 border-2 border-[#070b18] z-10" />
+
     <Card
       variant="glass"
       hoverable
       clickable
       onClick={() => onSelect(job)}
-      className="flex-1 mb-6 border border-white/[0.07] bg-white/[0.03] hover:border-primary-500/30 cursor-pointer"
+      className="flex-1 mb-6 max-sm:mb-3 border border-white/[0.07] bg-white/[0.03] hover:border-primary-500/30 cursor-pointer"
     >
-      <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+      <div className="flex flex-wrap items-start justify-between gap-2 mb-3 max-sm:mb-2">
         <div>
-          <h3 className="font-display text-base sm:text-lg font-semibold text-white tracking-wide">{job.role}</h3>
-          <p className="font-mono text-xs text-primary-400 mt-0.5">{job.company}</p>
+          <h3 className="font-display text-sm sm:text-base lg:text-lg font-semibold text-white tracking-wide">{job.role}</h3>
+          <p className="font-mono text-[10px] sm:text-xs text-primary-400 mt-0.5">{job.company}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {job.isCurrent && <Badge variant="success" size="xs">Current</Badge>}
-          <span className="flex items-center gap-1.5 text-gray-500 font-mono text-[11px]">
-            <Calendar size={12} />{job.year}
+          <span className="flex items-center gap-1 text-gray-500 font-mono text-[10px] sm:text-[11px]">
+            <Calendar size={10} />{job.year}
           </span>
         </div>
       </div>
-      <p className="font-sans text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">{job.description}</p>
-      <div className="flex flex-wrap gap-1.5 mb-3">
-        {(job.skills || []).slice(0, 5).map((s) => (
+      <p className="font-sans text-gray-400 text-[11px] sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">{job.description}</p>
+      <div className="flex flex-wrap gap-1 mb-2 sm:mb-3">
+        {(job.skills || []).slice(0, 4).map((s) => (
           <Badge key={s} variant="primary" size="xs">{s}</Badge>
         ))}
-        {(job.skills || []).length > 5 && (
-          <span className="text-[10px] text-gray-500">+{job.skills.length - 5} more</span>
+        {(job.skills || []).length > 4 && (
+          <span className="text-[10px] text-gray-500">+{job.skills.length - 4} more</span>
         )}
       </div>
-      <div className="flex items-center gap-1 text-primary-400 text-xs font-semibold mt-2">
-        View full details <ArrowRight size={12} />
+      <div className="flex items-center gap-1 text-primary-400 text-[10px] sm:text-xs font-semibold mt-1 sm:mt-2">
+        View full details <ArrowRight size={10} />
       </div>
     </Card>
   </motion.div>
@@ -87,16 +92,16 @@ const ExperienceSection = () => {
       <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.hatch} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: glows.topLeft }} />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 md:px-10">
         {/* Header */}
-        <motion.div variants={fadeInLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-12 text-center">
+        <motion.div variants={fadeInLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-6 sm:mb-12 text-center">
           <span className={pill}>Career</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-wide mt-4 mb-2 flex items-center justify-center gap-3">
-            <Briefcase size={28} className="text-primary-500" />
+          <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-wide mt-3 sm:mt-4 mb-2 flex items-center justify-center gap-2 sm:gap-3">
+            <Briefcase size={20} className="text-primary-500 max-sm:hidden sm:block" />
             Work Experience
           </h2>
           <div className={sectionDivider} />
-          <p className="font-sans text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
+          <p className="font-sans text-[11px] sm:text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
             A detailed overview of my professional experience across software development and IT.
           </p>
         </motion.div>
@@ -104,12 +109,12 @@ const ExperienceSection = () => {
         {/* Category tabs */}
         {!isLoading && items.length > 0 && (
           <>
-            <div className="flex flex-wrap justify-center gap-1 mb-4">
+            <div className="flex flex-wrap justify-center gap-1 mb-3 sm:mb-4">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => handleCategory(cat)}
-                  className={`px-5 py-2 rounded-full font-display text-xs font-semibold tracking-wide transition-all duration-200
+                  className={`px-3 py-1 sm:px-5 sm:py-2 rounded-full font-display text-[10px] sm:text-xs font-semibold tracking-wide transition-all duration-200
                     ${activeCategory === cat ? 'bg-primary-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-primary-500 border border-gray-200 dark:border-white/10'}`}
                 >
                   {cat}
@@ -118,12 +123,12 @@ const ExperienceSection = () => {
             </div>
             {/* Sub-category tabs */}
             {subCategories.length > 1 && (
-              <div className="flex flex-wrap justify-center gap-1 mb-10">
+              <div className="flex flex-wrap justify-center gap-1 mb-5 sm:mb-10">
                 {subCategories.map((sub) => (
                   <button
                     key={sub}
                     onClick={() => setActiveSub(sub)}
-                    className={`px-4 py-1.5 rounded-full font-display text-[11px] font-medium tracking-wide transition-all duration-200
+                    className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full font-display text-[10px] sm:text-[11px] font-medium tracking-wide transition-all duration-200
                       ${activeSub === sub ? 'border-b-2 border-primary-500 text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-500'}`}
                   >
                     {sub}
@@ -147,6 +152,7 @@ const ExperienceSection = () => {
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0, y: 10 }}
+              className="max-sm:pl-5 max-sm:ml-2 max-sm:border-l max-sm:border-primary-500/30"
             >
               {displayed.length > 0 ? (
                 displayed.map((job, i) => (

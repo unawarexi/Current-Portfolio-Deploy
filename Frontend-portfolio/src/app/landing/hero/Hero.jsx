@@ -37,7 +37,7 @@ const RoleTicker = () => {
     return () => clearInterval(t);
   }, []);
   return (
-    <div className="h-8 overflow-hidden relative">
+    <div className="h-6 sm:h-8 overflow-hidden relative">
       <AnimatePresence mode="wait">
         <motion.p
           key={idx}
@@ -45,7 +45,7 @@ const RoleTicker = () => {
           animate={{ y: 0,  opacity: 1 }}
           exit={{    y: -24, opacity: 0 }}
           transition={{ duration: 0.35, ease: 'easeInOut' }}
-          className="font-mono text-sm sm:text-base tracking-widest text-primary-400 uppercase absolute inset-0 flex items-center justify-center lg:justify-start"
+          className="font-mono text-[10px] sm:text-sm lg:text-base tracking-wider sm:tracking-widest text-primary-400 uppercase absolute inset-0 flex items-center justify-center lg:justify-start"
         >
           {ROLES[idx]}
         </motion.p>
@@ -131,8 +131,8 @@ const Hero = () => {
     </div>
 
     {/* Content */}
-    <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 py-24">
-      <div className="flex flex-col lg:flex-row items-center gap-16">
+    <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-14 sm:py-20 lg:py-24">
+      <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
 
         {/* ── Left column ─────────────────────────────────────────────── */}
         <motion.div
@@ -142,40 +142,40 @@ const Hero = () => {
           className="flex-1 text-center lg:text-left"
         >
           {/* Availability pill */}
-          <motion.span variants={staggerItem} className={`${pill} mb-6`}>
+          <motion.span variants={staggerItem} className={`${pill} mb-3 sm:mb-6`}>
             ● &nbsp;Open to senior &amp; founding roles
           </motion.span>
 
           {/* Name */}
           <motion.h1
             variants={staggerItem}
-            className="font-display font-bold leading-none tracking-wider text-white mt-4 mb-2"
-            style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+            className="font-display font-bold leading-none tracking-wider text-white mt-2 sm:mt-4 mb-1 sm:mb-2"
+            style={{ fontSize: 'clamp(1.6rem, 6vw, 5.5rem)' }}
           >
             ANDREW J.
           </motion.h1>
           <motion.h1
             variants={staggerItem}
-            className="font-display font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400 mb-6"
-            style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+            className="font-display font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400 mb-3 sm:mb-6"
+            style={{ fontSize: 'clamp(1.6rem, 6vw, 5.5rem)' }}
           >
             CHUKWUWEIKE
           </motion.h1>
 
           {/* Role ticker */}
-          <motion.div variants={staggerItem} className="mb-6">
+          <motion.div variants={staggerItem} className="mb-3 sm:mb-6">
             <RoleTicker />
           </motion.div>
 
           {/* Discipline tags */}
           <motion.div
             variants={staggerItem}
-            className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
+            className="flex flex-wrap gap-1 sm:gap-2 justify-center lg:justify-start mb-4 sm:mb-8"
           >
             {['Fullstack','Mobile & Desktop','AI & AI Agents','Blockchain & Smart Contracts'].map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold
+                className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-mono font-semibold
                   bg-white/[0.05] border border-primary-500/20 text-gray-400 tracking-wide"
               >
                 {tag}
@@ -186,7 +186,7 @@ const Hero = () => {
           {/* Description */}
           <motion.p
             variants={staggerItem}
-            className="font-sans text-gray-400 text-sm sm:text-base leading-relaxed max-w-lg mx-auto lg:mx-0 mb-10"
+            className="font-sans text-gray-400 text-[12px] sm:text-sm lg:text-base leading-relaxed max-w-lg mx-auto lg:mx-0 mb-5 sm:mb-10"
           >
             I architect and ship end-to-end products — from pixel-perfect UIs and
             cross-platform mobile apps to AI agents, on-chain protocols, and the
@@ -197,13 +197,14 @@ const Hero = () => {
           {/* CTA Buttons */}
           <motion.div
             variants={staggerItem}
-            className="flex flex-wrap gap-4 justify-center lg:justify-start mb-12"
+            className="flex flex-wrap gap-2 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-12"
           >
             <Link to="#portfolio">
               <Button
                 variant="primary"
                 size="lg"
-                rightIcon={<ArrowRight size={18} />}
+                className="max-sm:h-9 max-sm:px-4 max-sm:text-xs max-sm:gap-1.5"
+                rightIcon={<ArrowRight size={14} className="max-sm:w-3 max-sm:h-3" />}
               >
                 View Work
               </Button>
@@ -217,7 +218,8 @@ const Hero = () => {
               <Button
                 variant="outline"
                 size="lg"
-                leftIcon={<Download size={18} />}
+                className="max-sm:h-9 max-sm:px-4 max-sm:text-xs max-sm:gap-1.5"
+                leftIcon={<Download size={14} className="max-sm:w-3 max-sm:h-3" />}
               >
                 Download CV
               </Button>
@@ -227,18 +229,18 @@ const Hero = () => {
           {/* Stats row */}
           <motion.div
             variants={staggerItem}
-            className="grid grid-cols-4 gap-4 pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0"
+            className="grid grid-cols-4 gap-2 sm:gap-4 pt-3 sm:pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0"
           >
             {stats.map(({ value, label }) => (
               <div key={label} className="flex flex-col items-center lg:items-start">
-                <span className="font-display text-2xl font-bold text-primary-400">{value}</span>
-                <span className="font-sans text-[10px] text-gray-500 uppercase tracking-widest mt-0.5">{label}</span>
+                <span className="font-display text-base sm:text-2xl font-bold text-primary-400">{value}</span>
+                <span className="font-sans text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-widest mt-0.5">{label}</span>
               </div>
             ))}
           </motion.div>
 
           {/* Socials */}
-          <motion.div variants={staggerItem} className="mt-8 flex justify-center lg:justify-start">
+          <motion.div variants={staggerItem} className="mt-4 sm:mt-8 flex justify-center lg:justify-start">
             <Socials />
           </motion.div>
         </motion.div>

@@ -40,8 +40,8 @@ const links = [
   },
 ];
 
-const Socials = ({ size = 20 }) => (
-  <div className="flex items-center gap-3">
+const Socials = ({ size = 18 }) => (
+  <div className="flex items-center gap-2 sm:gap-3">
     {links.map(({ icon: Icon, href, label, color }) => (
       <motion.a
         key={label}
@@ -52,7 +52,7 @@ const Socials = ({ size = 20 }) => (
         whileHover={{ scale: 1.12, y: -2 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
-          'flex items-center justify-center w-9 h-9 rounded-full',
+          'flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full',
           'border border-gray-300 dark:border-white/20',
           'text-gray-600 dark:text-gray-400',
           'transition-all duration-200',

@@ -57,20 +57,20 @@ const ContactSection = () => {
       <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.cross} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: glows.dual }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-6 md:px-10">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-7 sm:mb-14">
           <span className={pill}>Contact</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-wide mt-4 mb-2">
+          <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-wide mt-3 sm:mt-4 mb-2">
             Get In Touch
           </h2>
           <div className={sectionDivider} />
-          <p className="font-sans text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
+          <p className="font-sans text-[11px] sm:text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
             Have a project in mind? Let's talk — I respond within 24 hours.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-8">
 
           {/* ── Contact form (3 cols) ──────────────────────────────── */}
           <motion.div
@@ -85,14 +85,14 @@ const ContactSection = () => {
               size="lg"
               className="border border-gray-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.02]"
             >
-              <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white tracking-wide mb-2">
+              <h3 className="font-display text-base sm:text-xl font-bold text-gray-900 dark:text-white tracking-wide mb-1.5 sm:mb-2">
                 Send a Message
               </h3>
-              <p className="font-sans text-sm text-gray-500 dark:text-gray-400 mb-8">
+              <p className="font-sans text-[11px] sm:text-sm text-gray-500 dark:text-gray-400 mb-4 sm:mb-8">
                 Feel free to reach out and I'll get back to you as soon as possible.
               </p>
 
-              <form onSubmit={submit} className="flex flex-col gap-4">
+              <form onSubmit={submit} className="flex flex-col gap-3 sm:gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Input
                     label="Full Name"
@@ -147,7 +147,8 @@ const ContactSection = () => {
                   size="lg"
                   fullWidth
                   isLoading={isSubmitting}
-                  rightIcon={<Send size={16} />}
+                  className="max-sm:h-9 max-sm:text-xs"
+                  rightIcon={<Send size={14} />}
                 >
                   Send Message
                 </Button>
@@ -169,23 +170,23 @@ const ContactSection = () => {
               size="lg"
               className="border border-gray-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.02]"
             >
-              <h3 className="font-display text-base font-semibold text-gray-900 dark:text-white tracking-wide mb-6">
+              <h3 className="font-display text-sm sm:text-base font-semibold text-gray-900 dark:text-white tracking-wide mb-3 sm:mb-6">
                 Contact Information
               </h3>
-              <div className="space-y-5">
+              <div className="space-y-3 sm:space-y-5">
                 {contactInfo.map(({ Icon, label, value, href }) => (
-                  <div key={label} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-500/15 flex items-center justify-center text-primary-600 dark:text-primary-400">
-                      <Icon size={15} />
+                  <div key={label} className="flex items-start gap-2 sm:gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-primary-100 dark:bg-primary-500/15 flex items-center justify-center text-primary-600 dark:text-primary-400">
+                      <Icon size={12} />
                     </div>
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-0.5">{label}</p>
+                      <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 mb-0.5">{label}</p>
                       {href ? (
-                        <a href={href} className="font-sans text-sm text-gray-800 dark:text-gray-200 hover:text-primary-500 transition-colors">
+                        <a href={href} className="font-sans text-[11px] sm:text-sm text-gray-800 dark:text-gray-200 hover:text-primary-500 transition-colors">
                           {value}
                         </a>
                       ) : (
-                        <p className="font-sans text-sm text-gray-800 dark:text-gray-200">{value}</p>
+                        <p className="font-sans text-[11px] sm:text-sm text-gray-800 dark:text-gray-200">{value}</p>
                       )}
                     </div>
                   </div>
@@ -199,21 +200,21 @@ const ContactSection = () => {
               size="lg"
               className="border border-gray-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.02]"
             >
-              <h3 className="font-display text-base font-semibold text-gray-900 dark:text-white tracking-wide mb-4">
+              <h3 className="font-display text-sm sm:text-base font-semibold text-gray-900 dark:text-white tracking-wide mb-3 sm:mb-4">
                 Hours of Operation
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-1 sm:space-y-2">
                 {hours.map(({ day, time }) => (
-                  <div key={day} className="flex justify-between items-center py-1 border-b border-gray-100 dark:border-white/[0.05] last:border-0">
-                    <span className="font-sans text-xs text-gray-600 dark:text-gray-400">{day}</span>
-                    <span className="font-mono text-xs text-gray-800 dark:text-gray-200">{time}</span>
+                  <div key={day} className="flex justify-between items-center py-0.5 sm:py-1 border-b border-gray-100 dark:border-white/[0.05] last:border-0">
+                    <span className="font-sans text-[10px] sm:text-xs text-gray-600 dark:text-gray-400">{day}</span>
+                    <span className="font-mono text-[10px] sm:text-xs text-gray-800 dark:text-gray-200">{time}</span>
                   </div>
                 ))}
               </div>
             </Card>
 
             {/* Social links */}
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center gap-2 sm:gap-3 pt-1">
               {socials.map(({ Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -223,9 +224,9 @@ const ContactSection = () => {
                   aria-label={label}
                   whileHover={{ scale: 1.12, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:border-primary-500 hover:text-primary-500 transition-all duration-200"
+                  className="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-gray-200 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:border-primary-500 hover:text-primary-500 transition-all duration-200"
                 >
-                  <Icon size={18} />
+                  <Icon size={14} />
                 </motion.a>
               ))}
             </div>

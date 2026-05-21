@@ -63,12 +63,12 @@ const NavBar = () => {
   return (
     <section className="relative">
       {/* ── Fixed bar ─────────────────────────────────────────────────────── */}
-      <header className="fixed top-0 w-full z-40 h-16 md:h-20
+      <header className="fixed top-0 w-full z-40 h-12 sm:h-16 md:h-20
         bg-black/30 backdrop-blur-md border-b border-white/5 shadow-lg">
         <div className="container mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" className="text-xl lg:text-2xl font-bold text-gray-100 dark:text-white z-50">
+          <Link to="/" className="text-base sm:text-xl lg:text-2xl font-bold text-gray-100 dark:text-white z-50">
             D<span style={{ color: colors.primary[500] }}>r.</span> Dre
           </Link>
 
@@ -91,12 +91,12 @@ const NavBar = () => {
             onClick={() => setOpen(true)}
             aria-label="Open menu"
             className="md:hidden z-50 flex items-center justify-center
-              w-10 h-10 rounded-xl
+              w-8 h-8 sm:w-10 sm:h-10 rounded-xl
               bg-gradient-to-br from-indigo-600 to-indigo-800
               shadow-lg shadow-indigo-900/40
               text-white"
           >
-            <Menu size={20} />
+            <Menu size={16} />
           </button>
         </div>
       </header>
@@ -136,14 +136,14 @@ const NavBar = () => {
               />
 
               {/* ── Drawer content ── */}
-              <div className="relative z-10 px-5 pt-5 pb-8 flex flex-col gap-6">
+              <div className="relative z-10 px-4 pt-4 pb-6 flex flex-col gap-4">
 
                 {/* Header row */}
                 <div className="flex items-center justify-between">
                   <Link
                     to="/"
                     onClick={() => setOpen(false)}
-                    className="text-xl font-bold text-white"
+                    className="text-base font-bold text-white"
                   >
                     D<span style={{ color: colors.primary[400] }}>r.</span> Dre
                   </Link>
@@ -185,20 +185,20 @@ const NavBar = () => {
                       <Link
                         to={hrefFor(item)}
                         onClick={() => setOpen(false)}
-                        className="group flex items-center gap-4 px-4 py-3.5 rounded-2xl
+                        className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl
                           bg-white/[0.03] border border-white/[0.06]
                           hover:bg-indigo-500/10 hover:border-indigo-500/20
                           transition-all duration-200"
                       >
                         {/* Icon bubble */}
-                        <div className="flex items-center justify-center w-9 h-9 rounded-xl
+                        <div className="flex items-center justify-center w-7 h-7 rounded-xl
                           bg-indigo-500/10 border border-indigo-500/15
                           text-indigo-400 group-hover:bg-indigo-500/20
                           transition-colors shrink-0">
-                          <item.Icon size={16} />
+                          <item.Icon size={14} />
                         </div>
 
-                        <span className="text-sm font-medium text-gray-200
+                        <span className="text-[12px] font-medium text-gray-200
                           group-hover:text-indigo-300 transition-colors">
                           {item.label}
                         </span>
@@ -224,15 +224,15 @@ const NavBar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.45 }}
                   className="flex items-center justify-between
-                    px-4 py-3 rounded-2xl
+                    px-3 py-2.5 rounded-2xl
                     bg-white/[0.03] border border-white/[0.06]"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center
+                    <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-xl flex items-center justify-center
                       bg-indigo-500/10 border border-indigo-500/15 text-indigo-400">
-                      <Moon size={16} />
+                      <Moon size={14} />
                     </div>
-                    <span className="text-sm font-medium text-gray-300">Appearance</span>
+                    <span className="text-[12px] font-medium text-gray-300">Appearance</span>
                   </div>
                   <ThemeToggle />
                 </motion.div>

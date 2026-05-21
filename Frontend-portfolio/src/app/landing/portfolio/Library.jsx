@@ -26,7 +26,7 @@ const ProjectCard = ({ project, onSelect }) => (
       onClick={() => onSelect(project)}
       className="h-full flex flex-col overflow-hidden group border border-gray-200 dark:border-white/[0.07]"
     >
-      <div className="relative h-44 overflow-hidden bg-gray-100 dark:bg-gray-800">
+      <div className="relative h-36 sm:h-44 overflow-hidden bg-gray-100 dark:bg-gray-800">
         {project.video ? (
           <VideoCard
             src={project.video}
@@ -48,9 +48,9 @@ const ProjectCard = ({ project, onSelect }) => (
           </span>
         )}
       </div>
-      <div className="flex flex-col flex-1 p-4">
-        <h3 className="font-display text-sm font-semibold text-gray-900 dark:text-white mb-1.5 line-clamp-1">{project.title}</h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-3 line-clamp-2">{project.description}</p>
+      <div className="flex flex-col flex-1 p-3 sm:p-4">
+        <h3 className="font-display text-[12px] sm:text-sm font-semibold text-gray-900 dark:text-white mb-1 line-clamp-1">{project.title}</h3>
+        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-2 sm:mb-3 line-clamp-2">{project.description}</p>
         {project.technologies?.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {project.technologies.slice(0, 3).map((t) => (
@@ -102,38 +102,38 @@ const Library = () => {
       <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.dots} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: glows.dual }} />
 
-      <div className="relative z-10 w-full max-w-[90rem] mx-auto px-6 md:px-14">
+      <div className="relative z-10 w-full max-w-[90rem] mx-auto px-3 sm:px-6 md:px-14">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 sm:mb-10">
           <span className={pill}>All Projects</span>
-          <h1 className="font-display text-3xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-wide mt-4 mb-2">
+          <h1 className="font-display text-xl sm:text-3xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-wide mt-3 sm:mt-4 mb-2">
             Project Library
           </h1>
           <div className={sectionDivider} />
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-4 max-w-lg mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 text-[11px] sm:text-sm mt-2 sm:mt-4 max-w-lg mx-auto">
             Browse all projects — filter by category or search by name, description, or technology.
           </p>
         </div>
 
         {/* Search */}
-        <div className="relative max-w-md mx-auto mb-8">
-          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+        <div className="relative max-w-md mx-auto mb-5 sm:mb-8">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search projects…"
-            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
+            className="w-full pl-8 sm:pl-10 pr-4 py-2 sm:py-2.5 text-[12px] sm:text-sm rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
           />
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-5 sm:mb-10">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`px-5 py-2 rounded-full font-display text-xs font-semibold tracking-wide transition-all duration-200
+              className={`px-3 py-1 sm:px-5 sm:py-2 rounded-full font-display text-[10px] sm:text-xs font-semibold tracking-wide transition-all duration-200
                 ${activeTab === cat
                   ? 'bg-primary-600 text-white'
                   : 'text-gray-500 dark:text-gray-400 hover:text-primary-500 border border-gray-200 dark:border-white/10'
@@ -146,7 +146,7 @@ const Library = () => {
 
         {/* Count */}
         {!isLoading && (
-          <p className="text-xs text-gray-400 dark:text-neutral-500 text-center mb-6">
+          <p className="text-[10px] sm:text-xs text-gray-400 dark:text-neutral-500 text-center mb-4 sm:mb-6">
             Showing {displayed.length} project{displayed.length !== 1 ? 's' : ''}
           </p>
         )}
@@ -166,7 +166,7 @@ const Library = () => {
             variants={staggerContainer(0.05, 0.03)}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
           >
             {displayed.map((project, i) => (
               <ProjectCard key={project.id ?? i} project={project} onSelect={handleSelect} />
@@ -178,10 +178,10 @@ const Library = () => {
       {/* FAB */}
       <button
         onClick={() => navigate('/auth/new')}
-        className="fixed bottom-[10%] lg:right-20 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-primary-600 hover:bg-primary-700 text-white shadow-lg transition-colors"
+        className="fixed bottom-[10%] lg:right-20 right-4 z-50 flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-primary-600 hover:bg-primary-700 text-white shadow-lg transition-colors"
         aria-label="Add new project"
       >
-        <Plus size={22} />
+        <Plus size={18} />
       </button>
     </section>
   );
