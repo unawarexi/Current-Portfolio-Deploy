@@ -6,7 +6,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { useEditProjectUsecase } from '@app/usecases/project-usecase';
 import { PageLoader } from '@components/ui/Spinner';
 import { ArrowLeft } from '@core/constants/icons';
-import TabbedForm from './TabbedForm';
+import TabbedForm from '@landing/projects/TabbedForm';
 
 const EditProjectPage = () => {
   const { id, project, isLoading, onSuccess } = useEditProjectUsecase();
