@@ -2,15 +2,15 @@
 // ABOUT SECTION — dynamic: fetches profile from API, falls back to static copy
 // ============================================================================
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Images from '@core/constants/Images';
 import { sectionBase, sectionDivider, pill, glows, patterns } from '@core/decorative';
 import { fadeInLeft, fadeInRight, staggerContainer, staggerItem } from '@core/animations/FramerAnimations';
 import { Card } from '@components/ui';
-import { Activity, Shield, Clock, ArrowRight, ChevronRight } from '@core/constants/icons';
+import { Activity, Shield, Clock, ArrowRight, ChevronRight, Pencil, BookOpen } from '@core/constants/icons';
 import { EmptyState } from '@components/shared';
-import { useAbout } from '@hooks/api-hooks/useAbout';
-import { useAboutStore } from '@store/about.store';
+import { useAboutSectionUsecase } from '@app/usecases/about-usecase';
 import Skills from './Skills';
 import Metrics from './Metrics';
 import Socials from './Socials';
@@ -28,29 +28,8 @@ const FEATURE_ICONS = [Activity, Shield, Clock];
 
 const AboutSection = () => {
   const { isDesktop } = useResponsive();
-  const { data: apiProfile } = useAbout();
-  const { profile: cachedProfile, setProfile } = useAboutStore();
+  const { profile, bio, vision, philosophy, history, mission, goals, values, funFacts, stats } = useAboutSectionUsecase();
   const [expanded, setExpanded] = useState(false);
-
-  // Merge: API > cached store > static
-  const profile = apiProfile ?? cachedProfile ?? {};
-  if (apiProfile && !cachedProfile) setProfile(apiProfile);
-
-  const bio        = profile.bio        || STATIC.bio;
-  const vision     = profile.vision     || STATIC.vision;
-  const philosophy = profile.philosophy || STATIC.philosophy;
-  const history    = profile.history    || '';
-  const mission    = profile.mission    || '';
-  const goals      = profile.goals      || [];
-  const values     = profile.values     || [];
-  const funFacts   = profile.funFacts   || [];
-
-  const stats = [
-    { value: `${profile.yearsOfExperience || 4}+`,  label: 'Years' },
-    { value: `${profile.projectsCount || 50}+`,      label: 'Projects' },
-    { value: `${profile.rating || 4.9}`,             label: 'Rating' },
-    { value: `${profile.clientsCount || 20}+`,       label: 'Clients' },
-  ];
 
   const featureCards = [
     { icon: Activity, title: 'Why Choose Me?',  body: bio.slice(0, 160) + (bio.length > 160 ? '…' : '') },
@@ -100,6 +79,14 @@ const AboutSection = () => {
                 className="px-5 py-2 sm:px-8 sm:py-3 rounded-full border border-primary-500/40 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 font-display font-semibold tracking-wide text-[11px] sm:text-sm transition-colors">
                 Skills »
               </a>
+              <Link to="/about"
+                className="inline-flex items-center gap-1.5 px-5 py-2 sm:px-8 sm:py-3 rounded-full border border-accent-500/40 text-accent-600 dark:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-500/10 font-display font-semibold tracking-wide text-[11px] sm:text-sm transition-colors">
+                <BookOpen size={13} /> Know More
+              </Link>
+              {/* <Link to="/auth/edit-about"
+                className="inline-flex items-center gap-1.5 px-5 py-2 sm:px-8 sm:py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-400 font-display font-semibold tracking-wide text-[11px] sm:text-sm transition-colors">
+                <Pencil size={12} /> Update Profile
+              </Link> */}
             </div>
 
             {/* Stats */}

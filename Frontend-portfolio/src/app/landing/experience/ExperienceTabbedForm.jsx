@@ -27,8 +27,8 @@ const textareaCls = `${inputCls} resize-none`;
 
 const ExperienceTabbedForm = ({ editItem = null, onSuccess }) => {
   const uc = useExperienceFormUsecase(editItem);
-  const currentIdx = TABS.findIndex((t) => t.id === (uc.activeTab || 'basics'));
-  const [activeTab, setActiveTab] = React.useState('basics');
+  const { activeTab, setActiveTab } = uc;
+  const currentIdx = TABS.findIndex((t) => t.id === activeTab);
 
   const errCount = (tab) => tab.fields.filter((f) => uc.formErrors[f]).length;
 

@@ -29,7 +29,7 @@ const textareaCls = `${inputCls} resize-none`;
 
 const AboutTabbedForm = ({ onSuccess }) => {
   const uc = useAboutFormUsecase();
-  const [activeTab, setActiveTab] = React.useState('identity');
+  const { activeTab, setActiveTab } = uc;
   const currentIdx = TABS.findIndex((t) => t.id === activeTab);
 
   const errCount = (tab) => tab.fields.filter((f) => uc.formErrors[f]).length;

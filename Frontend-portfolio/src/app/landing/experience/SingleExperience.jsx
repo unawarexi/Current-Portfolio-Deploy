@@ -5,7 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useSingleExperienceUsecase } from '@app/usecases/experience-usecase';
-import { ArrowLeft, Briefcase, Calendar, Check, Activity } from '@core/constants/icons';
+import { ArrowLeft, Briefcase, Calendar, Check, Activity, Pencil } from '@core/constants/icons';
 import { Badge } from '@components/ui';
 import { cn } from '@utils/cn';
 import { glows } from '@core/decorative';
@@ -29,7 +29,7 @@ const ListBullet = ({ items }) => (
 );
 
 const SingleExperience = () => {
-  const { item, isLoading } = useSingleExperienceUsecase();
+  const { item, isLoading, handleEdit } = useSingleExperienceUsecase();
 
   if (isLoading && !item) {
     return (
@@ -147,13 +147,19 @@ const SingleExperience = () => {
         )}
 
         {/* CTA */}
-        <div className="py-12 flex items-center justify-between">
+        <div className="py-12 flex items-center justify-between flex-wrap gap-4">
           <Link
             to="/#experience"
             className="flex items-center gap-2 text-sm text-gray-500 hover:text-primary-500 transition font-medium"
           >
             <ArrowLeft size={14} /> Back to Experience
           </Link>
+          <button
+            onClick={handleEdit}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition"
+          >
+            <Pencil size={13} /> Update Experience
+          </button>
         </div>
       </div>
     </div>

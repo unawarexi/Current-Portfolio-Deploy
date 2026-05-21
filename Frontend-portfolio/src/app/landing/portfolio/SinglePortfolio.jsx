@@ -3,11 +3,10 @@
 // Fetches by :id from URL; falls back to Zustand store if navigated via card.
 // ============================================================================
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { usePortfolioStore } from '@store/portfolio.store';
-import { useProject } from '@hooks/api-hooks/useProjects';
-import { ArrowLeft, Github, ExternalLink, MapPin, Download, Calendar, User, Clock, Briefcase } from '@core/constants/icons';
+import { useSingleProjectUsecase } from '@app/usecases/project-usecase';
+import { ArrowLeft, Github, ExternalLink, MapPin, Download, Calendar, User, Clock, Briefcase, Pencil } from '@core/constants/icons';
 import { Badge } from '@components/ui';
 import { cn } from '@utils/cn';
 import { glows, patterns } from '@core/decorative';
@@ -79,13 +78,8 @@ const Lightbox = ({ images, index, onClose }) => {
 
 // ─── Main component ──────────────────────────────────────────────────────
 const SinglePortfolio = () => {
-  const { id } = useParams();
-  const { selectedProject } = usePortfolioStore();
-  const { data: apiProject, isLoading } = useProject(id);
+  const { project, isLoading, handleEdit } = useSingleProjectUsecase();
   const [lightboxIdx, setLightboxIdx] = useState(null);
-
-  // Prefer freshly fetched data; fall back to cached store
-  const project = apiProject ?? selectedProject;
 
   // ── Loading ───────────────────────────────────────────────────────────
   if (isLoading && !project) {
@@ -151,6 +145,14 @@ const SinglePortfolio = () => {
         >
           <ArrowLeft size={14} /> All Projects
         </Link>
+
+        {/* Update */}
+        <button
+          onClick={handleEdit}
+          className="absolute top-6 right-6 flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium backdrop-blur-sm bg-black/20 hover:bg-black/40 px-3 py-1.5 rounded-full transition"
+        >
+          <Pencil size={13} /> Update
+        </button>
 
         {/* Title overlay */}
         <motion.div
