@@ -26,6 +26,21 @@ const { seedAdmin } = require('./modules/auth/auth.seed');
 const app = express();
 
 // ============================================================================
+// TRUST PROXY (required for accurate client IP behind reverse proxies)
+// Supports: true/false, numeric hop count (e.g. 1), or named presets.
+// Defaults to 1 so express-rate-limit can safely read X-Forwarded-For.
+// ============================================================================
+const rawTrustProxy = (process.env.TRUST_PROXY || '1').trim();
+const trustProxy =
+  rawTrustProxy === 'true'  ? true :
+  rawTrustProxy === 'false' ? false :
+  /^\d+$/.test(rawTrustProxy) ? Number(rawTrustProxy) :
+  rawTrustProxy;
+
+app.set('trust proxy', trustProxy);
+logger.info(`Express trust proxy set to: ${String(trustProxy)}`);
+
+// ============================================================================
 // CORS
 // ============================================================================
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
