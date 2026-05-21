@@ -1,31 +1,43 @@
 // ============================================================================
-// Auth Service — single-admin password authentication + JWT issuance
+// Auth Service — username + bcrypt password authentication against Firestore
 // ============================================================================
-const jwt = require('jsonwebtoken');
+'use strict';
+
+const bcrypt = require('bcrypt');
+const jwt    = require('jsonwebtoken');
+const { db } = require('../../config/firebase.config');
 
 const JWT_SECRET  = process.env.JWT_SECRET  || 'portfolio-jwt-secret';
 const JWT_EXPIRES = process.env.JWT_EXPIRES || '8h';
+const COLLECTION  = 'admins';
 
 /**
- * Validate the submitted password against APP_PASSWORD env var.
- * Returns a signed JWT on success, throws on failure.
+ * Look up admin by username in Firestore, verify bcrypt hash, issue JWT.
+ * @param {string} username
  * @param {string} password
  * @returns {{ token: string, expiresIn: string }}
  */
-const login = (password) => {
-  const appPassword = process.env.APP_PASSWORD;
+const login = async (username, password) => {
+  const snapshot = await db
+    .collection(COLLECTION)
+    .where('username', '==', username)
+    .limit(1)
+    .get();
 
-  if (!appPassword) {
-    throw new Error('APP_PASSWORD is not configured on the server.');
-  }
+  // Use a constant-time path for both "not found" and "wrong password"
+  // to avoid user enumeration.
+  const found = !snapshot.empty ? snapshot.docs[0].data() : null;
+  const hashToCheck = found?.passwordHash ?? '$2b$12$invalidhashpaddingtoconsumetime00000000000000000000000';
 
-  if (password !== appPassword) {
-    const err = new Error('Invalid password.');
+  const match = await bcrypt.compare(password, hashToCheck);
+
+  if (!found || !match) {
+    const err = new Error('Invalid credentials.');
     err.statusCode = 401;
     throw err;
   }
 
-  const payload = { role: 'admin' };
+  const payload = { role: found.role ?? 'admin', username: found.username };
   const token   = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
 
   return { token, expiresIn: JWT_EXPIRES };
@@ -38,3 +50,4 @@ const login = (password) => {
 const verifyToken = (token) => jwt.verify(token, JWT_SECRET);
 
 module.exports = { login, verifyToken };
+

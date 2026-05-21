@@ -11,22 +11,22 @@ const log = createLogger('Auth');
 
 /**
  * POST /api/auth/login
- * Body: { password: string }
+ * Body: { username: string, password: string }
  */
-const login = (req, res) => {
+const login = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { username, password } = req.body;
 
-    if (!password) {
+    if (!username || !password) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         success: false,
-        error: { code: ErrorCodes.MISSING_FIELD, message: 'Password is required.' },
+        error: { code: ErrorCodes.MISSING_FIELD, message: 'Username and password are required.' },
       });
     }
 
-    const result = authService.login(password);
+    const result = await authService.login(username, password);
 
-    log.info('Admin login successful');
+    log.info(`Admin login successful: ${username}`);
 
     return res.status(HttpStatus.OK).json({
       success: true,
@@ -50,3 +50,4 @@ const login = (req, res) => {
 };
 
 module.exports = { login };
+

@@ -20,6 +20,9 @@ const aboutRoutes      = require('./modules/about/about.routes');
 // Initialise Cloudinary config on startup
 require('./config/cloudinary.config');
 
+// Seed admin user into Firestore on startup
+const { seedAdmin } = require('./modules/auth/auth.seed');
+
 const app = express();
 
 // ============================================================================
@@ -96,7 +99,8 @@ app.use((err, _req, res, _next) => {
 // ============================================================================
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   logger.info(`Server running on port ${PORT}`);
+  await seedAdmin();
   logger.info('Routes: POST /api/auth/login | GET|POST /api/projects | POST /api/upload');
 });
