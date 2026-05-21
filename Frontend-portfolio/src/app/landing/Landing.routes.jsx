@@ -13,6 +13,7 @@ import LandingPage from '@landing/LandingPage';
 const Library         = lazy(() => import('@landing/portfolio/Library'));
 const SinglePortfolio = lazy(() => import('@landing/portfolio/SinglePortfolio'));
 const SingleExperience = lazy(() => import('@landing/experience/SingleExperience'));
+const AboutDetail     = lazy(() => import('@landing/about/AboutDetail'));
 
 // ============================================================================
 // LANDING ROUTES COMPONENT
@@ -29,6 +30,9 @@ const LandingRoutes = () => (
 
       {/* Experience detail */}
       <Route path="experience/:id" element={<SingleExperience />} />
+
+      {/* About blog page */}
+      <Route path="about" element={<AboutDetail />} />
     </Routes>
   </Suspense>
 );

@@ -3,15 +3,14 @@
 // ============================================================================
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { Spinner } from '@components/ui/Spinner';
 import { Button } from '@components/ui';
 import { Input } from '@components/ui';
 import Images from '@core/constants/Images';
-import { useAuthStore } from '@store/auth.store';
 import { Shield, AlertTriangle, BadgeCheck, X } from '@core/constants/icons';
 import { glows, patterns, pill } from '@core/decorative';
 import { staggerContainer, staggerItem, fadeInUp } from '@core/animations/FramerAnimations';
+import { useLoginUsecase } from '@app/usecases/auth-usecase';
 
 // ─── Animated floating ring ───────────────────────────────────────────────────
 const Ring = ({ size, opacity, delay }) => (
@@ -70,28 +69,19 @@ const FailModal = ({ onClose }) => (
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const Confirmation = () => {
-  const [input,   setInput]           = useState('');
-  const [loading, setLoading]         = useState(false);
-  const [showModal, setShowModal]     = useState(false);
-  const [success, setSuccess]         = useState(false);
+  const [username,  setUsername]  = useState('');
+  const [input,     setInput]     = useState('');
+  const [showModal, setShowModal] = useState(false);
 
-  const authID    = import.meta.env.VITE_APP_PASSWORD;
-  const { login } = useAuthStore();
-  const navigate  = useNavigate();
+  const { submit, isLoading, isAuthenticated } = useLoginUsecase();
+  const success = isAuthenticated && !isLoading;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e?.preventDefault();
-    if (!input.trim()) return;
-
-    if (input === authID) {
-      setLoading(true);
-      setSuccess(true);
-      login({ role: 'admin' });
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/auth/new');
-      }, 1400);
-    } else {
+    if (!username.trim() || !input.trim() || isLoading) return;
+    try {
+      await submit(username.trim(), input);
+    } catch {
       setShowModal(true);
     }
   };
@@ -155,12 +145,25 @@ const Confirmation = () => {
               Secure Login
             </h1>
             <p className="font-sans text-sm text-gray-400 mt-2 text-center leading-relaxed">
-              Enter your admin password to access the portfolio dashboard.
+              Enter your admin credentials to access the portfolio dashboard.
             </p>
           </motion.div>
 
           {/* ── Form ────────────────────────────────────────────────── */}
-          <motion.form variants={staggerItem} onSubmit={handleSubmit} className="space-y-5">
+          <motion.form variants={staggerItem} onSubmit={handleSubmit} className="space-y-4">
+            <Input
+              type="text"
+              label="Username"
+              placeholder="Enter username…"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              size="lg"
+              variant="default"
+              autoComplete="username"
+              disabled={isLoading}
+              autoFocus
+            />
+
             <Input
               type="password"
               label="Admin Password"
@@ -171,8 +174,8 @@ const Confirmation = () => {
               variant="default"
               leftIcon={<Shield size={16} />}
               showPasswordToggle
-              disabled={loading}
-              autoFocus
+              autoComplete="current-password"
+              disabled={isLoading}
             />
 
             <Button
@@ -180,10 +183,10 @@ const Confirmation = () => {
               variant={success ? 'secondary' : 'primary'}
               size="lg"
               fullWidth
-              isLoading={loading}
-              isDisabled={loading || !input.trim()}
+              isLoading={isLoading}
+              isDisabled={isLoading || !username.trim() || !input.trim()}
             >
-              {loading ? 'Authenticating…' : success ? 'Redirecting…' : 'Confirm Identity'}
+              {isLoading ? 'Authenticating…' : success ? 'Redirecting…' : 'Confirm Identity'}
             </Button>
           </motion.form>
 

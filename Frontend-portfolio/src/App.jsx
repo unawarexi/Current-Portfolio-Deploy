@@ -22,6 +22,8 @@ const Confirmation         = lazy(() => import('@app/auth/Confirmation'));
 const TabbedForm           = lazy(() => import('@landing/projects/TabbedForm'));
 const ExperienceTabbedForm = lazy(() => import('@landing/experience/ExperienceTabbedForm'));
 const AboutTabbedForm      = lazy(() => import('@landing/about/AboutTabbedForm'));
+const EditProjectPage      = lazy(() => import('@landing/portfolio/EditProjectPage'));
+const EditExperiencePage   = lazy(() => import('@landing/experience/EditExperiencePage'));
 
 // ========================
 // SCROLL TO HASH
@@ -81,6 +83,26 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <AboutTabbedForm />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* Protected admin form — edit existing project */}
+                <Route
+                  path="/auth/edit-project/:id"
+                  element={
+                    <ProtectedRoute>
+                      <EditProjectPage />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* Protected admin form — edit existing experience */}
+                <Route
+                  path="/auth/edit-experience/:id"
+                  element={
+                    <ProtectedRoute>
+                      <EditExperiencePage />
                     </ProtectedRoute>
                   }
                 />
