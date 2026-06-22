@@ -4,7 +4,6 @@
 // ============================================================================
 
 import mongoose from "mongoose";
-import "dotenv/config.js";
 import { createLogger } from "../logs/logger.js";
 const log = createLogger("MongoDB");
 
