@@ -1,11 +1,10 @@
 // ============================================================================
 // Auth Controller — handles POST /api/auth/login
 // ============================================================================
-'use strict';
 
-const authService                = require('./auth.service');
-const { HttpStatus, ErrorCodes } = require('../../config/constants');
-const { createLogger }           = require('../../logs/logger');
+import * as authService from './auth.service.js';
+import { HttpStatus, ErrorCodes } from '../../config/constants.js';
+import { createLogger } from '../../logs/logger.js';
 
 const log = createLogger('Auth');
 
@@ -49,5 +48,5 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+export { login };
 

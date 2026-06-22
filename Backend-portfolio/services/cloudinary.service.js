@@ -1,7 +1,7 @@
 // ============================================================================
 // Cloudinary Service — upload & delete helpers
 // ============================================================================
-const cloudinary = require('../config/cloudinary.config');
+import cloudinary from '../config/cloudinary.config.js';
 
 /**
  * Upload a raw buffer to Cloudinary.
@@ -53,4 +53,4 @@ const deleteFile = (publicId) =>
 const deleteMany = (publicIds) =>
   Promise.all(publicIds.map((id) => deleteFile(id).catch(() => {})));
 
-module.exports = { uploadBuffer, uploadMany, deleteFile, deleteMany, uploadRaw: uploadBuffer };
+export { uploadBuffer, uploadMany, deleteFile, deleteMany, uploadBuffer as uploadRaw };

@@ -1,16 +1,21 @@
 // ============================================================================
 // PROJECT SCHEMA — Zod validation for project creation / update
 // ============================================================================
-'use strict';
 
-const { z } = require('zod');
+import { z } from 'zod';
 
-// Accepts a valid URL string OR an empty string (optional field)
-const urlOptional = z
-  .string()
-  .refine((v) => v === '' || /^https?:\/\/.+/.test(v), { message: 'Must be a valid URL' })
+// Accepts a string of comma-separated URLs or an array of URL strings
+const urlsOptional = z
+  .preprocess((val) => {
+    if (typeof val === 'string') {
+      return val.split(',').map((v) => v.trim()).filter(Boolean);
+    }
+    return val || [];
+  }, z.array(
+    z.string().refine((v) => /^https?:\/\/.+/.test(v), { message: 'Must be a valid URL' })
+  ))
   .optional()
-  .default('');
+  .default([]);
 
 // ============================================================================
 // SCHEMA
@@ -39,11 +44,11 @@ const projectSchema = z.object({
   results:        z.string().max(3000).optional().default(''),
 
   // ── Links ────────────────────────────────────────────────────────────────
-  githubLink:     urlOptional,
-  googlePlayLink: urlOptional,
-  appStoreLink:   urlOptional,
-  webLiveLink:    urlOptional,
-  videoUrl:       urlOptional,
+  githubLinks:     urlsOptional,
+  googlePlayLinks: urlsOptional,
+  appStoreLinks:   urlsOptional,
+  webLiveLinks:    urlsOptional,
+  videoUrls:       urlsOptional,
 
   // ── Tech + Media (populated by controller after Cloudinary upload) ───────
   technologies:   z.array(z.string()).optional().default([]),
@@ -54,4 +59,4 @@ const projectSchema = z.object({
 // Partial version for PATCH (all fields optional)
 const projectUpdateSchema = projectSchema.partial().omit({ coverImages: true, projectImages: true });
 
-module.exports = { projectSchema, projectUpdateSchema };
+export { projectSchema, projectUpdateSchema };

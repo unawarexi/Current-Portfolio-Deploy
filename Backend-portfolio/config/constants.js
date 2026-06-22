@@ -40,4 +40,4 @@ const Upload = {
   ALLOWED_MIMETYPES: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
 };
 
-module.exports = { HttpStatus, ErrorCodes, RateLimits, Upload };
+export { HttpStatus, ErrorCodes, RateLimits, Upload };

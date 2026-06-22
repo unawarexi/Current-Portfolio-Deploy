@@ -194,11 +194,21 @@ const SinglePortfolio = () => {
           </p>
           {/* Quick links */}
           <div className="flex flex-wrap gap-3 mt-6">
-            <LinkButton href={project.githubLink}     icon={Github}      label="Source Code"  />
-            <LinkButton href={project.webLiveLink}    icon={ExternalLink}       label="Live Demo"    variant="primary" />
-            <LinkButton href={project.googlePlayLink} icon={Download}  label="Google Play"  />
-            <LinkButton href={project.appStoreLink}   icon={Download}  label="App Store"    />
-            <LinkButton href={project.videoUrl}       icon={Download}        label="Watch Demo"   />
+            {(project.githubLinks?.length > 0 ? project.githubLinks : (project.githubLink ? [project.githubLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={Github} label="Source Code" />
+            ))}
+            {(project.webLiveLinks?.length > 0 ? project.webLiveLinks : (project.webLiveLink ? [project.webLiveLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={ExternalLink} label="Live Demo" variant="primary" />
+            ))}
+            {(project.googlePlayLinks?.length > 0 ? project.googlePlayLinks : (project.googlePlayLink ? [project.googlePlayLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={Download} label="Google Play" />
+            ))}
+            {(project.appStoreLinks?.length > 0 ? project.appStoreLinks : (project.appStoreLink ? [project.appStoreLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={Download} label="App Store" />
+            ))}
+            {(project.videoUrls?.length > 0 ? project.videoUrls : (project.videoUrl ? [project.videoUrl] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={Download} label="Watch Demo" />
+            ))}
           </div>
         </Section>
 
@@ -293,8 +303,12 @@ const SinglePortfolio = () => {
             <ArrowLeft size={14} /> Back to all projects
           </Link>
           <div className="flex flex-wrap gap-3">
-            <LinkButton href={project.githubLink}  icon={Github} label="Source Code" />
-            <LinkButton href={project.webLiveLink} icon={ExternalLink}  label="Live Demo"   variant="primary" />
+            {(project.githubLinks?.length > 0 ? project.githubLinks : (project.githubLink ? [project.githubLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={Github} label="Source Code" />
+            ))}
+            {(project.webLiveLinks?.length > 0 ? project.webLiveLinks : (project.webLiveLink ? [project.webLiveLink] : [])).map((link, i) => (
+              <LinkButton key={i} href={link} icon={ExternalLink} label="Live Demo" variant="primary" />
+            ))}
           </div>
         </div>
       </div>

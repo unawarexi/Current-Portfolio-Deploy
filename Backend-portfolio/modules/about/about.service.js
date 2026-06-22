@@ -1,6 +1,5 @@
-'use strict';
-const { db }           = require('../../config/firebase.config');
-const { createLogger } = require('../../logs/logger');
+import { db } from '../../config/firebase.config.js';
+import { createLogger } from '../../logs/logger.js';
 const log              = createLogger('About');
 const DOC_ID           = 'profile';   // single document in 'about' collection
 
@@ -21,4 +20,4 @@ const updateCv = async (cvUrl) => {
   log.info('CV updated', { cvUrl });
 };
 
-module.exports = { get, upsert, updateCv };
+export { get, upsert, updateCv };

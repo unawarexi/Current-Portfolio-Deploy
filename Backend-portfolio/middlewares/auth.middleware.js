@@ -1,8 +1,8 @@
 // ============================================================================
 // Auth Middleware — verify JWT Bearer token on protected routes
 // ============================================================================
-const jwt = require('jsonwebtoken');
-const { HttpStatus, ErrorCodes } = require('../config/constants');
+import jwt from 'jsonwebtoken';
+import { HttpStatus, ErrorCodes } from '../config/constants.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'portfolio-jwt-secret';
 
@@ -33,4 +33,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, verifyToken: authenticate };
+export { authenticate, authenticate as verifyToken };

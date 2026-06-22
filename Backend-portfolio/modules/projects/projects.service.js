@@ -1,32 +1,98 @@
 // ============================================================================
-// Projects Service — Firestore CRUD via Firebase Admin SDK
-// Each project document stores Cloudinary URLs as strings alongside form data.
+// Projects Service — Firestore CRUD via Firebase Admin SDK + MongoDB for Links
+// Each project document stores form data in Firestore, while image URLs
+// and multiple links are stored in MongoDB.
 // ============================================================================
-'use strict';
 
-const { db }           = require('../../config/firebase.config');
-const { createLogger } = require('../../logs/logger');
+import { db } from '../../config/firebase.config.js';
+import { createLogger } from '../../logs/logger.js';
+import ProjectLinks from './projectLinks.model.js';
 
 const log        = createLogger('Projects');
 const COLLECTION = 'projects';
+
+// ============================================================================
+// HELPERS
+// ============================================================================
+
+const extractLinks = (data) => {
+  const {
+    coverImages = [],
+    projectImages = [],
+    githubLinks = [],
+    googlePlayLinks = [],
+    appStoreLinks = [],
+    webLiveLinks = [],
+    videoUrls = [],
+    ...firebaseData
+  } = data;
+  return {
+    firebaseData,
+    mongoData: {
+      coverImages,
+      projectImages,
+      githubLinks,
+      googlePlayLinks,
+      appStoreLinks,
+      webLiveLinks,
+      videoUrls,
+    }
+  };
+};
+
+const mergeProjectData = async (firebaseDoc) => {
+  const data = firebaseDoc.data();
+  const id = firebaseDoc.id;
+  try {
+    const links = await ProjectLinks.findOne({ firebaseProjectId: id }).lean();
+    if (links) {
+      return {
+        id,
+        ...data,
+        coverImages: links.coverImages || [],
+        projectImages: links.projectImages || [],
+        githubLinks: links.githubLinks || [],
+        googlePlayLinks: links.googlePlayLinks || [],
+        appStoreLinks: links.appStoreLinks || [],
+        webLiveLinks: links.webLiveLinks || [],
+        videoUrls: links.videoUrls || [],
+      };
+    }
+  } catch (err) {
+    log.error('Error fetching MongoDB links', { error: err });
+  }
+  return { id, ...data };
+};
 
 // ============================================================================
 // CREATE
 // ============================================================================
 
 /**
- * Save a new project to Firestore.
- * @param {Object} data — validated project payload (Cloudinary URLs already included)
+ * Save a new project to Firestore and MongoDB.
+ * @param {Object} data — validated project payload
  * @returns {string} — new document ID
  */
 const createProject = async (data) => {
+  const { firebaseData, mongoData } = extractLinks(data);
+
   const payload = {
-    ...data,
+    ...firebaseData,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
 
   const ref = await db.collection(COLLECTION).add(payload);
+  
+  try {
+    await ProjectLinks.create({
+      firebaseProjectId: ref.id,
+      ...mongoData
+    });
+  } catch (err) {
+    log.error('Error saving to MongoDB', { error: err });
+  }
+
   log.info('Project created', { id: ref.id });
   return ref.id;
 };
@@ -51,7 +117,10 @@ const getAllProjects = async (opts = {}) => {
   }
 
   const snap = await query.get();
-  return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  
+  // Fetch MongoDB links concurrently for all projects
+  const projects = await Promise.all(snap.docs.map(mergeProjectData));
+  return projects;
 };
 
 // ============================================================================
@@ -66,7 +135,7 @@ const getProjectById = async (id) => {
   const doc = await db.collection(COLLECTION).doc(id).get();
 
   if (!doc.exists) return null;
-  return { id: doc.id, ...doc.data() };
+  return await mergeProjectData(doc);
 };
 
 // ============================================================================
@@ -84,11 +153,28 @@ const updateProject = async (id, updates) => {
 
   if (!existing.exists) return null;
 
-  await ref.set({ ...updates, updatedAt: new Date().toISOString() }, { merge: true });
+  const { firebaseData, mongoData } = extractLinks(updates);
+
+  if (Object.keys(firebaseData).length > 0) {
+    await ref.set({ ...firebaseData, updatedAt: new Date().toISOString() }, { merge: true });
+  }
+
+  if (Object.keys(mongoData).length > 0) {
+    try {
+      await ProjectLinks.findOneAndUpdate(
+        { firebaseProjectId: id },
+        { $set: mongoData },
+        { upsert: true }
+      );
+    } catch (err) {
+      log.error('Error updating MongoDB links', { error: err });
+    }
+  }
+
   log.info('Project updated', { id });
 
   const updated = await ref.get();
-  return { id: updated.id, ...updated.data() };
+  return await mergeProjectData(updated);
 };
 
 // ============================================================================
@@ -107,8 +193,14 @@ const deleteProject = async (id) => {
   if (!existing.exists) return false;
 
   await ref.delete();
+  try {
+    await ProjectLinks.deleteOne({ firebaseProjectId: id });
+  } catch (err) {
+    log.error('Error deleting MongoDB links', { error: err });
+  }
+
   log.info('Project deleted', { id });
   return true;
 };
 
-module.exports = { createProject, getAllProjects, getProjectById, updateProject, deleteProject };
+export { createProject, getAllProjects, getProjectById, updateProject, deleteProject };

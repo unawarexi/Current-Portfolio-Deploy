@@ -1,13 +1,12 @@
 // ============================================================================
 // Projects Controller — CRUD handlers for /api/projects
 // ============================================================================
-'use strict';
 
-const projectsService                     = require('./projects.service');
-const cloudinaryService                   = require('../../services/cloudinary.service');
-const { projectSchema, projectUpdateSchema } = require('./project.schema');
-const { HttpStatus, ErrorCodes }          = require('../../config/constants');
-const { createLogger }                    = require('../../logs/logger');
+import * as projectsService from './projects.service.js';
+import * as cloudinaryService from '../../services/cloudinary.service.js';
+import { projectSchema, projectUpdateSchema } from './project.schema.js';
+import { HttpStatus, ErrorCodes } from '../../config/constants.js';
+import { createLogger } from '../../logs/logger.js';
 
 const log = createLogger('Projects');
 
@@ -83,11 +82,11 @@ const create = async (req, res) => {
       challenges:     req.body.challenges     || '',
       solution:       req.body.solution       || '',
       results:        req.body.results        || '',
-      githubLink:     req.body.githubLink     || '',
-      googlePlayLink: req.body.googlePlayLink || '',
-      appStoreLink:   req.body.appStoreLink   || '',
-      webLiveLink:    req.body.webLiveLink    || '',
-      videoUrl:       req.body.videoUrl       || '',
+      githubLinks:     req.body.githubLink     || '',
+      googlePlayLinks: req.body.googlePlayLink || '',
+      appStoreLinks:   req.body.appStoreLink   || '',
+      webLiveLinks:    req.body.webLiveLink    || '',
+      videoUrls:       req.body.videoUrl       || '',
       technologies:   JSON.parse(req.body.technologies  || '[]'),
       team:           JSON.parse(req.body.team           || '[]'),
       coverImages:    coverResults.map((r) => r.url),
@@ -181,4 +180,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOne, create, update, remove };
+export { getAll, getOne, create, update, remove };

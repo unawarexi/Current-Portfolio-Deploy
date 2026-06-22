@@ -1,7 +1,7 @@
 // ============================================================================
 // Firebase Admin SDK — initialise once, export db
 // ============================================================================
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 function initFirebase() {
   if (admin.apps.length) return admin.app();
@@ -34,4 +34,4 @@ initFirebase();
 
 const db = admin.firestore();
 
-module.exports = { admin, db };
+export { admin, db };

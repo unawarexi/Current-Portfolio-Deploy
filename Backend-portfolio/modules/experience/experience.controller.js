@@ -1,8 +1,7 @@
-'use strict';
-const service = require('./experience.service');
-const { experienceSchema, experienceUpdateSchema } = require('./experience.schema');
-const { HttpStatus, ErrorCodes } = require('../../config/constants');
-const { createLogger } = require('../../logs/logger');
+import * as service from './experience.service.js';
+import { experienceSchema, experienceUpdateSchema } from './experience.schema.js';
+import { HttpStatus, ErrorCodes } from '../../config/constants.js';
+import { createLogger } from '../../logs/logger.js';
 const log = createLogger('Experience');
 
 const parseArrayField = (val) => {
@@ -83,4 +82,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOne, create, update, remove };
+export { getAll, getOne, create, update, remove };

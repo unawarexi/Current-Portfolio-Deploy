@@ -1,8 +1,8 @@
 // ============================================================================
 // Rate Limit Middleware — express-rate-limit presets (no Redis needed)
 // ============================================================================
-const rateLimit = require('express-rate-limit');
-const { HttpStatus, ErrorCodes, RateLimits } = require('../config/constants');
+import rateLimit from 'express-rate-limit';
+import { HttpStatus, ErrorCodes, RateLimits } from '../config/constants.js';
 
 function createRateLimiter({ windowMs, max, message }) {
   return rateLimit({
@@ -27,4 +27,4 @@ const apiLimiter  = createRateLimiter({ ...RateLimits.API,    message: 'Too many
 const authLimiter = createRateLimiter({ ...RateLimits.AUTH,   message: 'Too many login attempts.'         });
 const uploadLimiter = createRateLimiter({ ...RateLimits.UPLOAD, message: 'Too many upload requests.'     });
 
-module.exports = { createRateLimiter, apiLimiter, authLimiter, uploadLimiter };
+export { createRateLimiter, apiLimiter, authLimiter, uploadLimiter };

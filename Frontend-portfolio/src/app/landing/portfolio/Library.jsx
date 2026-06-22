@@ -65,8 +65,8 @@ const ProjectCard = ({ project, onSelect }) => (
           <span className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-xs font-semibold">
             View Case Study <ArrowRight size={12} />
           </span>
-          {(project.webLiveLink || project.liveLink) && (
-            <a href={project.webLiveLink ?? project.liveLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-gray-400 hover:text-primary-400 transition-colors" aria-label="Live preview">
+          {(project.webLiveLinks?.[0] || project.webLiveLink || project.liveLink) && (
+            <a href={project.webLiveLinks?.[0] ?? project.webLiveLink ?? project.liveLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-gray-400 hover:text-primary-400 transition-colors" aria-label="Live preview">
               <ExternalLink size={13} />
             </a>
           )}

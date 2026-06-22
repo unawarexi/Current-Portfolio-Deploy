@@ -1,9 +1,8 @@
-'use strict';
-const service = require('./about.service');
-const { aboutUpdateSchema } = require('./about.schema');
-const cloudinaryService = require('../../services/cloudinary.service');
-const { HttpStatus, ErrorCodes } = require('../../config/constants');
-const { createLogger } = require('../../logs/logger');
+import * as service from './about.service.js';
+import { aboutUpdateSchema } from './about.schema.js';
+import * as cloudinaryService from '../../services/cloudinary.service.js';
+import { HttpStatus, ErrorCodes } from '../../config/constants.js';
+import { createLogger } from '../../logs/logger.js';
 const log = createLogger('About');
 
 const parseArrayField = (val) => {
@@ -67,4 +66,4 @@ const uploadCv = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, upsertProfile, uploadCv };
+export { getProfile, upsertProfile, uploadCv };

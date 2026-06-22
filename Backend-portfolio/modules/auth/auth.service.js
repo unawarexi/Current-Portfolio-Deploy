@@ -1,11 +1,10 @@
 // ============================================================================
 // Auth Service — username + bcrypt password authentication against Firestore
 // ============================================================================
-'use strict';
 
-const bcrypt = require('bcrypt');
-const jwt    = require('jsonwebtoken');
-const { db } = require('../../config/firebase.config');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { db } from '../../config/firebase.config.js';
 
 const JWT_SECRET  = process.env.JWT_SECRET  || 'portfolio-jwt-secret';
 const JWT_EXPIRES = process.env.JWT_EXPIRES || '8h';
@@ -49,5 +48,5 @@ const login = async (username, password) => {
  */
 const verifyToken = (token) => jwt.verify(token, JWT_SECRET);
 
-module.exports = { login, verifyToken };
+export { login, verifyToken };
 

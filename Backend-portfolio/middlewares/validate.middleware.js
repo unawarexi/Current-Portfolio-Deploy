@@ -1,7 +1,7 @@
 // ============================================================================
 // Validate Middleware — lightweight required-field guard
 // ============================================================================
-const { HttpStatus, ErrorCodes } = require('../config/constants');
+import { HttpStatus, ErrorCodes } from '../config/constants.js';
 
 /**
  * Check that all listed fields are present (non-empty) in req.body.
@@ -24,4 +24,4 @@ const requireFields = (fields) => (req, res, next) => {
   next();
 };
 
-module.exports = { requireFields };
+export { requireFields };

@@ -3,7 +3,6 @@
 // JSON output in production, colored in development
 // ============================================================================
 
-'use strict';
 
 // ============================================================================
 // LOG LEVELS
@@ -157,4 +156,4 @@ function createLogger(context) {
   return new Logger(context);
 }
 
-module.exports = { createLogger, Logger, logger };
+export { createLogger, Logger, logger };

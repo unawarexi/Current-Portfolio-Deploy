@@ -1,5 +1,4 @@
-'use strict';
-const { z } = require('zod');
+import { z } from 'zod';
 
 const urlOptional = z.string().refine((v) => !v || /^https?:\/\/.+/.test(v), 'Must be a valid URL').optional().default('');
 
@@ -48,4 +47,4 @@ const aboutSchema = z.object({
 
 const aboutUpdateSchema = aboutSchema.partial();
 
-module.exports = { aboutSchema, aboutUpdateSchema };
+export { aboutSchema, aboutUpdateSchema };

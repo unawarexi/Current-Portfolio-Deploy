@@ -2,11 +2,10 @@
 // Auth Seed — runs on server startup.
 // Creates the admin document in Firestore if it doesn't already exist.
 // ============================================================================
-'use strict';
 
-const bcrypt           = require('bcrypt');
-const { db }           = require('../../config/firebase.config');
-const { createLogger } = require('../../logs/logger');
+import bcrypt from 'bcrypt';
+import { db } from '../../config/firebase.config.js';
+import { createLogger } from '../../logs/logger.js';
 
 const log        = createLogger('AuthSeed');
 const COLLECTION = 'admins';
@@ -54,4 +53,4 @@ const seedAdmin = async () => {
   }
 };
 
-module.exports = { seedAdmin };
+export { seedAdmin };

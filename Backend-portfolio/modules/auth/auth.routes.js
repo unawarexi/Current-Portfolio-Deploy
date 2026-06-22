@@ -1,15 +1,14 @@
 // ============================================================================
 // Auth Routes — /api/auth
 // ============================================================================
-'use strict';
 
-const express      = require('express');
-const { login }    = require('./auth.controller');
-const { authLimiter } = require('../../middlewares/ratelimit.middleware');
+import express from 'express';
+import { login } from './auth.controller.js';
+import { authLimiter } from '../../middlewares/ratelimit.middleware.js';
 
 const router = express.Router();
 
 // POST /api/auth/login
 router.post('/login', authLimiter, login);
 
-module.exports = router;
+export default router;

@@ -1,6 +1,5 @@
-'use strict';
-const { db }           = require('../../config/firebase.config');
-const { createLogger } = require('../../logs/logger');
+import { db } from '../../config/firebase.config.js';
+import { createLogger } from '../../logs/logger.js';
 const log              = createLogger('Experience');
 const COL              = 'experience';
 
@@ -30,4 +29,4 @@ const remove = async (id) => {
   await db.collection(COL).doc(id).delete();
 };
 
-module.exports = { create, getAll, getById, update, remove };
+export { create, getAll, getById, update, remove };

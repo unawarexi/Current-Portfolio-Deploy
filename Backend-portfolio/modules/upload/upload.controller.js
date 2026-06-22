@@ -3,11 +3,10 @@
 // Returns Cloudinary secure_url strings to the frontend, which then
 // includes them in the project payload sent to /api/projects.
 // ============================================================================
-'use strict';
 
-const cloudinaryService          = require('../../services/cloudinary.service');
-const { HttpStatus, ErrorCodes, Upload } = require('../../config/constants');
-const { createLogger }           = require('../../logs/logger');
+import * as cloudinaryService from '../../services/cloudinary.service.js';
+import { HttpStatus, ErrorCodes, Upload } from '../../config/constants.js';
+import { createLogger } from '../../logs/logger.js';
 
 const log = createLogger('Upload');
 
@@ -73,4 +72,4 @@ const uploadMany = async (req, res) => {
   }
 };
 
-module.exports = { uploadOne, uploadMany };
+export { uploadOne, uploadMany };

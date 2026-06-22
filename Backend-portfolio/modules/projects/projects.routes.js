@@ -6,13 +6,12 @@
 // Protected: PATCH /api/projects/:id   (update)
 // Protected: DELETE /api/projects/:id  (delete)
 // ============================================================================
-'use strict';
 
-const express          = require('express');
-const multer           = require('multer');
-const ctrl             = require('./projects.controller');
-const { authenticate } = require('../../middlewares/auth.middleware');
-const { Upload }       = require('../../config/constants');
+import express from 'express';
+import multer from 'multer';
+import * as ctrl from './projects.controller.js';
+import { authenticate } from '../../middlewares/auth.middleware.js';
+import { Upload } from '../../config/constants.js';
 
 const storage = multer.memoryStorage();
 const upload  = multer({
@@ -38,4 +37,4 @@ router.post('/',     authenticate, projectImages, ctrl.create);
 router.patch('/:id', authenticate, ctrl.update);
 router.delete('/:id', authenticate, ctrl.remove);
 
-module.exports = router;
+export default router;
