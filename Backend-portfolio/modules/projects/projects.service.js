@@ -4,39 +4,84 @@
 // and multiple links are stored in MongoDB.
 // ============================================================================
 
-import { db } from '../../config/firebase.config.js';
-import { createLogger } from '../../logs/logger.js';
-import ProjectLinks from './projectLinks.model.js';
+import { db } from "../../config/firebase.config.js";
+import { createLogger } from "../../logs/logger.js";
+import ProjectLinks from "./projectLinks.model.js";
 
-const log        = createLogger('Projects');
-const COLLECTION = 'projects';
+const log = createLogger("Projects");
+const COLLECTION = "projects";
 
 // ============================================================================
 // HELPERS
 // ============================================================================
 
+/**
+ * Parse space-separated link strings into numbered arrays
+ * "url1 url2 url3" → [1. url1, 2. url2, 3. url3]
+ */
+const parseLinksWithNumbers = (linkString = "") => {
+  if (!linkString || typeof linkString !== "string") return [];
+
+  return linkString
+    .split(/\s+/)
+    .filter((url) => url.startsWith("http://") || url.startsWith("https://"))
+    .map((url, idx) => `${idx + 1}. ${url.trim()}`);
+};
+
+/**
+ * Extract only Cloudinary image URLs for MongoDB
+ * Keep all links (including parsed ones) in Firebase
+ */
 const extractLinks = (data) => {
   const {
     coverImages = [],
     projectImages = [],
-    githubLinks = [],
-    googlePlayLinks = [],
-    appStoreLinks = [],
-    webLiveLinks = [],
-    videoUrls = [],
+    // Links stay in firebaseData
     ...firebaseData
   } = data;
+
+  // Parse any space-separated link strings into numbered arrays
+  if (
+    firebaseData.googlePlayLinks &&
+    typeof firebaseData.googlePlayLinks === "string"
+  ) {
+    firebaseData.googlePlayLinks = parseLinksWithNumbers(
+      firebaseData.googlePlayLinks,
+    );
+  }
+  if (
+    firebaseData.appStoreLinks &&
+    typeof firebaseData.appStoreLinks === "string"
+  ) {
+    firebaseData.appStoreLinks = parseLinksWithNumbers(
+      firebaseData.appStoreLinks,
+    );
+  }
+  if (
+    firebaseData.githubLinks &&
+    typeof firebaseData.githubLinks === "string"
+  ) {
+    firebaseData.githubLinks = parseLinksWithNumbers(firebaseData.githubLinks);
+  }
+  if (
+    firebaseData.webLiveLinks &&
+    typeof firebaseData.webLiveLinks === "string"
+  ) {
+    firebaseData.webLiveLinks = parseLinksWithNumbers(
+      firebaseData.webLiveLinks,
+    );
+  }
+  if (firebaseData.videoUrls && typeof firebaseData.videoUrls === "string") {
+    firebaseData.videoUrls = parseLinksWithNumbers(firebaseData.videoUrls);
+  }
+
   return {
     firebaseData,
     mongoData: {
+      // ONLY Cloudinary image URLs go to MongoDB
       coverImages,
       projectImages,
-      githubLinks,
-      googlePlayLinks,
-      appStoreLinks,
-      webLiveLinks,
-      videoUrls,
-    }
+    },
   };
 };
 
@@ -44,24 +89,26 @@ const mergeProjectData = async (firebaseDoc) => {
   const data = firebaseDoc.data();
   const id = firebaseDoc.id;
   try {
-    const links = await ProjectLinks.findOne({ firebaseProjectId: id }).lean();
-    if (links) {
+    // Fetch ONLY Cloudinary image URLs from MongoDB
+    const images = await ProjectLinks.findOne({ firebaseProjectId: id }).lean();
+    if (images) {
       return {
         id,
         ...data,
-        coverImages: links.coverImages || [],
-        projectImages: links.projectImages || [],
-        githubLinks: links.githubLinks || [],
-        googlePlayLinks: links.googlePlayLinks || [],
-        appStoreLinks: links.appStoreLinks || [],
-        webLiveLinks: links.webLiveLinks || [],
-        videoUrls: links.videoUrls || [],
+        coverImages: images.coverImages || [],
+        projectImages: images.projectImages || [],
       };
     }
   } catch (err) {
-    log.error('Error fetching MongoDB links', { error: err });
+    log.error("Error fetching MongoDB images", { error: err });
   }
-  return { id, ...data };
+  // Ensure image arrays exist even if no MongoDB record found
+  return {
+    id,
+    ...data,
+    coverImages: data.coverImages || [],
+    projectImages: data.projectImages || [],
+  };
 };
 
 // ============================================================================
@@ -83,17 +130,17 @@ const createProject = async (data) => {
   };
 
   const ref = await db.collection(COLLECTION).add(payload);
-  
+
   try {
     await ProjectLinks.create({
       firebaseProjectId: ref.id,
-      ...mongoData
+      ...mongoData,
     });
   } catch (err) {
-    log.error('Error saving to MongoDB', { error: err });
+    log.error("Error saving to MongoDB", { error: err });
   }
 
-  log.info('Project created', { id: ref.id });
+  log.info("Project created", { id: ref.id });
   return ref.id;
 };
 
@@ -106,10 +153,10 @@ const createProject = async (data) => {
  * @param {{ category?: string, limit?: number }} opts
  */
 const getAllProjects = async (opts = {}) => {
-  let query = db.collection(COLLECTION).orderBy('createdAt', 'desc');
+  let query = db.collection(COLLECTION).orderBy("createdAt", "desc");
 
   if (opts.category) {
-    query = query.where('category', '==', opts.category);
+    query = query.where("category", "==", opts.category);
   }
 
   if (opts.limit) {
@@ -117,7 +164,7 @@ const getAllProjects = async (opts = {}) => {
   }
 
   const snap = await query.get();
-  
+
   // Fetch MongoDB links concurrently for all projects
   const projects = await Promise.all(snap.docs.map(mergeProjectData));
   return projects;
@@ -156,7 +203,10 @@ const updateProject = async (id, updates) => {
   const { firebaseData, mongoData } = extractLinks(updates);
 
   if (Object.keys(firebaseData).length > 0) {
-    await ref.set({ ...firebaseData, updatedAt: new Date().toISOString() }, { merge: true });
+    await ref.set(
+      { ...firebaseData, updatedAt: new Date().toISOString() },
+      { merge: true },
+    );
   }
 
   if (Object.keys(mongoData).length > 0) {
@@ -164,14 +214,14 @@ const updateProject = async (id, updates) => {
       await ProjectLinks.findOneAndUpdate(
         { firebaseProjectId: id },
         { $set: mongoData },
-        { upsert: true }
+        { upsert: true },
       );
     } catch (err) {
-      log.error('Error updating MongoDB links', { error: err });
+      log.error("Error updating MongoDB links", { error: err });
     }
   }
 
-  log.info('Project updated', { id });
+  log.info("Project updated", { id });
 
   const updated = await ref.get();
   return await mergeProjectData(updated);
@@ -196,11 +246,17 @@ const deleteProject = async (id) => {
   try {
     await ProjectLinks.deleteOne({ firebaseProjectId: id });
   } catch (err) {
-    log.error('Error deleting MongoDB links', { error: err });
+    log.error("Error deleting MongoDB links", { error: err });
   }
 
-  log.info('Project deleted', { id });
+  log.info("Project deleted", { id });
   return true;
 };
 
-export { createProject, getAllProjects, getProjectById, updateProject, deleteProject };
+export {
+  createProject,
+  getAllProjects,
+  getProjectById,
+  updateProject,
+  deleteProject,
+};

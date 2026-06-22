@@ -1,18 +1,22 @@
 // ============================================================================
 // PROJECT LINKS MODEL — MongoDB
-// Stores Cloudinary URLs and array of links for a Firebase Project ID
+// Stores ONLY Cloudinary image URLs for a Firebase Project ID
+// All other links (github, play store, app store, etc.) are stored in Firebase
 // ============================================================================
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const projectLinksSchema = new mongoose.Schema({
-  firebaseProjectId: { type: String, required: true, index: true, unique: true },
-  coverImages: [{ type: String }],
-  projectImages: [{ type: String }],
-  githubLinks: [{ type: String }],
-  googlePlayLinks: [{ type: String }],
-  appStoreLinks: [{ type: String }],
-  webLiveLinks: [{ type: String }],
-  videoUrls: [{ type: String }],
-}, { timestamps: true });
+const projectLinksSchema = new mongoose.Schema(
+  {
+    firebaseProjectId: {
+      type: String,
+      required: true,
+      index: true,
+      unique: true,
+    },
+    coverImages: [{ type: String }],
+    projectImages: [{ type: String }],
+  },
+  { timestamps: true },
+);
 
-export default mongoose.model;('ProjectLinks', projectLinksSchema);
+export default mongoose.model("ProjectLinks", projectLinksSchema);
