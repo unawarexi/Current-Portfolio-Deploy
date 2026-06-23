@@ -1,4 +1,4 @@
-import { Documents } from "../../models/document.model.js";
+import { Documents } from "./document.model.js";
 import { createLogger } from "../../logs/logger.js";
 const log = createLogger("Document");
 

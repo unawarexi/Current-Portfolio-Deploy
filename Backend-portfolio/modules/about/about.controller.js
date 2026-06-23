@@ -1,5 +1,5 @@
 import * as service from "./about.service.js";
-import * as documentService from "../documents/document.service.js";
+import * as documentService from "./document.service.js";
 import { aboutUpdateSchema } from "./about.schema.js";
 import * as cloudinaryService from "../../services/cloudinary.service.js";
 import { HttpStatus, ErrorCodes } from "../../config/constants.js";
