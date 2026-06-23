@@ -2,7 +2,6 @@
 // TeamSpot — MongoDB Configuration
 // Mongoose connection with pooling, replica set support, and health checks
 // ============================================================================
-
 import mongoose from "mongoose";
 import { createLogger } from "../logs/logger.js";
 const log = createLogger("MongoDB");
@@ -17,7 +16,7 @@ export async function connectDB() {
   if (isConnected) return mongoose.connection;
 
   const options = {
-    // maxPoolSize: process.env.MONGO_POOL_SIZE,
+    maxPoolSize: process.env.MONGO_POOL_SIZE,
     minPoolSize: 2,
     serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
@@ -47,7 +46,7 @@ export async function connectDB() {
     log.info("MongoDB connected", {
       host: mongoose.connection.host,
       db: mongoose.connection.name,
-      //   poolSize: env.MONGO_POOL_SIZE,
+      poolSize: process.env.MONGO_POOL_SIZE,
     });
 
     return mongoose.connection;
