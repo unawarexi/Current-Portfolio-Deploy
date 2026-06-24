@@ -7,6 +7,7 @@
 import { db } from "../../config/firebase.config.js";
 import { createLogger } from "../../logs/logger.js";
 import ProjectLinks from "./projectLinks.model.js";
+import AdvancedFormatter from "../../utils/formatters.js";
 
 const log = createLogger("Projects");
 const COLLECTION = "projects";
@@ -16,72 +17,15 @@ const COLLECTION = "projects";
 // ============================================================================
 
 /**
- * Parse space-separated link strings into numbered arrays
- * "url1 url2 url3" → [1. url1, 2. url2, 3. url3]
- */
-const parseLinksWithNumbers = (linkString = "") => {
-  if (!linkString || typeof linkString !== "string") return [];
-
-  return linkString
-    .split(/\s+/)
-    .filter((url) => url.startsWith("http://") || url.startsWith("https://"))
-    .map((url, idx) => `${idx + 1}. ${url.trim()}`);
-};
-
-/**
- * Extract only Cloudinary image URLs for MongoDB
- * Keep all links (including parsed ones) in Firebase
+ * Split a formatted project payload into Firestore and MongoDB portions.
+ * Link arrays (githubLinks, etc.) stay in Firestore.
+ * Only Cloudinary image URL arrays go to MongoDB.
  */
 const extractLinks = (data) => {
-  const {
-    coverImages = [],
-    projectImages = [],
-    // Links stay in firebaseData
-    ...firebaseData
-  } = data;
-
-  // Parse any space-separated link strings into numbered arrays
-  if (
-    firebaseData.googlePlayLinks &&
-    typeof firebaseData.googlePlayLinks === "string"
-  ) {
-    firebaseData.googlePlayLinks = parseLinksWithNumbers(
-      firebaseData.googlePlayLinks,
-    );
-  }
-  if (
-    firebaseData.appStoreLinks &&
-    typeof firebaseData.appStoreLinks === "string"
-  ) {
-    firebaseData.appStoreLinks = parseLinksWithNumbers(
-      firebaseData.appStoreLinks,
-    );
-  }
-  if (
-    firebaseData.githubLinks &&
-    typeof firebaseData.githubLinks === "string"
-  ) {
-    firebaseData.githubLinks = parseLinksWithNumbers(firebaseData.githubLinks);
-  }
-  if (
-    firebaseData.webLiveLinks &&
-    typeof firebaseData.webLiveLinks === "string"
-  ) {
-    firebaseData.webLiveLinks = parseLinksWithNumbers(
-      firebaseData.webLiveLinks,
-    );
-  }
-  if (firebaseData.videoUrls && typeof firebaseData.videoUrls === "string") {
-    firebaseData.videoUrls = parseLinksWithNumbers(firebaseData.videoUrls);
-  }
-
+  const { coverImages = [], projectImages = [], ...firebaseData } = data;
   return {
     firebaseData,
-    mongoData: {
-      // ONLY Cloudinary image URLs go to MongoDB
-      coverImages,
-      projectImages,
-    },
+    mongoData: { coverImages, projectImages },
   };
 };
 
@@ -121,7 +65,9 @@ const mergeProjectData = async (firebaseDoc) => {
  * @returns {string} — new document ID
  */
 const createProject = async (data) => {
-  const { firebaseData, mongoData } = extractLinks(data);
+  const { firebaseData, mongoData } = extractLinks(
+    AdvancedFormatter.formatProjectData(data),
+  );
 
   const payload = {
     ...firebaseData,
@@ -200,7 +146,41 @@ const updateProject = async (id, updates) => {
 
   if (!existing.exists) return null;
 
-  const { firebaseData, mongoData } = extractLinks(updates);
+  // Format only the fields present in the update; for fields not in `updates`
+  // we feed safe empty defaults so formatProjectData never writes blanks over
+  // existing Firestore data — we then strip them back out via formattedDelta.
+  const formatted = AdvancedFormatter.formatProjectData({
+    title: "",
+    category: "",
+    description: "",
+    type: "",
+    status: "",
+    year: "",
+    client: "",
+    role: "",
+    duration: "",
+    team: [],
+    technologies: [],
+    features: "",
+    challenges: "",
+    solution: "",
+    results: "",
+    githubLinks: [],
+    googlePlayLinks: [],
+    appStoreLinks: [],
+    webLiveLinks: [],
+    videoUrls: [],
+    coverImages: [],
+    projectImages: [],
+    ...updates,
+  });
+
+  // Rebuild a delta containing only the keys that were actually in updates
+  const formattedDelta = Object.fromEntries(
+    Object.keys(updates).map((key) => [key, formatted[key]]),
+  );
+
+  const { firebaseData, mongoData } = extractLinks(formattedDelta);
 
   if (Object.keys(firebaseData).length > 0) {
     await ref.set(
@@ -209,7 +189,7 @@ const updateProject = async (id, updates) => {
     );
   }
 
-  if (Object.keys(mongoData).length > 0) {
+  if (mongoData.coverImages?.length || mongoData.projectImages?.length) {
     try {
       await ProjectLinks.findOneAndUpdate(
         { firebaseProjectId: id },

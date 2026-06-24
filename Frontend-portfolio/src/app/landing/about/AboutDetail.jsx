@@ -297,7 +297,7 @@ const AboutDetail = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {funFacts.map((fact, i) => (
                 <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-primary-50 dark:bg-primary-500/5 border border-primary-100 dark:border-primary-500/10">
-                  <span className="text-lg leading-none">🎉</span>
+                  <span className="text-lg leading-none"></span>
                   <span className="text-sm text-gray-700 dark:text-gray-300">{fact}</span>
                 </div>
               ))}

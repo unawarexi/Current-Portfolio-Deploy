@@ -4,11 +4,14 @@ import { aboutUpdateSchema } from "./about.schema.js";
 import * as cloudinaryService from "../../services/cloudinary.service.js";
 import { HttpStatus, ErrorCodes } from "../../config/constants.js";
 import { createLogger } from "../../logs/logger.js";
+import AdvancedFormatter from "../../utils/formatters.js";
+
 const log = createLogger("About");
 
 // ============================================================================
 // GET PROFILE
 // Fetches Firebase about data and merges the active CV url from MongoDB.
+// The cvUrl lives in MongoDB only — we fetch it alongside and attach it.
 // ============================================================================
 const getProfile = async (_req, res) => {
   try {
@@ -18,7 +21,8 @@ const getProfile = async (_req, res) => {
       documentService.getActiveCoverLetterUrl(),
     ]);
 
-    // Merge the live document urls on top of whatever is stored in Firebase
+    // Merge the live document urls on top of whatever is stored in Firebase.
+    // cvUrl is intentionally NOT stored in Firebase — it always comes from MongoDB.
     const profile = {
       ...(data || {}),
       ...(cvUrl && { cvUrl }),
@@ -40,46 +44,89 @@ const getProfile = async (_req, res) => {
 // ============================================================================
 const upsertProfile = async (req, res) => {
   try {
-    console.log("📥 [CONTROLLER] Received body:", {
-      ...req.body,
-      goals: Array.isArray(req.body.goals)
-        ? `[Array(${req.body.goals.length})]`
-        : typeof req.body.goals,
-      education: Array.isArray(req.body.education)
-        ? `[Array(${req.body.education.length})]`
-        : typeof req.body.education,
+    console.log(" [CONTROLLER] Received raw body:", {
+      fields: Object.keys(req.body),
+      sampleBio: req.body.bio ? `${req.body.bio.substring(0, 40)}...` : "EMPTY",
     });
 
+    // ============================================================================
+    // STEP 1: STRIP FIELDS THAT MUST NOT GO INTO FIREBASE
+    // - cvUrl      → lives in MongoDB only (document service)
+    // - id         → Firebase doc id, not a data field
+    // - updatedAt  → set server-side in the service
+    // ============================================================================
+    const {
+      cvUrl: _cvUrl,
+      coverLetterUrl: _coverLetterUrl,
+      id: _id,
+      updatedAt: _updatedAt,
+      ...bodyWithoutManagedFields
+    } = req.body;
+
+    // ============================================================================
+    // STEP 2: BASIC DATA PREPARATION
+    // Convert form-encoded scalar types before the formatter sees them.
+    // ============================================================================
     const raw = {
-      ...req.body,
+      ...bodyWithoutManagedFields,
       openToWork:
-        req.body.openToWork === "true" || req.body.openToWork === true,
+        bodyWithoutManagedFields.openToWork === "true" ||
+        bodyWithoutManagedFields.openToWork === true,
+
+      // Numeric stats — coerce strings like '5', '25', '0' to numbers here
+      // so the formatter never receives stringified zeros.
+      yearsOfExperience: Number(
+        bodyWithoutManagedFields.yearsOfExperience ?? 0,
+      ),
+      projectsCount: Number(bodyWithoutManagedFields.projectsCount ?? 0),
+      clientsCount: Number(bodyWithoutManagedFields.clientsCount ?? 0),
+      rating: Number(bodyWithoutManagedFields.rating ?? 5.0),
+
       socials:
-        typeof req.body.socials === "string"
-          ? JSON.parse(req.body.socials)
-          : req.body.socials || {},
+        typeof bodyWithoutManagedFields.socials === "string"
+          ? JSON.parse(bodyWithoutManagedFields.socials)
+          : bodyWithoutManagedFields.socials || {},
     };
 
-    console.log("📦 [CONTROLLER] After basic prep:", {
-      name: raw.name,
-      bio: raw.bio ? `${raw.bio.substring(0, 50)}...` : "EMPTY",
-      openToWork: raw.openToWork,
-      goals: Array.isArray(raw.goals)
-        ? `[Array(${raw.goals.length})]`
-        : "NOT_ARRAY",
-      education: Array.isArray(raw.education)
-        ? `[Array(${raw.education.length})]`
-        : "NOT_ARRAY",
+    console.log(" [CONTROLLER] Basic data prep complete, stats:", {
+      yearsOfExperience: raw.yearsOfExperience,
+      projectsCount: raw.projectsCount,
+      clientsCount: raw.clientsCount,
+      rating: raw.rating,
     });
 
-    const result = aboutUpdateSchema.safeParse(raw);
+    // ============================================================================
+    // STEP 3: APPLY ADVANCED FORMATTER (ONCE — controller only)
+    // The service will NOT re-run the formatter.
+    // ============================================================================
+    const formatted = AdvancedFormatter.formatAboutProfile(raw);
+
+    console.log(" [CONTROLLER] Formatting applied:", {
+      name: formatted.name,
+      bio: formatted.bio ? `${formatted.bio.substring(0, 50)}...` : "EMPTY",
+      goals: `${formatted.goals?.length ?? 0} items`,
+      values: `${formatted.values?.length ?? 0} items`,
+      hobbies: `${formatted.hobbies?.length ?? 0} items`,
+      education: `${formatted.education?.length ?? 0} items`,
+      certifications: `${formatted.certifications?.length ?? 0} items`,
+      languages: `${formatted.languages?.length ?? 0} items`,
+      yearsOfExperience: formatted.yearsOfExperience,
+      projectsCount: formatted.projectsCount,
+      clientsCount: formatted.clientsCount,
+      rating: formatted.rating,
+    });
+
+    // ============================================================================
+    // STEP 4: VALIDATE AGAINST SCHEMA
+    // ============================================================================
+    const result = aboutUpdateSchema.safeParse(formatted);
 
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
 
-      console.error("❌ [CONTROLLER] Validation failed:", {
-        errors: fieldErrors,
+      console.error(" [CONTROLLER] Validation failed:", {
         problematicFields: Object.keys(fieldErrors),
+        errors: fieldErrors,
       });
 
       return res.status(HttpStatus.BAD_REQUEST).json({
@@ -87,28 +134,42 @@ const upsertProfile = async (req, res) => {
         error: {
           code: ErrorCodes.VALIDATION_ERROR,
           details: fieldErrors,
-          received: {
-            fields: Object.keys(raw),
-            bio: raw.bio ? `${raw.bio.length} chars` : "missing",
-            goals: Array.isArray(raw.goals) ? raw.goals.length : "not_array",
-            education: Array.isArray(raw.education)
-              ? raw.education.length
-              : "not_array",
-          },
+          hint: "Check that arrays are properly formatted and text fields are valid",
         },
       });
     }
 
-    console.log("✅ [CONTROLLER] Validation passed, data:", {
-      name: result.data.name,
-      bio: result.data.bio ? `${result.data.bio.substring(0, 50)}...` : "EMPTY",
-      goals: `${result.data.goals?.length || 0} items`,
-      education: `${result.data.education?.length || 0} items`,
+    console.log(" [CONTROLLER] Schema validation passed");
+
+    // ============================================================================
+    // STEP 5: SAVE VALIDATED DATA TO FIREBASE (via service — no re-formatting)
+    // cvUrl is intentionally excluded from result.data before saving.
+    // ============================================================================
+    const { cvUrl: _cv, coverLetterUrl: _cl, ...firebaseData } = result.data;
+
+    const saveResult = await service.upsert(firebaseData);
+
+    console.log(" [CONTROLLER] Profile saved successfully:", {
+      savedAt: saveResult.savedAt,
     });
 
-    await service.upsert(result.data);
+    // Fetch the current active cvUrl from MongoDB to return alongside saved data
+    const activeCvUrl = await documentService.getActiveCvUrl();
+    const activeCoverLetterUrl =
+      await documentService.getActiveCoverLetterUrl();
 
-    res.json({ success: true });
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      data: {
+        formatted: {
+          ...saveResult.data,
+          ...(activeCvUrl && { cvUrl: activeCvUrl }),
+          ...(activeCoverLetterUrl && { coverLetterUrl: activeCoverLetterUrl }),
+        },
+        timestamp: saveResult.savedAt,
+      },
+    });
   } catch (err) {
     log.error("upsertProfile", { error: err });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
@@ -126,6 +187,7 @@ const upsertProfile = async (req, res) => {
 // 1. Upload file buffer → Cloudinary
 // 2. Save the resulting URL + metadata → MongoDB (Documents collection)
 // 3. Return the secure URL to the caller
+// NOTE: cvUrl is NEVER written to Firebase — it lives in MongoDB only.
 // ============================================================================
 const uploadCv = async (req, res) => {
   try {
@@ -137,7 +199,7 @@ const uploadCv = async (req, res) => {
       });
     }
 
-    console.log("📤 [CONTROLLER] Uploading CV to Cloudinary:", {
+    console.log(" [CONTROLLER] Uploading CV to Cloudinary:", {
       originalname: file.originalname,
       size: file.size,
     });
@@ -151,11 +213,11 @@ const uploadCv = async (req, res) => {
     });
 
     console.log(
-      "✅ [CONTROLLER] Cloudinary upload done:",
+      " [CONTROLLER] Cloudinary upload done:",
       cloudinaryResult.secure_url,
     );
 
-    // Step 2 — persist to MongoDB Documents collection
+    // Step 2 — persist to MongoDB Documents collection only
     // addDocument deactivates all previous CVs and marks this one active
     const saved = await documentService.addDocument({
       type: "cv",
@@ -166,7 +228,7 @@ const uploadCv = async (req, res) => {
       isActive: true,
     });
 
-    console.log("💾 [CONTROLLER] CV saved to MongoDB:", saved._id);
+    console.log(" [CONTROLLER] CV saved to MongoDB:", saved._id);
 
     res.json({
       success: true,
@@ -198,7 +260,7 @@ const uploadCoverLetter = async (req, res) => {
       });
     }
 
-    console.log("📤 [CONTROLLER] Uploading cover letter to Cloudinary:", {
+    console.log(" [CONTROLLER] Uploading cover letter to Cloudinary:", {
       originalname: file.originalname,
       size: file.size,
     });
@@ -212,11 +274,11 @@ const uploadCoverLetter = async (req, res) => {
     });
 
     console.log(
-      "✅ [CONTROLLER] Cloudinary upload done:",
+      " [CONTROLLER] Cloudinary upload done:",
       cloudinaryResult.secure_url,
     );
 
-    // Step 2 — persist to MongoDB Documents collection
+    // Step 2 — persist to MongoDB Documents collection only
     const saved = await documentService.addDocument({
       type: "cover-letter",
       url: cloudinaryResult.secure_url,
@@ -226,7 +288,7 @@ const uploadCoverLetter = async (req, res) => {
       isActive: true,
     });
 
-    console.log("💾 [CONTROLLER] Cover letter saved to MongoDB:", saved._id);
+    console.log(" [CONTROLLER] Cover letter saved to MongoDB:", saved._id);
 
     res.json({
       success: true,

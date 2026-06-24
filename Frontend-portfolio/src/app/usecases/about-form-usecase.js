@@ -48,7 +48,7 @@ const splitLines = (str) =>
     .filter(Boolean);
 const joinLines = (arr) => (arr || []).join("\n");
 
-// ✅ NEW: Safe JSON parsing utility
+//  NEW: Safe JSON parsing utility
 const tryParseJson = (str, fallback = null) => {
   if (!str) return fallback;
   try {
@@ -76,12 +76,12 @@ export const useAboutFormUsecase = () => {
       setFormState({
         ...INITIAL,
         ...profile,
-        // ✅ FIXED: Array fields stay as newline-separated text for display
+        //  FIXED: Array fields stay as newline-separated text for display
         goals: joinLines(profile.goals),
         values: joinLines(profile.values),
         funFacts: joinLines(profile.funFacts),
         hobbies: joinLines(profile.hobbies),
-        // ✅ FIXED: Structured fields stored as pretty-printed JSON strings for editing
+        //  FIXED: Structured fields stored as pretty-printed JSON strings for editing
         education: Array.isArray(profile.education)
           ? JSON.stringify(profile.education, null, 2)
           : profile.education || "",
@@ -123,13 +123,13 @@ export const useAboutFormUsecase = () => {
 
     const payload = {
       ...form,
-      // ✅ FIXED: Convert array fields from newline-separated to arrays
+      //  FIXED: Convert array fields from newline-separated to arrays
       goals: splitLines(form.goals),
       values: splitLines(form.values),
       funFacts: splitLines(form.funFacts),
       hobbies: splitLines(form.hobbies),
 
-      // ✅ FIXED: Parse structured fields, with proper fallbacks
+      //  FIXED: Parse structured fields, with proper fallbacks
       education: tryParseJson(form.education, splitLines(form.education)),
       certifications: tryParseJson(
         form.certifications,
@@ -138,8 +138,8 @@ export const useAboutFormUsecase = () => {
       languages: tryParseJson(form.languages, splitLines(form.languages)),
     };
 
-    // 🔍 DEBUG: Log what we're sending
-    console.log("📤 SUBMITTING PAYLOAD:", {
+    //  DEBUG: Log what we're sending
+    console.log(" SUBMITTING PAYLOAD:", {
       ...payload,
       goals: `[Array of ${payload.goals.length} items]`,
       values: `[Array of ${payload.values.length} items]`,
@@ -151,7 +151,7 @@ export const useAboutFormUsecase = () => {
       setProfile(payload);
       return result;
     } catch (error) {
-      console.error("❌ Submit failed:", error.response?.data || error.message);
+      console.error(" Submit failed:", error.response?.data || error.message);
       throw error;
     }
   };
@@ -161,13 +161,13 @@ export const useAboutFormUsecase = () => {
     const fd = new FormData();
     fd.append("cv", cvFile);
 
-    console.log("📤 UPLOADING CV:", cvFile.name);
+    console.log(" UPLOADING CV:", cvFile.name);
 
     try {
       await cvMut.mutateAsync(fd);
       setCvFile(null);
     } catch (error) {
-      console.error("❌ CV upload failed:", error);
+      console.error(" CV upload failed:", error);
       throw error;
     }
   };

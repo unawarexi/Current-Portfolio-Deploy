@@ -89,7 +89,7 @@ const Footer = () => {
       <div className="bg-gray-100 dark:bg-[#1b2a5b53]">
         <div className="container mx-auto md:py-4 md:px-5 py-2 px-2 flex flex-wrap flex-col sm:flex-row">
           <p className="text-gray-500 text-[10px] md:text-sm text-center sm:text-left">
-            © 2025 andrewsCorp —
+             2025 andrewsCorp —
             <a
               href="https://twitter.com/company"
               className="text-gray-600 ml-1"
