@@ -164,7 +164,7 @@ const MobileCard = ({ job, index, onSelect }) => {
         border-4 border-gray-50 dark:border-[#050914] bg-burgundy-500"
       />
       <div
-        className={`mb-6 cursor-pointer overflow-hidden rounded-2xl
+        className={`mb-6 cursor-pointer overflow-hidden rounded-md md:rounded-2xl
           border p-4 sm:p-5 transition-colors duration-300
           ${isAccent ? "border-burgundy-200 dark:border-burgundy-500/20 bg-burgundy-50 dark:bg-burgundy-900/10" : "border-gray-100 dark:border-white/[0.07] bg-white dark:bg-[#09101f]"}
           hover:border-burgundy-500/30`}

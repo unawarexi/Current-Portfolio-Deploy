@@ -256,11 +256,11 @@ const Hero = () => {
                 variants={staggerItem}
                 className="editorial-copy max-w-2xl mx-auto lg:mx-0 mb-8 sm:mb-12 text-gray-600 dark:text-slate-300"
               >
-                I architect and ship end-to-end products — from pixel-perfect
-                UIs and cross-platform mobile apps to AI agents, on-chain
-                protocols, and the backend systems that tie it all together. I
-                thrive at the founding-stage speed where ownership, taste, and
-                engineering depth matter equally.
+                I architect and ship end-to-end products; from pixel-perfect UIs
+                and cross-platform mobile apps to AI agents, on-chain protocols,
+                and the backend systems that tie it all together. I thrive at
+                the founding-stage speed where ownership, taste, and engineering
+                depth matter equally.
               </motion.p>
 
               {/* CTA Buttons */}

@@ -75,7 +75,7 @@ const Stat = ({ value, label }) => (
 const DriveCard = ({ icon: Icon, title, body, accent }) => (
   <TiltCard className="h-full" intensity={6}>
     <div
-      className="group relative flex flex-col gap-3 sm:gap-5 p-5 sm:p-9 md:p-10 rounded-xl sm:rounded-2xl
+      className="group relative flex flex-col gap-3 sm:gap-5 p-5 sm:p-9 md:p-10 rounded-md sm:rounded-2xl
                   bg-white dark:bg-white/[0.03]
                   border border-gray-100 dark:border-white/[0.07]
                   hover:border-primary-500/40 dark:hover:border-primary-500/30

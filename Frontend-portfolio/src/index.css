@@ -185,7 +185,7 @@
     --headline-xl: clamp(2rem, 10vw, 2.75rem);
     --headline-lg: clamp(2.5rem, 9vw, 2.25rem);
     --headline-md: clamp(1.5rem, 7vw, 2rem);
-    --body-lg: clamp(0.95rem, 4vw, 1.0625rem);
+    --body-lg: clamp(0.85rem, 3vw, 1.0625rem);
   }
 
   .editorial-title,
@@ -193,6 +193,10 @@
     letter-spacing: -0.02em;
     line-height: 1.06;
     word-break: break-word;
+  }
+
+  .editorial-copy {
+    font-size: var(--body-lg);
   }
 
   .editorial-eyebrow {

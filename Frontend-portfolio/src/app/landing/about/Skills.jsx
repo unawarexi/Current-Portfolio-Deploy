@@ -156,7 +156,7 @@ const CarouselCard = ({ skill }) => (
           <img
             src={skill.icon}
             alt={skill.name}
-            className="relative z-10 h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
+            className="relative z-10 h-[70%] w-full object-contain group-hover:scale-110 transition-transform duration-300"
           />
         </div>
         <Badge
@@ -217,7 +217,7 @@ const Skills = () => {
             <button
               key={s.category}
               onClick={() => setCurrent(i)}
-              className={`rounded-full px-3 py-1.5 sm:px-6 sm:py-2.5 font-display text-[10px] sm:text-sm font-bold tracking-wide transition-all duration-300
+              className={`rounded-full px-3 py-1.5 sm:px-6 sm:py-2.5 font-display text-[8px] sm:text-sm font-bold tracking-wide transition-all duration-300
                 ${
                   i === current
                     ? "bg-burgundy-600 text-white shadow-lg shadow-burgundy-600/30 scale-105"
