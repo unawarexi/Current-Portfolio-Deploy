@@ -165,17 +165,17 @@ const MobileCard = ({ job, index, onSelect }) => {
       />
       <div
         className={`mb-6 cursor-pointer overflow-hidden rounded-2xl
-          border p-5 transition-colors duration-300
+          border p-4 sm:p-5 transition-colors duration-300
           ${isAccent ? "border-burgundy-200 dark:border-burgundy-500/20 bg-burgundy-50 dark:bg-burgundy-900/10" : "border-gray-100 dark:border-white/[0.07] bg-white dark:bg-[#09101f]"}
           hover:border-burgundy-500/30`}
         onClick={() => onSelect(job)}
       >
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1">
+            <h3 className="font-display text-base sm:text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1">
               {job.role}
             </h3>
-            <p className="text-sm font-medium text-burgundy-600 dark:text-burgundy-400">
+            <p className="text-xs sm:text-sm font-medium text-burgundy-600 dark:text-burgundy-400">
               {job.company}
             </p>
           </div>
@@ -183,7 +183,7 @@ const MobileCard = ({ job, index, onSelect }) => {
             className="flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full
           border border-gray-200 bg-gray-100
           dark:border-white/[0.08] dark:bg-white/[0.04]
-          px-2.5 py-1.5 font-mono text-[10px] text-gray-500 dark:text-slate-400"
+          px-2.5 py-1.5 font-mono text-[7px] md:text-[10px] text-gray-500 dark:text-slate-400"
           >
             <Calendar size={10} />
             {job.year}
@@ -197,7 +197,7 @@ const MobileCard = ({ job, index, onSelect }) => {
             <span
               key={s}
               className="rounded-full border border-burgundy-500/20 bg-burgundy-500/[0.08]
-            px-2 py-0.5 text-[10px] font-medium text-burgundy-600 dark:text-burgundy-400"
+            px-2 py-0.5 text-[9px] sm:text-[10px] font-medium text-burgundy-600 dark:text-burgundy-400"
             >
               {s}
             </span>
@@ -275,7 +275,7 @@ const ExperienceSection = () => {
                 <button
                   key={cat}
                   onClick={() => handleCategory(cat)}
-                  className={`rounded-full px-5 py-2 sm:px-7 sm:py-3 font-display text-xs sm:text-sm font-bold tracking-wide transition-all duration-300
+                  className={`rounded-full px-5 py-2 sm:px-7 sm:py-3 font-display text-[10px] sm:text-sm font-bold tracking-wide transition-all duration-300
                     ${
                       activeCategory === cat
                         ? "bg-burgundy-600 text-white shadow-lg shadow-burgundy-600/30 scale-105"
@@ -292,7 +292,7 @@ const ExperienceSection = () => {
                   <button
                     key={sub}
                     onClick={() => setActiveSub(sub)}
-                    className={`rounded-full px-4 py-1.5 font-sans text-xs font-semibold tracking-wide transition-all duration-300
+                    className={`rounded-full px-4 py-1.5 font-sans text-[10px] md:text-xs font-semibold tracking-wide transition-all duration-300
                       ${
                         activeSub === sub
                           ? "border-b-2 border-burgundy-500 text-burgundy-500 dark:text-burgundy-400"

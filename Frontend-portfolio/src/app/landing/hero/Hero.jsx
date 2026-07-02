@@ -184,7 +184,7 @@ const Hero = () => {
 
       {/* Content */}
       <motion.div style={{ y: contentY }} className="relative z-10 w-full">
-        <div className="page-shell py-28 sm:py-32 lg:py-36">
+        <div className="page-shell py-20 sm:py-32 lg:py-36">
           <div className="grid items-center gap-10 md:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.72fr)]">
             {/* ── Left column ─────────────────────────────────────────────── */}
             <motion.div
@@ -196,7 +196,7 @@ const Hero = () => {
               {/* Availability pill */}
               <motion.span
                 variants={staggerItem}
-                className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 border border-burgundy-500/20 mb-5 sm:mb-7"
+                className="inline-flex items-center gap-2 px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-medium rounded-full bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 border border-burgundy-500/20 mb-5 sm:mb-7"
               >
                 ● &nbsp;Open to senior &amp; founding roles
               </motion.span>
@@ -212,7 +212,7 @@ const Hero = () => {
               <motion.h1
                 variants={staggerItem}
                 className="font-display font-extrabold leading-none tracking-[-0.055em] text-gray-900 dark:text-white mt-2 mb-1
-              text-[clamp(1.85rem,5vw,4.2rem)] [word-break:break-word]"
+              text-[clamp(1.5rem,5vw,4.2rem)] [word-break:break-word]"
               >
                 ANDREW J.
               </motion.h1>
@@ -220,7 +220,7 @@ const Hero = () => {
                 variants={staggerItem}
                 className="font-display font-extrabold leading-none tracking-[-0.055em] text-transparent
               bg-clip-text bg-gradient-to-r from-gray-900 dark:from-white via-primary-500 dark:via-primary-200 to-accent-500 dark:to-accent-300 mb-5 sm:mb-7
-              text-[clamp(1.85rem,5vw,4.2rem)] [word-break:break-word]"
+              text-[clamp(1.5rem,5vw,4.2rem)] [word-break:break-word]"
               >
                 CHUKWUWEIKE
               </motion.h1>
@@ -243,7 +243,7 @@ const Hero = () => {
                 ].map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1.5 sm:px-4 rounded-full text-[10px] sm:text-[11px] font-mono font-semibold
+                    className="px-2 py-1 sm:px-4 rounded-full text-[9px] sm:text-[11px] font-mono font-semibold
                   bg-gray-900/[0.05] dark:bg-white/[0.05] border border-gray-900/10 dark:border-white/10 text-gray-600 dark:text-gray-300 tracking-[0.18em]"
                   >
                     {tag}
@@ -272,7 +272,7 @@ const Hero = () => {
                   <Button
                     variant="primary"
                     size="lg"
-                    className="h-12 px-6 text-sm sm:h-14 sm:px-8 sm:text-base shadow-[0_18px_50px_rgba(99,102,241,0.28)]"
+                    className="h-10 px-5 text-xs sm:h-14 sm:px-8 sm:text-base shadow-[0_18px_50px_rgba(99,102,241,0.28)]"
                     rightIcon={<ArrowRight size={16} />}
                   >
                     View Work
@@ -287,7 +287,7 @@ const Hero = () => {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="h-12 px-6 text-sm sm:h-14 sm:px-8 sm:text-base text-burgundy-900 border-burgundy-900 bg-burgundy-500/10 hover:bg-burgundy-500/20 dark:border-white/20 dark:bg-white/[0.02] dark:text-white dark:hover:bg-white/5"
+                    className="h-10 px-5 text-xs sm:h-14 sm:px-8 sm:text-base text-burgundy-900 border-burgundy-900 bg-burgundy-500/10 hover:bg-burgundy-500/20 dark:border-white/20 dark:bg-white/[0.02] dark:text-white dark:hover:bg-white/5"
                     leftIcon={<Download size={16} />}
                   >
                     Download CV
@@ -305,7 +305,7 @@ const Hero = () => {
                     key={label}
                     className="flex flex-col items-center lg:items-start"
                   >
-                    <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+                    <span className="font-display text-xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
                       {value}
                     </span>
                     <span className="mt-1 font-mono text-[10px] sm:text-[11px] text-gray-500 dark:text-slate-500 uppercase tracking-[0.28em]">

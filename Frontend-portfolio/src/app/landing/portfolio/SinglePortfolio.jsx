@@ -52,7 +52,7 @@ const SinglePortfolio = () => {
       <Scene3D variant="minimal" className="opacity-20 fixed" />
 
       {/* ── MASSIVE PARALLAX HERO ──────────────────────────────────────── */}
-      <div className="relative h-[80vh] md:h-[90vh] min-h-[600px] flex items-end overflow-hidden">
+      <div className="relative h-[65vh] sm:h-[80vh] md:h-[90vh] min-h-[450px] sm:min-h-[600px] flex items-end overflow-hidden">
         {/* Background Image with Parallax */}
         <motion.div
           style={{ y, opacity }}
@@ -79,7 +79,7 @@ const SinglePortfolio = () => {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#070b18] via-[#070b18]/60 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 page-shell pb-12 md:pb-20">
+        <div className="relative z-10 page-shell pb-8 sm:pb-12 md:pb-20">
           <Link
             to="/projects"
             className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm md:text-base font-bold mb-10 transition-colors"
@@ -99,7 +99,7 @@ const SinglePortfolio = () => {
           >
             <motion.h1
               variants={staggerItemBig}
-              className="font-display text-5xl sm:text-7xl md:text-[6rem] lg:text-[8rem] font-extrabold text-white tracking-tight leading-[0.9] mb-8 md:mb-12"
+              className="font-display text-3xl sm:text-5xl md:text-[6rem] lg:text-[8rem] font-extrabold text-white tracking-tight leading-[0.9] mb-6 sm:mb-8 md:mb-12"
             >
               {project.title}
             </motion.h1>
@@ -110,7 +110,7 @@ const SinglePortfolio = () => {
                   href={project.webLiveLink ?? project.liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-full bg-primary-600 text-white font-bold text-sm md:text-base hover:bg-primary-500 hover:scale-105 transition-all shadow-xl shadow-primary-500/30"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full bg-primary-600 text-white font-bold text-xs sm:text-sm md:text-base hover:bg-primary-500 hover:scale-105 transition-all shadow-xl shadow-primary-500/30"
                 >
                   <ExternalLink size={20} /> Live Project
                 </a>
@@ -120,7 +120,7 @@ const SinglePortfolio = () => {
                   href={project.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-sm md:text-base hover:bg-white hover:text-gray-900 hover:scale-105 transition-all"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-xs sm:text-sm md:text-base hover:bg-white hover:text-gray-900 hover:scale-105 transition-all"
                 >
                   <Github size={20} /> Repository
                 </a>
@@ -136,9 +136,9 @@ const SinglePortfolio = () => {
         <div className="page-shell py-5 sm:py-6 flex flex-wrap items-center gap-4 sm:gap-6">
           {project.technologies?.slice(0, 8).map((t) => (
             <span key={t}
-              className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800/80
+              className="px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg bg-white dark:bg-gray-800/80
                 border border-gray-200 dark:border-gray-700
-                text-xs font-semibold text-gray-700 dark:text-gray-300 shadow-sm">
+                text-[10px] sm:text-xs font-semibold text-gray-700 dark:text-gray-300 shadow-sm">
               {t}
             </span>
           ))}
@@ -153,7 +153,7 @@ const SinglePortfolio = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.05 }}
-        className="relative z-10 page-shell py-10 md:py-16"
+        className="relative z-10 page-shell py-8 sm:py-10 md:py-16"
       >
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
           
@@ -161,8 +161,8 @@ const SinglePortfolio = () => {
           <div className="space-y-10 md:space-y-16 min-w-0">
             {/* Overview */}
             <motion.div variants={staggerItemBig}>
-              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold mb-5 text-burgundy-800 dark:text-burgundy-400">Overview</h2>
-              <p className="font-sans text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-[1.8] font-light">
+              <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 text-burgundy-800 dark:text-burgundy-400">Overview</h2>
+              <p className="font-sans text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-[1.8] font-light">
                 {project.description}
               </p>
             </motion.div>
@@ -170,7 +170,7 @@ const SinglePortfolio = () => {
             {/* Impact / Content */}
             {project.content && (
               <motion.div variants={staggerItemBig}>
-                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold mb-5 text-burgundy-800 dark:text-burgundy-400">The Process</h2>
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 text-burgundy-800 dark:text-burgundy-400">The Process</h2>
                 <div className="prose prose-base md:prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 leading-[1.8]">
                   <div dangerouslySetInnerHTML={{ __html: project.content }} />
                 </div>
@@ -256,7 +256,7 @@ const SinglePortfolio = () => {
           </Link>
           <button
             onClick={handleEdit}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-base font-bold hover:scale-105 transition-transform"
+            className="inline-flex items-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm sm:text-base font-bold hover:scale-105 transition-transform"
           >
             <Pencil size={18} /> Update Project
           </button>

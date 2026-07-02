@@ -62,7 +62,7 @@ const EyeBrow = ({ children }) => (
 // ── Stat item — now with CountUp ─────────────────────────────────────────────
 const Stat = ({ value, label }) => (
   <div className="flex flex-col">
-    <span className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white leading-none">
+    <span className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white leading-none">
       <CountUp end={value} suffix={value.toString().includes("+") ? "+" : ""} />
     </span>
     <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-gray-400 font-semibold">
@@ -75,7 +75,7 @@ const Stat = ({ value, label }) => (
 const DriveCard = ({ icon: Icon, title, body, accent }) => (
   <TiltCard className="h-full" intensity={6}>
     <div
-      className="group relative flex flex-col gap-5 p-7 sm:p-9 md:p-10 rounded-2xl
+      className="group relative flex flex-col gap-3 sm:gap-5 p-5 sm:p-9 md:p-10 rounded-xl sm:rounded-2xl
                   bg-white dark:bg-white/[0.03]
                   border border-gray-100 dark:border-white/[0.07]
                   hover:border-primary-500/40 dark:hover:border-primary-500/30
@@ -90,15 +90,15 @@ const DriveCard = ({ icon: Icon, title, body, accent }) => (
         }}
       />
       <div
-        className={`relative z-10 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-xl ${accent} text-white`}
+        className={`relative z-10 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl ${accent} text-white`}
       >
-        <Icon size={22} />
+        <Icon size={22} className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
       </div>
       <div className="relative z-10">
-        <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
+        <h3 className="font-display text-base sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 tracking-tight">
           {title}
         </h3>
-        <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-4">
+        <p className="text-[10px] sm:text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-4">
           {body || "—"}
         </p>
       </div>
@@ -286,7 +286,7 @@ const AboutSection = () => {
             {/* Stats bar */}
             <motion.div
               variants={staggerItem}
-              className="flex flex-wrap gap-x-10 gap-y-5 pt-8 sm:pt-10 border-t border-gray-200 dark:border-white/10"
+              className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-4 sm:gap-y-5 pt-6 sm:pt-10 border-t border-gray-200 dark:border-white/10"
             >
               {stats.map(({ value, label }) => (
                 <Stat key={label} value={value} label={label} />
@@ -302,7 +302,7 @@ const AboutSection = () => {
         >
           <div className="grid grid-cols-2 md:grid-cols-3 grid-rows-2 gap-3 sm:gap-4 h-full w-full">
             {/* Card 1: Vertical (Left) */}
-            <div className="col-span-1 row-span-2 rounded-[2rem] overflow-hidden relative group shadow-2xl dark:shadow-black/50">
+            <div className="col-span-1 row-span-2 rounded-md md:rounded-[2rem] overflow-hidden relative group shadow-2xl dark:shadow-black/50">
               <img
                 src={
                   profile.avatar ||
@@ -323,7 +323,7 @@ const AboutSection = () => {
             </div>
 
             {/* Card 2: Top Horizontal (Right top) */}
-            <div className="col-span-1 md:col-span-2 row-span-1 rounded-[2rem] overflow-hidden relative bg-gradient-to-br from-burgundy-600 to-burgundy-900 p-6 sm:p-8 flex flex-col justify-center group shadow-2xl dark:shadow-black/50">
+            <div className="col-span-1 md:col-span-2 row-span-1 rounded-md md:rounded-[2rem] overflow-hidden relative bg-gradient-to-br from-burgundy-600 to-burgundy-900 p-6 sm:p-8 flex flex-col justify-center group shadow-2xl dark:shadow-black/50">
               <div
                 className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500 mix-blend-overlay"
                 style={patterns.circuit}
@@ -340,7 +340,7 @@ const AboutSection = () => {
             </div>
 
             {/* Card 3: Bottom Vertical 1 (Right bottom left) */}
-            <div className="col-span-1 row-span-1 rounded-[2rem] overflow-hidden relative bg-gray-900 border border-white/10 p-5 sm:p-6 flex flex-col justify-between group shadow-2xl dark:shadow-black/50">
+            <div className="col-span-1 row-span-1 rounded-md md:rounded-[2rem] overflow-hidden relative bg-gray-900 border border-white/10 p-5 sm:p-6 flex flex-col justify-between group shadow-2xl dark:shadow-black/50">
               <div className="text-burgundy-400 group-hover:scale-110 transition-transform duration-300 origin-left">
                 <Shield size={28} className="sm:w-8 sm:h-8" />
               </div>
@@ -355,7 +355,7 @@ const AboutSection = () => {
             </div>
 
             {/* Card 4: Bottom Vertical 2 (Right bottom right) */}
-            <div className="col-span-1 row-span-1 rounded-[2rem] overflow-hidden relative bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/10 p-5 sm:p-6 flex flex-col justify-between group shadow-2xl dark:shadow-black/50">
+            <div className="col-span-1 row-span-1 rounded-md md:rounded-[2rem] overflow-hidden relative bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/10 p-5 sm:p-6 flex flex-col justify-between group shadow-2xl dark:shadow-black/50">
               <div className="text-accent-500 group-hover:scale-110 transition-transform duration-300 origin-left">
                 <Activity size={28} className="sm:w-8 sm:h-8" />
               </div>
@@ -378,7 +378,7 @@ const AboutSection = () => {
           <EyeBrow>What I Bring</EyeBrow>
           <AnimatedHeading
             as="h3"
-            className="font-display text-[clamp(2.3rem,4vw,4.5rem)] font-extrabold text-burgundy-900 dark:text-burgundy-400 tracking-tight max-w-3xl"
+            className="font-display text-[clamp(1.8rem,4vw,4.5rem)] font-extrabold text-burgundy-900 dark:text-burgundy-400 tracking-tight max-w-3xl"
           >
             Craft, care &amp; conviction — in every line.
           </AnimatedHeading>
@@ -443,12 +443,12 @@ const AboutSection = () => {
                   {extraContent.map(({ label, content }) => (
                     <div
                       key={label}
-                      className="glass-panel rounded-[1.75rem] p-6 md:p-8"
+                      className="glass-panel rounded-md md:rounded-[1.75rem] p-6 md:p-8"
                     >
                       <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-primary-500 mb-3">
                         {label}
                       </p>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-4">
+                      <p className="text-[10px] sm:text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-4">
                         {content}
                       </p>
                     </div>

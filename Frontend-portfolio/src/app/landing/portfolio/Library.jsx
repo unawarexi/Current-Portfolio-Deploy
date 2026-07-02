@@ -24,7 +24,7 @@ const ProjectCard = ({ project, onSelect }) => (
         onClick={() => onSelect(project)}
         className="h-full flex flex-col overflow-hidden group border border-gray-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.02] backdrop-blur-sm rounded-3xl cursor-pointer hover:border-primary-500/40 transition-colors duration-300"
       >
-        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gray-100 dark:bg-gray-900/50">
+        <div className="relative h-40 sm:h-56 md:h-64 overflow-hidden bg-gray-100 dark:bg-gray-900/50">
           {project.video ? (
             <VideoCard
               src={project.video}
@@ -46,17 +46,17 @@ const ProjectCard = ({ project, onSelect }) => (
             </span>
           )}
         </div>
-        <div className="flex flex-col flex-1 p-6 md:p-8">
-          <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-burgundy-500 transition-colors">{project.title}</h3>
+        <div className="flex flex-col flex-1 p-4 sm:p-6 md:p-8">
+          <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-burgundy-500 transition-colors">{project.title}</h3>
           <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-6 line-clamp-2">{project.description}</p>
           
           {project.technologies?.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-6">
               {project.technologies.slice(0, 3).map((t) => (
-                <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 font-semibold border border-burgundy-500/20">{t}</span>
+                <span key={t} className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 font-semibold border border-burgundy-500/20">{t}</span>
               ))}
               {project.technologies.length > 3 && (
-                <span className="text-xs px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 font-semibold">+{project.technologies.length - 3}</span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 font-semibold">+{project.technologies.length - 3}</span>
               )}
             </div>
           )}
@@ -103,14 +103,14 @@ const Library = () => {
       <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.dots} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: glows.dual }} />
 
-      <div className="relative z-10 w-full max-w-[100rem] mx-auto px-6 sm:px-10 lg:px-20">
+      <div className="relative z-10 w-full max-w-[100rem] mx-auto px-4 sm:px-10 lg:px-20">
         
         {/* Header */}
         <div className="text-center mb-12 md:mb-20">
           <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 border border-burgundy-500/20">The Archive</span>
           <AnimatedHeading
             as="h1"
-            className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[6rem] font-extrabold text-gray-900 dark:text-white tracking-tight mt-6 mb-6"
+            className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-[6rem] font-extrabold text-gray-900 dark:text-white tracking-tight mt-6 mb-6"
           >
             Project Library
           </AnimatedHeading>
@@ -138,7 +138,7 @@ const Library = () => {
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full font-display text-sm md:text-base font-bold tracking-wide transition-all duration-300
+              className={`px-4 py-1.5 sm:px-8 sm:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300
                 ${activeTab === cat
                   ? 'bg-burgundy-600 text-white shadow-lg shadow-burgundy-600/30 scale-105'
                   : 'text-gray-500 dark:text-gray-400 hover:text-burgundy-500 border border-gray-200 dark:border-white/10 hover:border-burgundy-500/30 bg-white/50 dark:bg-white/5 backdrop-blur-sm'

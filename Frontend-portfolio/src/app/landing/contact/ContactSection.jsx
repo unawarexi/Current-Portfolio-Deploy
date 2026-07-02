@@ -108,7 +108,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 xl:gap-16 items-start px-[5%] lg:px-[10%]">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-12 xl:gap-16 items-start px-3 sm:px-[2%] lg:px-[10%]">
           {/* ── Contact form (3 cols) ──────────────────────────────── */}
           <motion.div
             variants={fadeInLeft}
@@ -118,20 +118,20 @@ const ContactSection = () => {
             className="lg:col-span-3"
           >
             <TiltCard intensity={2}>
-              <div className="glass-panel rounded-[2rem] p-8 md:p-12">
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-3">
+              <div className="glass-panel rounded-xl sm:rounded-2xl md:rounded-[2rem] p-4 sm:p-6 md:p-12">
+                <h3 className="font-display text-lg sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-2 sm:mb-3">
                   Send a Message
                 </h3>
-                <p className="font-sans text-sm md:text-base text-gray-500 dark:text-gray-400 mb-8 md:mb-10">
+                <p className="font-sans text-xs sm:text-sm md:text-base text-gray-500 dark:text-gray-400 mb-5 sm:mb-8 md:mb-10">
                   Fill out the form below and I'll get back to you as soon as
                   possible.
                 </p>
 
                 <form
                   onSubmit={submit}
-                  className="flex flex-col gap-5 md:gap-6"
+                  className="flex flex-col gap-3 sm:gap-5 md:gap-6"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 md:gap-6">
                     <Input
                       label="Full Name"
                       name="name"
@@ -158,8 +158,8 @@ const ContactSection = () => {
                     placeholder="Project enquiry"
                   />
                   {/* Textarea */}
-                  <div className="flex flex-col gap-2">
-                    <label className="font-sans text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <div className="flex flex-col gap-1.5 sm:gap-2">
+                    <label className="font-sans text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Message <span className="text-red-500">*</span>
                     </label>
                     <textarea
@@ -167,9 +167,9 @@ const ContactSection = () => {
                       value={fields.message}
                       onChange={handleChange}
                       placeholder="Tell me about your project…"
-                      rows={6}
+                      rows={4}
                       required
-                      className="w-full px-5 py-4 rounded-xl text-base font-sans
+                      className="w-full px-3 py-3 sm:px-5 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-base font-sans
                         bg-gray-50 dark:bg-white/[0.04]
                         border border-gray-200 dark:border-white/10
                         text-gray-900 dark:text-white
@@ -185,7 +185,7 @@ const ContactSection = () => {
                     size="lg"
                     fullWidth
                     isLoading={isSubmitting}
-                    className="mt-4 h-14 text-base shadow-lg shadow-primary-500/30"
+                    className="mt-2 sm:mt-4 h-11 sm:h-14 text-sm sm:text-base shadow-lg shadow-primary-500/30"
                     rightIcon={<Send size={18} />}
                   >
                     Send Message
@@ -201,35 +201,35 @@ const ContactSection = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-2 flex flex-col gap-6 md:gap-8"
+            className="lg:col-span-2 flex flex-col gap-4 sm:gap-6 md:gap-8"
           >
             {/* Contact info */}
-            <div className="glass-panel rounded-[2rem] p-8 md:p-10">
-              <h3 className="font-display text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-8">
+            <div className="glass-panel rounded-xl sm:rounded-2xl md:rounded-[2rem] p-4 sm:p-6 md:p-10">
+              <h3 className="font-display text-base sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-4 sm:mb-6 md:mb-8">
                 Contact Information
               </h3>
-              <div className="space-y-6 md:space-y-8">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {contactInfo.map(({ Icon, label, value, href }) => (
                   <div
                     key={label}
-                    className="flex items-start gap-4 md:gap-5 group"
+                    className="flex items-start gap-3 sm:gap-4 md:gap-5 group"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
-                      <Icon size={20} />
+                    <div className="flex-shrink-0 w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                      <Icon size={16} className="sm:w-5 sm:h-5" />
                     </div>
                     <div>
-                      <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-1.5">
+                      <p className="font-mono text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mb-1">
                         {label}
                       </p>
                       {href ? (
                         <a
                           href={href}
-                          className="font-sans text-sm md:text-base text-gray-800 dark:text-gray-200 hover:text-primary-500 transition-colors font-medium"
+                          className="font-sans text-xs sm:text-sm md:text-base text-gray-800 dark:text-gray-200 hover:text-primary-500 transition-colors font-medium"
                         >
                           {value}
                         </a>
                       ) : (
-                        <p className="font-sans text-sm md:text-base text-gray-800 dark:text-gray-200 font-medium">
+                        <p className="font-sans text-xs sm:text-sm md:text-base text-gray-800 dark:text-gray-200 font-medium">
                           {value}
                         </p>
                       )}
@@ -240,20 +240,20 @@ const ContactSection = () => {
             </div>
 
             {/* Hours */}
-            <div className="glass-panel rounded-[2rem] p-8 md:p-10">
-              <h3 className="font-display text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">
+            <div className="glass-panel rounded-xl sm:rounded-2xl md:rounded-[2rem] p-4 sm:p-6 md:p-10">
+              <h3 className="font-display text-base sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-4 sm:mb-6">
                 Hours of Operation
               </h3>
               <div className="space-y-3">
                 {hours.map(({ day, time }) => (
                   <div
                     key={day}
-                    className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-white/[0.05] last:border-0"
+                    className="flex justify-between items-center py-1.5 sm:py-2 border-b border-gray-100 dark:border-white/[0.05] last:border-0"
                   >
-                    <span className="font-sans text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    <span className="font-sans text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
                       {day}
                     </span>
-                    <span className="font-mono text-xs text-gray-800 dark:text-gray-200 font-semibold">
+                    <span className="font-mono text-[10px] sm:text-xs text-gray-800 dark:text-gray-200 font-semibold">
                       {time}
                     </span>
                   </div>
@@ -262,7 +262,7 @@ const ContactSection = () => {
             </div>
 
             {/* Social links */}
-            <div className="flex items-center gap-4 pt-2">
+            <div className="flex items-center gap-3 sm:gap-4 pt-2">
               {socials.map(({ Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -272,9 +272,9 @@ const ContactSection = () => {
                   aria-label={label}
                   whileHover={{ scale: 1.15, y: -4 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-2xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 bg-white dark:bg-white/5 hover:border-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary-500/30"
+                  className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 bg-white dark:bg-white/5 hover:border-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary-500/30"
                 >
-                  <Icon size={20} />
+                  <Icon size={16} className="sm:w-5 sm:h-5" />
                 </motion.a>
               ))}
             </div>

@@ -26,7 +26,7 @@ const ProjectCard = ({ project, onSelect }) => (
         className="glass-panel h-full flex flex-col overflow-hidden group rounded-[2rem] cursor-pointer hover:border-primary-500/40 transition-colors duration-300"
       >
         {/* Thumbnail */}
-        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gray-100 dark:bg-gray-900/50">
+        <div className="relative h-40 sm:h-56 md:h-64 overflow-hidden bg-gray-100 dark:bg-gray-900/50">
           {project.video ? (
             <VideoCard
               src={project.video}
@@ -64,8 +64,8 @@ const ProjectCard = ({ project, onSelect }) => (
         </div>
 
         {/* Body */}
-        <div className="flex flex-col flex-1 p-6 md:p-8">
-          <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-2 line-clamp-1 group-hover:text-burgundy-500 transition-colors">
+        <div className="flex flex-col flex-1 p-4 sm:p-6 md:p-8">
+          <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-2 line-clamp-1 group-hover:text-burgundy-500 transition-colors">
             {project.title}
           </h3>
           <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-6 line-clamp-2">
@@ -76,12 +76,12 @@ const ProjectCard = ({ project, onSelect }) => (
           {project.technologies?.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-6">
               {project.technologies.slice(0, 3).map((t) => (
-                <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 font-semibold border border-burgundy-500/20">
+                <span key={t} className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 font-semibold border border-burgundy-500/20">
                   {t}
                 </span>
               ))}
               {project.technologies.length > 3 && (
-                <span className="text-xs px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 font-semibold">
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 font-semibold">
                   +{project.technologies.length - 3}
                 </span>
               )}
@@ -146,7 +146,7 @@ const PortfolioOverview = () => {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-5 py-2 sm:px-8 sm:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300
+              className={`px-4 py-1.5 sm:px-8 sm:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300
                 ${category === cat
                   ? 'bg-burgundy-600 text-white shadow-lg shadow-burgundy-600/30 scale-105'
                   : 'text-gray-500 dark:text-gray-400 hover:text-burgundy-500 border border-gray-200 dark:border-white/10 hover:border-burgundy-500/30 bg-white/50 dark:bg-white/5 backdrop-blur-sm'
@@ -192,7 +192,7 @@ const PortfolioOverview = () => {
           <div className="text-center mt-16 md:mt-24">
             <button
               onClick={() => navigate('/projects')}
-              className="inline-flex items-center gap-3 px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm md:text-base font-bold hover:border-burgundy-500 hover:text-burgundy-500 dark:hover:text-burgundy-400 transition-all duration-300 shadow-sm hover:shadow-xl hover:scale-105 group"
+              className="inline-flex items-center gap-3 px-6 py-3 sm:px-10 sm:py-5 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-xs sm:text-sm md:text-base font-bold hover:border-burgundy-500 hover:text-burgundy-500 dark:hover:text-burgundy-400 transition-all duration-300 shadow-sm hover:shadow-xl hover:scale-105 group"
             >
               Explore all projects 
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />

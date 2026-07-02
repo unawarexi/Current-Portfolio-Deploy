@@ -47,7 +47,7 @@ const FloatingNavbar = () => {
 
         const itemClass = `
           relative group flex items-center justify-center
-          p-2.5 sm:p-3.5 rounded-2xl cursor-pointer transition-all duration-300
+          p-2 sm:p-3.5 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300
           ${isActive
             ? 'text-burgundy-600 dark:text-burgundy-400 bg-burgundy-500/10 shadow-inner scale-105'
             : 'text-gray-500 dark:text-gray-400 hover:text-burgundy-600 dark:hover:text-burgundy-400 hover:bg-gray-100/50 dark:hover:bg-white/5 hover:scale-110'
@@ -56,7 +56,7 @@ const FloatingNavbar = () => {
 
         const inner = (
           <>
-            <Icon size={20} className="sm:w-6 sm:h-6" />
+            <Icon size={18} className="sm:w-6 sm:h-6" />
             {/* Tooltip */}
             <span className="absolute -top-9 left-1/2 -translate-x-1/2
               px-2 py-1 rounded-lg text-[9px] font-mono tracking-wide
