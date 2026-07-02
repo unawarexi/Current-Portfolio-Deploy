@@ -115,7 +115,7 @@ const AboutSection = () => {
     openToWork: true,
     availabilityNote: "Open to work & collaboration",
     avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+      "https://res.cloudinary.com/dkt3rfpgz/image/upload/v1783032145/file_00000000561c71f493904f7d48d37e1d_rurv2c.png",
   };
   const bio = apiData.bio || STATIC.bio;
   const vision = apiData.vision || STATIC.vision;
@@ -306,14 +306,14 @@ const AboutSection = () => {
               <img
                 src={
                   profile.avatar ||
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+                  "https://res.cloudinary.com/dkt3rfpgz/image/upload/v1783032145/file_00000000561c71f493904f7d48d37e1d_rurv2c.png"
                 }
                 alt="Profile"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <h4 className="text-white font-display font-bold text-lg sm:text-xl md:text-2xl mb-1">
+                <h4 className="text-white font-display font-bold text-md sm:text-xl md:text-2xl mb-1">
                   {profile.name || "Andrew C."}
                 </h4>
                 <p className="text-white/80 font-mono text-[10px] sm:text-xs uppercase tracking-wider">
