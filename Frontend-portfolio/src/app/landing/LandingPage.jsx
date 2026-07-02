@@ -5,6 +5,7 @@
 // ============================================================================
 
 import React, { lazy } from 'react';
+import SmoothScroll from '@core/animations/ParallaxProvider';
 import Hero        from '@landing/hero/Hero';
 import LazySection from '@components/shared/LazySection';
 
@@ -16,7 +17,7 @@ const LazyPortfolio  = lazy(() => import('@landing/portfolio/PortfolioOverview')
 const LazyContact    = lazy(() => import('@landing/contact/ContactSection'));
 
 const LandingPage = () => (
-  <>
+  <SmoothScroll>
     {/* Hero — always eager-loaded, above the fold */}
     <Hero />
 
@@ -25,7 +26,7 @@ const LandingPage = () => (
     <LazySection Component={LazyExperience} minHeight="70vh" />
     <LazySection Component={LazyPortfolio}  minHeight="80vh" />
     <LazySection Component={LazyContact}    minHeight="60vh" />
-  </>
+  </SmoothScroll>
 );
 
 export default LandingPage;

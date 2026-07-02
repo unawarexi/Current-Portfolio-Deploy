@@ -1,11 +1,6 @@
 import * as service from "./experience.service.js";
-import {
-  experienceSchema,
-  experienceUpdateSchema,
-} from "./experience.schema.js";
-import { HttpStatus, ErrorCodes } from "../../config/constants.js";
+import { HttpStatus } from "../../config/constants.js";
 import { createLogger } from "../../logs/logger.js";
-import AdvancedFormatter from "../../utils/formatters.js";
 
 const log = createLogger("Experience");
 
@@ -14,19 +9,13 @@ const log = createLogger("Experience");
 // ============================================================================
 const getAll = async (_req, res) => {
   try {
-    console.log(" [CONTROLLER] Fetching all experiences...");
     const data = await service.getAll();
-
-    console.log(" [CONTROLLER] Experiences retrieved:", {
-      count: data.length,
-    });
-
     res.json({ success: true, data });
   } catch (err) {
-    log.error("getAll", { error: err });
+    log.error("getAll", { error: err.message });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
-      error: { message: "Failed to fetch experience." },
+      error: { message: "Failed to fetch experiences." },
     });
   }
 };
@@ -37,8 +26,6 @@ const getAll = async (_req, res) => {
 const getOne = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(" [CONTROLLER] Fetching experience:", { id });
-
     const data = await service.getById(id);
 
     if (!data) {
@@ -50,7 +37,7 @@ const getOne = async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    log.error("getOne", { error: err });
+    log.error("getOne", { error: err.message });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: { message: "Failed to fetch experience." },
@@ -59,65 +46,12 @@ const getOne = async (req, res) => {
 };
 
 // ============================================================================
-// CREATE EXPERIENCE (WITH INTEGRATED FORMATTER)
+// CREATE EXPERIENCE
 // ============================================================================
 const create = async (req, res) => {
   try {
-    console.log(" [CONTROLLER] Received raw experience data:", {
-      company: req.body.company,
-      role: req.body.role,
-      hasDescription: !!req.body.description,
-      hasAchievements: !!req.body.achievements,
-      hasTechnologies: !!req.body.technologies,
-    });
-
-    // ============================================================================
-    // STEP 1: APPLY FORMATTER
-    // ============================================================================
-    const formatted = AdvancedFormatter.formatExperience(req.body);
-
-    console.log(" [CONTROLLER] Experience formatted:", {
-      company: formatted.company,
-      role: formatted.role,
-      achievements: `${formatted.achievements.length} items`,
-      technologies: `${formatted.technologies.length} items`,
-      skills: `${formatted.skills.length} items`,
-      productsBuilt: `${formatted.productsBuilt.length} items`,
-      descriptionPreview: formatted.description
-        ? `${formatted.description.substring(0, 50)}...`
-        : "EMPTY",
-    });
-
-    // ============================================================================
-    // STEP 2: VALIDATE AGAINST SCHEMA
-    // ============================================================================
-    const result = experienceSchema.safeParse(formatted);
-
-    if (!result.success) {
-      const fieldErrors = result.error.flatten().fieldErrors;
-
-      console.error(" [CONTROLLER] Validation failed:", {
-        problematicFields: Object.keys(fieldErrors),
-        errors: fieldErrors,
-      });
-
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        success: false,
-        error: {
-          code: ErrorCodes.VALIDATION_ERROR,
-          details: fieldErrors,
-        },
-      });
-    }
-
-    console.log(" [CONTROLLER] Schema validation passed");
-
-    // ============================================================================
-    // STEP 3: SAVE TO SERVICE
-    // ============================================================================
-    const id = await service.create(result.data);
-
-    console.log(" [CONTROLLER] Experience created:", { id });
+    // req.validated is populated by the validateBody middleware
+    const id = await service.create(req.validated);
 
     res.status(HttpStatus.CREATED).json({
       success: true,
@@ -125,7 +59,7 @@ const create = async (req, res) => {
       data: { id },
     });
   } catch (err) {
-    log.error("create", { error: err });
+    log.error("create", { error: err.message });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: { message: "Failed to create experience." },
@@ -134,60 +68,19 @@ const create = async (req, res) => {
 };
 
 // ============================================================================
-// UPDATE EXPERIENCE (WITH INTEGRATED FORMATTER)
+// UPDATE EXPERIENCE
 // ============================================================================
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-
-    console.log(" [CONTROLLER] Updating experience:", {
-      id,
-      fields: Object.keys(req.body),
-    });
-
-    // ============================================================================
-    // STEP 1: APPLY FORMATTER
-    // ============================================================================
-    const formatted = AdvancedFormatter.formatExperience(req.body);
-
-    console.log(" [CONTROLLER] Experience formatted for update");
-
-    // ============================================================================
-    // STEP 2: VALIDATE AGAINST SCHEMA (PARTIAL UPDATE)
-    // ============================================================================
-    const result = experienceUpdateSchema.safeParse(formatted);
-
-    if (!result.success) {
-      const fieldErrors = result.error.flatten().fieldErrors;
-
-      console.error(" [CONTROLLER] Validation failed:", {
-        errors: fieldErrors,
-      });
-
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        success: false,
-        error: {
-          code: ErrorCodes.VALIDATION_ERROR,
-          details: fieldErrors,
-        },
-      });
-    }
-
-    console.log(" [CONTROLLER] Schema validation passed");
-
-    // ============================================================================
-    // STEP 3: SAVE TO SERVICE
-    // ============================================================================
-    await service.update(id, result.data);
-
-    console.log(" [CONTROLLER] Experience updated:", { id });
+    await service.update(id, req.validated);
 
     res.json({
       success: true,
       message: "Experience updated successfully",
     });
   } catch (err) {
-    log.error("update", { error: err });
+    log.error("update", { error: err.message });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: { message: "Failed to update experience." },
@@ -201,19 +94,14 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
-
-    console.log("️  [CONTROLLER] Deleting experience:", { id });
-
     await service.remove(id);
-
-    console.log(" [CONTROLLER] Experience deleted:", { id });
 
     res.json({
       success: true,
       message: "Experience deleted successfully",
     });
   } catch (err) {
-    log.error("remove", { error: err });
+    log.error("remove", { error: err.message });
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: { message: "Failed to delete experience." },

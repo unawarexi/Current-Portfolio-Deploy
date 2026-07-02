@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useProjectFormUsecase }    from '@app/usecases/project-form-usecase';
 import { useExperienceFormUsecase } from '@app/usecases/experience-form-usecase';
 import { useAboutFormUsecase }       from '@app/usecases/about-form-usecase';
+import DynamicFieldList from '@app/components/DynamicFieldList';
+import DynamicObjectList from '@app/components/DynamicObjectList';
 
 // Project sub-forms
 import ProjectInfoForm    from './form_components/ProjectForm';
@@ -45,7 +47,7 @@ const ALL_TABS = [
 const EXP_TABS  = [
   { id: 'basics',  label: 'Basics',  fields: ['company','role','year','type','subCategory','isCurrent','order'] },
   { id: 'content', label: 'Content', fields: ['description','impact'] },
-  { id: 'lists',   label: 'Lists',   fields: ['skills','achievements','productsBuilt'] },
+  { id: 'lists',   label: 'Lists',   fields: ['skills','technologies','achievements','productsBuilt'] },
 ];
 const EXP_TYPES = ['Web Development', 'Mobile Development', 'Blockchain', 'Others'];
 
@@ -274,15 +276,10 @@ const TabbedForm = ({ editItem = null, onSuccess }) => {
                       </Field>
                     </>)}
                     {experienceUc.activeTab === 'lists' && (<>
-                      <Field label="Skills Used" hint="One per line">
-                        <textarea rows={4} className={textareaCls} value={experienceUc.form.skills} onChange={(e) => experienceUc.setField('skills', e.target.value)} placeholder={'React\nNode.js\nFirebase'} />
-                      </Field>
-                      <Field label="Achievements" hint="One per line">
-                        <textarea rows={4} className={textareaCls} value={experienceUc.form.achievements} onChange={(e) => experienceUc.setField('achievements', e.target.value)} placeholder={'Delivered 2 weeks early\nEmployee of the month'} />
-                      </Field>
-                      <Field label="Products Built" hint="One per line">
-                        <textarea rows={3} className={textareaCls} value={experienceUc.form.productsBuilt} onChange={(e) => experienceUc.setField('productsBuilt', e.target.value)} placeholder={'Customer dashboard\nMobile delivery app'} />
-                      </Field>
+                      <DynamicFieldList title="Skills Used" items={experienceUc.form.skills} onChange={(v) => experienceUc.setField('skills', v)} placeholder="E.g. React" />
+                      <DynamicFieldList title="Technologies" items={experienceUc.form.technologies} onChange={(v) => experienceUc.setField('technologies', v)} placeholder="E.g. Node.js" />
+                      <DynamicFieldList title="Achievements" items={experienceUc.form.achievements} onChange={(v) => experienceUc.setField('achievements', v)} placeholder="E.g. Delivered 2 weeks early" />
+                      <DynamicFieldList title="Products Built" items={experienceUc.form.productsBuilt} onChange={(v) => experienceUc.setField('productsBuilt', v)} placeholder="E.g. Customer dashboard" />
                     </>)}
                   </motion.div>
                 </AnimatePresence>
@@ -368,19 +365,11 @@ const TabbedForm = ({ editItem = null, onSuccess }) => {
                       <Field label="Philosophy / Working Style"><textarea rows={3} className={textareaCls} value={aboutUc.form.philosophy} onChange={(e) => aboutUc.setField('philosophy', e.target.value)} /></Field>
                     </>)}
                     {aboutUc.activeTab === 'goals' && (<>
-                      <Field label="Goals" hint="One goal per line">
-                        <textarea rows={4} className={textareaCls} value={aboutUc.form.goals} onChange={(e) => aboutUc.setField('goals', e.target.value)} placeholder={'Land senior role\nLaunch a SaaS product'} />
-                      </Field>
+                      <DynamicFieldList title="Goals" items={aboutUc.form.goals} onChange={(v) => aboutUc.setField('goals', v)} placeholder="E.g. Land senior role" />
                       <Field label="Current Focus"><input className={inputCls} value={aboutUc.form.currentFocus} onChange={(e) => aboutUc.setField('currentFocus', e.target.value)} placeholder="Blockchain development" /></Field>
-                      <Field label="Core Values" hint="One per line">
-                        <textarea rows={3} className={textareaCls} value={aboutUc.form.values} onChange={(e) => aboutUc.setField('values', e.target.value)} placeholder={'Integrity\nExcellence\nContinuous learning'} />
-                      </Field>
-                      <Field label="Fun Facts" hint="One per line">
-                        <textarea rows={3} className={textareaCls} value={aboutUc.form.funFacts} onChange={(e) => aboutUc.setField('funFacts', e.target.value)} placeholder={"I can solve a Rubik's cube in 2 minutes"} />
-                      </Field>
-                      <Field label="Hobbies" hint="One per line">
-                        <textarea rows={2} className={textareaCls} value={aboutUc.form.hobbies} onChange={(e) => aboutUc.setField('hobbies', e.target.value)} placeholder={'Chess\nHiking'} />
-                      </Field>
+                      <DynamicFieldList title="Core Values" items={aboutUc.form.values} onChange={(v) => aboutUc.setField('values', v)} placeholder="E.g. Integrity" />
+                      <DynamicFieldList title="Fun Facts" items={aboutUc.form.funFacts} onChange={(v) => aboutUc.setField('funFacts', v)} placeholder="E.g. I can solve a Rubik's cube in 2 minutes" />
+                      <DynamicFieldList title="Hobbies" items={aboutUc.form.hobbies} onChange={(v) => aboutUc.setField('hobbies', v)} placeholder="E.g. Chess" />
                     </>)}
                     {aboutUc.activeTab === 'creds' && (<>
                       <div className="grid grid-cols-2 gap-4">
@@ -389,15 +378,39 @@ const TabbedForm = ({ editItem = null, onSuccess }) => {
                         <Field label="Clients Count"><input type="number" className={inputCls} value={aboutUc.form.clientsCount} onChange={(e) => aboutUc.setField('clientsCount', e.target.value)} /></Field>
                         <Field label="Rating (out of 5)"><input type="number" step="0.1" max="5" className={inputCls} value={aboutUc.form.rating} onChange={(e) => aboutUc.setField('rating', e.target.value)} /></Field>
                       </div>
-                      <Field label="Education" hint='[{"institution":"...","degree":"...","year":"..."}] or one per line'>
-                        <textarea rows={4} className={textareaCls} value={aboutUc.form.education} onChange={(e) => aboutUc.setField('education', e.target.value)} />
-                      </Field>
-                      <Field label="Certifications">
-                        <textarea rows={4} className={textareaCls} value={aboutUc.form.certifications} onChange={(e) => aboutUc.setField('certifications', e.target.value)} />
-                      </Field>
-                      <Field label="Languages" hint='[{"name":"English","level":"Native"}]'>
-                        <textarea rows={2} className={textareaCls} value={aboutUc.form.languages} onChange={(e) => aboutUc.setField('languages', e.target.value)} />
-                      </Field>
+                      <DynamicObjectList 
+                        title="Education" 
+                        items={aboutUc.form.education} 
+                        onChange={(v) => aboutUc.setField('education', v)}
+                        emptyItem={{ institution: '', degree: '', year: '' }}
+                        fields={[
+                          { name: 'institution', label: 'Institution', placeholder: 'Stanford University' },
+                          { name: 'degree', label: 'Degree', placeholder: 'BSc Computer Science' },
+                          { name: 'year', label: 'Year', placeholder: '2020 - 2024' }
+                        ]}
+                      />
+                      <DynamicObjectList 
+                        title="Certifications" 
+                        items={aboutUc.form.certifications} 
+                        onChange={(v) => aboutUc.setField('certifications', v)}
+                        emptyItem={{ name: '', issuer: '', year: '', url: '' }}
+                        fields={[
+                          { name: 'name', label: 'Name', placeholder: 'AWS Certified Solutions Architect' },
+                          { name: 'issuer', label: 'Issuer', placeholder: 'Amazon Web Services' },
+                          { name: 'year', label: 'Year', placeholder: '2023' },
+                          { name: 'url', label: 'URL', placeholder: 'https://...' }
+                        ]}
+                      />
+                      <DynamicObjectList 
+                        title="Languages" 
+                        items={aboutUc.form.languages} 
+                        onChange={(v) => aboutUc.setField('languages', v)}
+                        emptyItem={{ name: '', level: '' }}
+                        fields={[
+                          { name: 'name', label: 'Language', placeholder: 'English' },
+                          { name: 'level', label: 'Level', placeholder: 'Native / Fluent' }
+                        ]}
+                      />
                     </>)}
                     {aboutUc.activeTab === 'socials' && (<>
                       {['github','linkedin','twitter','instagram','website'].map((key) => (

@@ -74,22 +74,26 @@ export const glows = {
 
 // ── Section wrapper helpers (Tailwind className strings) ─────────────────────
 
-/** Base class applied to every section for consistent spacing */
+/** Base class applied to every section — GENEROUS spacing for the big-text aesthetic */
 export const sectionBase =
-  'relative w-full overflow-hidden py-12 md:py-20 lg:py-28';
+  'editorial-section relative w-full overflow-hidden py-[clamp(5.5rem,10vw,10rem)]';
 
 /** Thin top-border accent line used to visually separate sections */
 export const sectionDivider =
-  'h-px w-full bg-gradient-to-r from-transparent via-primary-500/40 to-transparent my-2';
+  'h-px w-full bg-gradient-to-r from-transparent via-primary-500/40 to-transparent my-3';
 
 /** Card with minimal border, no heavy shadow */
 export const card =
-  'rounded-xl border border-gray-200/60 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.03] backdrop-blur-sm';
+  'rounded-2xl border border-gray-200/60 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.03] backdrop-blur-sm';
 
-/** Pill / badge label */
+/** Pill / badge label — slightly larger for the new scale */
 export const pill =
-  'inline-block px-2 py-0.5 max-sm:text-[9px] sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-display font-semibold uppercase tracking-widest border border-primary-500/30 text-primary-500 bg-primary-500/10';
+  'editorial-eyebrow inline-flex px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs font-display font-semibold uppercase tracking-[0.28em] border border-primary-500/30 text-primary-500 bg-primary-500/10';
 
 /** Glowing border ring on hover */
 export const glowRing =
   'transition-all duration-300 hover:ring-2 hover:ring-primary-500/40 hover:ring-offset-2 hover:ring-offset-transparent';
+
+/** Perspective container for 3D card hover effects */
+export const perspectiveContainer =
+  'perspective-[1000px]';

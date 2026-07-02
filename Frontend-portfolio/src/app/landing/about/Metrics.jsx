@@ -1,14 +1,14 @@
 // ============================================================================
-// METRICS — developer KPI cards
-// Uses: Card (ui), CheckCircle (icons.js), staggerContainer
+// METRICS — developer KPI cards with big bold design and 3D parallax
 // ============================================================================
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { CheckCircle } from '@core/constants/icons';
-import { Card } from '@components/ui';
-import { pill, sectionDivider, glows, patterns } from '@core/decorative';
-import { staggerContainer, staggerItem } from '@core/animations/FramerAnimations';
+import { pill, glows, patterns } from '@core/decorative';
+import { staggerContainer, staggerItemBig } from '@core/animations/FramerAnimations';
+import { AnimatedHeading, TiltCard } from '@core/animations/AnimatedText';
+import Scene3D from '@core/animations/Scene3D';
 
 const metricsData = [
   {
@@ -61,61 +61,69 @@ const metricsData = [
   },
 ];
 
-const Metrics = () => (
-  <div
-    className="relative w-full py-10 sm:py-20 px-3 sm:px-4 lg:px-8 overflow-hidden bg-[#070b18]"
-    id="metrics"
-  >
-    {/* Decorative */}
-    <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.grid} />
-    <div className="absolute inset-0 pointer-events-none" style={{ background: glows.dual }} />
+const Metrics = () => {
+  return (
+    <div
+      className="relative w-full py-20 md:py-32 lg:py-40 px-6 sm:px-10 lg:px-20 overflow-hidden bg-gray-50 dark:bg-gray-950"
+      id="metrics"
+    >
+      {/* Decorative */}
+      <Scene3D variant="minimal" className="opacity-60" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={patterns.grid} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: glows.dual }} />
 
-    <div className="relative z-10 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-6 sm:mb-12">
-        <span className={pill}>Performance</span>
-        <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-bold text-white tracking-wide mt-3 sm:mt-4 mb-2">
-          Developer Metrics
-        </h2>
-        <div className={sectionDivider} />
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-20">
+          <span className={pill}>Performance</span>
+          <AnimatedHeading
+            as="h2"
+            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-6 mb-4"
+          >
+            Developer Metrics
+          </AnimatedHeading>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-primary-500/50 to-transparent mx-auto" />
+        </div>
+
+        {/* Cards grid */}
+        <motion.div
+          variants={staggerContainer(0.12, 0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10"
+        >
+          {metricsData.map(({ title, items }, i) => (
+            <motion.div key={title} variants={staggerItemBig} className="h-full">
+              <TiltCard intensity={5} className="h-full">
+                <div
+                  className="h-full p-8 md:p-10 rounded-3xl border border-gray-100 dark:border-white/[0.07] bg-white dark:bg-white/[0.02] backdrop-blur-lg
+                             hover:border-primary-500/30 dark:hover:border-primary-500/40 hover:shadow-xl hover:shadow-primary-500/10 dark:hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary-500/20 transition-colors duration-500" />
+                  
+                  <h3 className="relative z-10 font-display text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white tracking-wide mb-6">
+                    {title}
+                  </h3>
+                  <ul className="relative z-10 space-y-4">
+                    {items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 md:gap-4 text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                        <CheckCircle
+                          size={18}
+                          className="flex-shrink-0 mt-0.5 text-primary-500"
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-
-      {/* Cards grid */}
-      <motion.div
-        variants={staggerContainer(0.1, 0.05)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"
-      >
-        {metricsData.map(({ title, items }) => (
-          <motion.div key={title} variants={staggerItem}>
-            <Card
-              variant="glass"
-              size="lg"
-              hoverable
-              className="h-full group border border-white/[0.07] bg-white/[0.03] hover:border-primary-500/30"
-            >
-              <h3 className="font-display text-sm sm:text-base lg:text-lg font-semibold text-white tracking-wide mb-2 sm:mb-4">
-                {title}
-              </h3>
-              <ul className="space-y-1.5 sm:space-y-2.5">
-                {items.map((item) => (
-                  <li key={item} className="flex items-start gap-1.5 sm:gap-2.5 text-gray-400 text-[11px] sm:text-sm">
-                    <CheckCircle
-                      size={13}
-                      className="flex-shrink-0 mt-0.5 text-primary-500"
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </motion.div>
-        ))}
-      </motion.div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Metrics;

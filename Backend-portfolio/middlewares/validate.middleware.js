@@ -24,4 +24,22 @@ const requireFields = (fields) => (req, res, next) => {
   next();
 };
 
-export { requireFields };
+/**
+ * Generic Zod schema validator middleware
+ */
+const validateBody = (schema) => (req, res, next) => {
+  const result = schema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(HttpStatus.BAD_REQUEST).json({
+      success: false,
+      error: {
+        code:    ErrorCodes.VALIDATION_ERROR,
+        details: result.error.flatten().fieldErrors,
+      },
+    });
+  }
+  req.validated = result.data;  // Controllers read from req.validated
+  next();
+};
+
+export { requireFields, validateBody };

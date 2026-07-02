@@ -12,30 +12,31 @@ import { toast } from '@store/toast.store';
 // ─── Zod schema ─────────────────────────────────────────────────────────────
 const urlOptional = z
   .string()
+  .trim()
   .refine((v) => v === '' || /^https?:\/\/.+/.test(v), { message: 'Must be a valid URL' })
   .optional()
   .default('');
 
 export const projectFormSchema = z.object({
-  title:          z.string().min(2, 'Title must be at least 2 characters').max(100, 'Title too long'),
-  description:    z.string().min(10, 'Description must be at least 10 characters').max(2000, 'Description too long'),
-  category:       z.string().min(1, 'Category is required'),
-  type:           z.string().optional().default(''),
-  status:         z.string().optional().default(''),
-  year:           z.string().optional().default(''),
-  client:         z.string().max(100).optional().default(''),
-  role:           z.string().max(100).optional().default(''),
-  duration:       z.string().max(50).optional().default(''),
-  features:       z.string().optional().default(''),
-  challenges:     z.string().optional().default(''),
-  solution:       z.string().optional().default(''),
-  results:        z.string().optional().default(''),
+  title:          z.string().trim().min(2, 'Title must be at least 2 characters').max(100, 'Title too long'),
+  description:    z.string().trim().min(10, 'Description must be at least 10 characters').max(2000, 'Description too long'),
+  category:       z.string().trim().min(1, 'Category is required'),
+  type:           z.string().trim().optional().default(''),
+  status:         z.string().trim().optional().default(''),
+  year:           z.string().trim().optional().default(''),
+  client:         z.string().trim().max(100).optional().default(''),
+  role:           z.string().trim().max(100).optional().default(''),
+  duration:       z.string().trim().max(50).optional().default(''),
+  features:       z.array(z.string().trim()).optional().default([]),
+  challenges:     z.string().trim().optional().default(''),
+  solution:       z.string().trim().optional().default(''),
+  results:        z.string().trim().optional().default(''),
   githubLink:     urlOptional,
   googlePlayLink: urlOptional,
   appStoreLink:   urlOptional,
   webLiveLink:    urlOptional,
   videoUrl:       urlOptional,
-  technologies:   z.array(z.string()).optional().default([]),
+  technologies:   z.array(z.string().trim()).optional().default([]),
 });
 
 // ─── Initial state ──────────────────────────────────────────────────────────
@@ -49,7 +50,7 @@ const INITIAL_FORM = {
   client:         '',
   role:           '',
   duration:       '',
-  features:       '',
+  features:       [],
   challenges:     '',
   solution:       '',
   results:        '',
@@ -77,7 +78,7 @@ export const useProjectFormUsecase = (editItem = null) => {
     client:         editItem.client         ?? '',
     role:           editItem.role           ?? '',
     duration:       editItem.duration       ?? '',
-    features:       editItem.features       ?? '',
+    features:       editItem.features       ?? [],
     challenges:     editItem.challenges     ?? '',
     solution:       editItem.solution       ?? '',
     results:        editItem.results        ?? '',

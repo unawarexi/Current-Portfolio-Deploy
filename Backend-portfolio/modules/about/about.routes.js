@@ -1,7 +1,9 @@
 import express from "express";
 const router = express.Router();
 import * as ctrl from "./about.controller.js";
-import { verifyToken } from "../../middlewares/auth.middleware.js";
+import { authenticate } from "../../middlewares/auth.middleware.js";
+import { validateBody } from "../../middlewares/validate.middleware.js";
+import { aboutUpdateSchema } from "./about.schema.js";
 import {
   apiLimiter,
   uploadLimiter,
@@ -14,30 +16,30 @@ const upload = multer({
 
 // ── Profile ───────────────────────────────────────────────────────────────────
 router.get("/", apiLimiter, ctrl.getProfile);
-router.patch("/", uploadLimiter, verifyToken, ctrl.upsertProfile);
+router.patch("/", uploadLimiter, authenticate, validateBody(aboutUpdateSchema), ctrl.upsertProfile);
 
 // ── Documents (CVs & Cover Letters) ──────────────────────────────────────────
 router.get("/documents", apiLimiter, ctrl.getDocuments);
 router.post(
   "/documents/cv",
   uploadLimiter,
-  verifyToken,
+  authenticate,
   upload.fields([{ name: "cv", maxCount: 1 }]),
   ctrl.uploadCv,
 );
 router.post(
   "/documents/cover-letter",
   uploadLimiter,
-  verifyToken,
+  authenticate,
   upload.fields([{ name: "coverLetter", maxCount: 1 }]),
   ctrl.uploadCoverLetter,
 );
 router.patch(
   "/documents/:id/activate",
   apiLimiter,
-  verifyToken,
+  authenticate,
   ctrl.setActiveDocument,
 );
-router.delete("/documents/:id", apiLimiter, verifyToken, ctrl.deleteDocument);
+router.delete("/documents/:id", apiLimiter, authenticate, ctrl.deleteDocument);
 
 export default router;

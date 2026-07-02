@@ -1,66 +1,69 @@
 // ============================================================================
-// SOCIALS — icon links using lucide-react (from @core/constants/icons)
+// SOCIALS — icon links with bigger typography and 3D hover effects
 // ============================================================================
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Linkedin, Github, Twitter, Instagram, Mail } from '@core/constants/icons';
 import { cn } from '@utils/cn';
+import { TiltCard } from '@core/animations/AnimatedText';
 
 const links = [
   {
     icon: Linkedin,
     href: 'https://www.linkedin.com/in/andrew-j-chukwuweike-se',
     label: 'LinkedIn',
-    color: 'hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5]',
+    color: 'group-hover:bg-[#0077B5] group-hover:text-white group-hover:border-[#0077B5]',
   },
   {
     icon: Github,
     href: 'https://www.github.com/unawarexi',
     label: 'GitHub',
-    color: 'hover:bg-gray-800 hover:text-white hover:border-gray-800 dark:hover:bg-white dark:hover:text-gray-900',
+    color: 'group-hover:bg-gray-800 group-hover:text-white group-hover:border-gray-800 dark:group-hover:bg-white dark:group-hover:text-gray-900',
   },
   {
     icon: Twitter,
     href: 'https://twitter.com',
     label: 'Twitter / X',
-    color: 'hover:bg-black hover:text-white hover:border-black',
+    color: 'group-hover:bg-black group-hover:text-white group-hover:border-black dark:group-hover:bg-white dark:group-hover:text-black dark:group-hover:border-white',
   },
   {
     icon: Instagram,
     href: 'https://www.instagram.com',
     label: 'Instagram',
-    color: 'hover:bg-gradient-to-br hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white',
+    color: 'group-hover:bg-gradient-to-br group-hover:from-yellow-400 group-hover:via-pink-500 group-hover:to-purple-600 group-hover:text-white group-hover:border-transparent',
   },
   {
     icon: Mail,
     href: 'mailto:andrewchukwuweike@gmail.com',
     label: 'Email',
-    color: 'hover:bg-primary-600 hover:text-white hover:border-primary-600',
+    color: 'group-hover:bg-primary-600 group-hover:text-white group-hover:border-primary-600',
   },
 ];
 
-const Socials = ({ size = 18 }) => (
-  <div className="flex items-center gap-2 sm:gap-3">
+const Socials = ({ size = 22 }) => (
+  <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
     {links.map(({ icon: Icon, href, label, color }) => (
-      <motion.a
-        key={label}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={label}
-        whileHover={{ scale: 1.12, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        className={cn(
-          'flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full',
-          'border border-gray-300 dark:border-white/20',
-          'text-gray-600 dark:text-gray-400',
-          'transition-all duration-200',
-          color,
-        )}
-      >
-        <Icon size={size} />
-      </motion.a>
+      <TiltCard key={label} intensity={25}>
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          className="group block"
+        >
+          <div className={cn(
+            'flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full',
+            'border-2 border-gray-200 dark:border-white/10',
+            'bg-white dark:bg-gray-900',
+            'text-gray-600 dark:text-gray-400',
+            'shadow-sm group-hover:shadow-xl',
+            'transition-all duration-300 group-hover:scale-110',
+            color,
+          )}>
+            <Icon size={size} className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+          </div>
+        </a>
+      </TiltCard>
     ))}
   </div>
 );

@@ -59,7 +59,7 @@ const projectSchema = z.object({
   team: z.array(z.string()).optional().default([]),
 
   // ── Content ──────────────────────────────────────────────────────────────
-  features: z.string().max(3000).optional().default(""),
+  features: z.array(z.string()).optional().default([]),
   challenges: z.string().max(3000).optional().default(""),
   solution: z.string().max(3000).optional().default(""),
   results: z.string().max(3000).optional().default(""),

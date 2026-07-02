@@ -1,29 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --page-max-width: 100rem;
+    --page-gutter: clamp(1.25rem, 2.5vw, 2.5rem);
+    --section-space-y: clamp(5.5rem, 10vw, 10rem);
+    --headline-xl: clamp(3.5rem, 9vw, 8rem);
+    --headline-lg: clamp(2.9rem, 6vw, 6rem);
+    --headline-md: clamp(2.2rem, 4vw, 4.5rem);
+    --body-lg: clamp(1.0625rem, 1.4vw, 1.375rem);
+    --surface-soft: rgba(255, 255, 255, 0.72);
+    --surface-soft-dark: rgba(255, 255, 255, 0.04);
+    --surface-border: rgba(15, 23, 42, 0.08);
+    --surface-border-dark: rgba(255, 255, 255, 0.08);
+  }
+
   html {
     scroll-behavior: smooth;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
   }
 
   body {
-    @apply bg-white text-gray-900 dark:bg-[#070b18] dark:text-gray-100;
-    line-height: 1.7;
+    @apply text-gray-900 dark:bg-[#070b18] dark:text-gray-100;
+    background:
+      radial-gradient(circle at top, rgba(99, 102, 241, 0.08), transparent 34%),
+      linear-gradient(180deg, #f8fafc 0%, #ffffff 38%, #f8fafc 100%);
+    line-height: 1.65;
     max-width: 100%;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5 {
-    font-family: 'Rajdhani', 'Space Grotesk', sans-serif;
-    letter-spacing: 0.02em;
+  body.dark {
+    background:
+      radial-gradient(circle at top, rgba(99, 102, 241, 0.12), transparent 30%),
+      linear-gradient(180deg, #070b18 0%, #09101f 36%, #070b18 100%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', 'Rajdhani', 'Space Grotesk', sans-serif;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
   }
 
   code, pre, .font-mono {
     font-family: 'Share Tech Mono', monospace;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.22);
   }
 }
 
@@ -43,5 +77,52 @@
     rgba(15, 15, 15, 0.893) 50%,
     rgb(0, 0, 0) 93%
   );
+}
+
+@layer components {
+  .page-shell {
+    width: min(100%, var(--page-max-width));
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .editorial-section {
+    position: relative;
+    padding-block: var(--section-space-y);
+  }
+
+  .editorial-eyebrow {
+    @apply inline-flex items-center gap-3 rounded-full border border-primary-500/20 bg-primary-500/10 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-primary-600 dark:text-primary-400;
+  }
+
+  .editorial-title {
+    font-size: var(--headline-lg);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  .editorial-title-xl {
+    font-size: var(--headline-xl);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+
+  .editorial-copy {
+    font-size: var(--body-lg);
+    line-height: 1.7;
+  }
+
+  .glass-panel {
+    background: linear-gradient(180deg, var(--surface-soft), rgba(255, 255, 255, 0.55));
+    border: 1px solid var(--surface-border);
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(22px);
+  }
+
+  .dark .glass-panel {
+    background: linear-gradient(180deg, var(--surface-soft-dark), rgba(255, 255, 255, 0.02));
+    border-color: var(--surface-border-dark);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+  }
 }
 /* Add similar classes for other elements as needed */

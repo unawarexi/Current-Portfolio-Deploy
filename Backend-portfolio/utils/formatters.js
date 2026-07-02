@@ -350,6 +350,47 @@ class AdvancedFormatter {
   }
 
   /**
+   * Sanitize a stored Firestore profile before sending to the client.
+   * Strips markdown headers, separators, and trailing punctuation from
+   * fields that were saved with raw markdown formatting.
+   *
+   * Applied in GET /about to clean up data at read-time.
+   *
+   * @param {Object} raw - Raw profile document from Firestore
+   * @returns {Object} Sanitized profile ready for the API response
+   */
+  static sanitizeProfileResponse(raw) {
+    if (!raw || typeof raw !== "object") return raw ?? {};
+
+    const isMarkdownHeader = (s) => /^#{1,6}\s/.test(s);
+    const isSeparator = (s) => /^[-*_]{2,}\s*$/.test(s);
+
+    // Filter markdown noise from a string[] field
+    const cleanArray = (arr) => {
+      if (!Array.isArray(arr)) return arr ?? [];
+      return arr
+        .map((item) => this.normalizeText(String(item ?? "").replace(/,\s*$/, "")))
+        .filter((item) => item.length > 0 && !isMarkdownHeader(item) && !isSeparator(item));
+    };
+
+    // Remove leading markdown title line(s) from a prose field
+    const stripLeadingTitle = (text) => {
+      if (!text || typeof text !== "string") return text ?? "";
+      return text.replace(/^(#{1,6}[^\n]*\n)+/, "").trim();
+    };
+
+    return {
+      ...raw,
+      goals:      cleanArray(raw.goals),
+      values:     cleanArray(raw.values),
+      funFacts:   cleanArray(raw.funFacts),
+      hobbies:    cleanArray(raw.hobbies),
+      mission:    stripLeadingTitle(raw.mission),
+      philosophy: stripLeadingTitle(raw.philosophy),
+    };
+  }
+
+  /**
    * ============================================================================
    * ORCHESTRATED FORMATTER FOR ABOUT SECTION
    * ============================================================================
@@ -383,22 +424,9 @@ class AdvancedFormatter {
       history: this.normalizeText(rawData.history || ""),
 
       // Philosophy & vision (structured)
-      vision: {
-        raw: rawData.vision || "",
-        sections: visionSections,
-        summary: visionSections.length > 0 ? visionSections[0].content : "",
-      },
-      mission: {
-        raw: rawData.mission || "",
-        sections: missionSections,
-        summary: missionSections.length > 0 ? missionSections[0].content : "",
-      },
-      philosophy: {
-        raw: rawData.philosophy || "",
-        sections: philosophySections,
-        summary:
-          philosophySections.length > 0 ? philosophySections[0].content : "",
-      },
+      vision: this.preserveRichText(rawData.vision || ""),
+      mission: this.preserveRichText(rawData.mission || ""),
+      philosophy: this.preserveRichText(rawData.philosophy || ""),
 
       // Arrays (normalized)
       goals: this.parseGoals(rawData.goals),
@@ -467,40 +495,7 @@ class AdvancedFormatter {
     };
   }
 
-  /**
-   * ============================================================================
-   * ORCHESTRATED FORMATTER FOR PROJECT SECTION
-   * ============================================================================
-   * Reusable for parsing project data
-   *
-   * @param {Object} rawData - Raw project data
-   * @returns {Object} Formatted project object
-   */
-  static formatProject(rawData) {
-    return {
-      id: rawData.id || "",
-      title: this.normalizeText(rawData.title || ""),
-      description: this.normalizeText(rawData.description || ""),
-      shortDescription: this.normalizeText(rawData.shortDescription || ""),
-      content: this.normalizeText(rawData.content || ""),
-      images: Array.isArray(rawData.images) ? rawData.images : [],
-      technologies: this.parseArray(rawData.technologies),
-      features: this.extractBulletPoints(rawData.features || ""),
-      links: {
-        github: (rawData.links?.github || "").trim(),
-        liveDemo: (rawData.links?.liveDemo || "").trim(),
-        portfolio: (rawData.links?.portfolio || "").trim(),
-      },
-      metrics: {
-        downloads: parseInt(rawData.metrics?.downloads || "0", 10),
-        stars: parseInt(rawData.metrics?.stars || "0", 10),
-        forks: parseInt(rawData.metrics?.forks || "0", 10),
-      },
-      status: rawData.status || "completed", // completed, in-progress, archived
-      startDate: rawData.startDate || "",
-      endDate: rawData.endDate || "",
-    };
-  }
+
 
   /**
    * Preserve intentional rich-text structure for long-form fields
@@ -569,7 +564,7 @@ class AdvancedFormatter {
       // ── Long-form rich text ──────────────────────────────────────────────
       // Numbered lists, bullet points, multi-paragraph prose and intentional
       // blank-line separators are all preserved as-is.
-      features: this.preserveRichText(d.features ?? ""),
+      features: this.parseArray(d.features),
       challenges: this.preserveRichText(d.challenges ?? ""),
       solution: this.preserveRichText(d.solution ?? ""),
       results: this.preserveRichText(d.results ?? ""),
@@ -587,76 +582,7 @@ class AdvancedFormatter {
     };
   }
 
-  /**
-   * Generic formatter for any data structure
-   * Auto-detect field types and apply appropriate formatting
-   *
-   * @param {Object} data - Raw data
-   * @param {Object} schema - Schema defining field types
-   * @returns {Object} Formatted data
-   *
-   * @example
-   * const schema = {
-   *   bio: 'text',
-   *   goals: 'array',
-   *   certifications: 'certifications',
-   *   values: 'values'
-   * };
-   * formatGeneric(rawData, schema);
-   */
-  static formatGeneric(data, schema) {
-    const formatted = {};
 
-    for (const [key, type] of Object.entries(schema)) {
-      const value = data[key];
-
-      switch (type) {
-        case "text":
-          formatted[key] = this.normalizeText(value);
-          break;
-
-        case "array":
-          formatted[key] = this.parseArray(value);
-          break;
-
-        case "markdown":
-          formatted[key] = {
-            raw: value || "",
-            sections: this.parseMarkdownSections(value),
-          };
-          break;
-
-        case "certifications":
-          formatted[key] = this.parseCertifications(value);
-          break;
-
-        case "values":
-          formatted[key] = this.parseValues(value);
-          break;
-
-        case "education":
-          formatted[key] = this.parseEducation(value);
-          break;
-
-        case "languages":
-          formatted[key] = this.parseLanguages(value);
-          break;
-
-        case "number":
-          formatted[key] = parseInt(value || "0", 10);
-          break;
-
-        case "boolean":
-          formatted[key] = value === true || value === "true";
-          break;
-
-        default:
-          formatted[key] = value;
-      }
-    }
-
-    return formatted;
-  }
 }
 
 export default AdvancedFormatter;

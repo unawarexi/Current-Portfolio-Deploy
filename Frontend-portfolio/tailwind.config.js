@@ -10,12 +10,13 @@ export default {
     extend: {
       fontFamily: {
         sans:    ['Space Grotesk', 'system-ui', 'sans-serif'],
-        display: ['Rajdhani', 'Space Grotesk', 'sans-serif'],
+        display: ['Syne', 'Rajdhani', 'Space Grotesk', 'sans-serif'],
         mono:    ['Share Tech Mono', 'monospace'],
       },
       colors: {
         primary: colors.primary,
         accent:  colors.accent,
+        burgundy: colors.burgundy,
         dark:    colors.dark,
         success: colors.semantic.success,
         warning: colors.semantic.warning,

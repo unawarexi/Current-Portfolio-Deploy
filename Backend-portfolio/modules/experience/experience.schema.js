@@ -10,6 +10,7 @@ const experienceSchema = z.object({
   type:          z.enum(['Web Development','Mobile Development','Blockchain','Others']).default('Web Development'),
   subCategory:   z.string().optional().default(''),
   skills:        z.array(z.string()).default([]),
+  technologies:  z.array(z.string()).default([]),
   achievements:  z.array(z.string()).default([]),
   productsBuilt: z.array(z.string()).default([]),
   impact:        z.string().optional().default(''),

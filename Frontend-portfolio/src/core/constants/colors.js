@@ -45,6 +45,20 @@ export const colors = {
     700: '#1d4ed8',
   },
 
+  burgundy: {
+    50:  '#fdf2f4',
+    100: '#fbe6e9',
+    200: '#f5ccd5',
+    300: '#efaab8',
+    400: '#e57b93',
+    500: '#d54d6e',
+    600: '#bd3354',
+    DEFAULT: '#9f2541',
+    700: '#9f2541',
+    800: '#84223a',
+    900: '#712035',
+  },
+
   // Dark-mode background surfaces
   dark: {
     bg:      '#1a1a2e',   // page background

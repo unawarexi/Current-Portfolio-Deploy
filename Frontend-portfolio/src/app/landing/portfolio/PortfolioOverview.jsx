@@ -1,5 +1,5 @@
 // ============================================================================
-// PORTFOLIO OVERVIEW — homepage section: first 6 projects + "Show more" CTA
+// PORTFOLIO OVERVIEW — big, bold 3-column grid with 3D cards
 // ============================================================================
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -10,7 +10,8 @@ import { ProjectGridSkeleton } from '@components/skeletons';
 import { EmptyState } from '@components/shared';
 import { VideoCard } from '@components/shared';
 import { sectionBase, sectionDivider, pill, glows, patterns } from '@core/decorative';
-import { staggerContainer, staggerItem } from '@core/animations/FramerAnimations';
+import { staggerContainer, staggerItemBig } from '@core/animations/FramerAnimations';
+import { AnimatedHeading, TiltCard } from '@core/animations/AnimatedText';
 import { useProjectsUsecase } from '@app/usecases/project-usecase';
 
 const CATEGORIES = ['General Overview', 'Web', 'Mobile', 'Blockchain'];
@@ -18,92 +19,95 @@ const PAGE_LIMIT  = 6; // cards shown in the homepage section
 
 // ─── Project card ──────────────────────────────────────────────────────────
 const ProjectCard = ({ project, onSelect }) => (
-  <motion.div variants={staggerItem} className="h-full">
-    <Card
-      variant="elevated"
-      hoverable
-      clickable
-      noPadding
-      onClick={() => onSelect(project)}
-      className="h-full flex flex-col overflow-hidden group border border-gray-200 dark:border-white/[0.07]"
-    >
-      {/* Thumbnail */}
-      <div className="relative h-36 sm:h-44 overflow-hidden bg-gray-100 dark:bg-gray-800">
-        {project.video ? (
-          <VideoCard
-            src={project.video}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (project.coverImages?.[0] || project.image) ? (
-          <img
-            src={project.coverImages?.[0] ?? project.image}
-            alt={project.title}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary-800/40 to-accent-800/40" />
-        )}
-        {project.category && (
-          <span className="absolute top-3 left-3">
-            <Badge variant="primary" size="xs">{project.category}</Badge>
-          </span>
-        )}
-        {project.status && (
-          <span className="absolute top-3 right-3">
-            <Badge
-              variant={project.status === 'Live' ? 'success' : project.status === 'In Progress' ? 'warning' : 'default'}
-              size="xs"
-            >
-              {project.status}
-            </Badge>
-          </span>
-        )}
-      </div>
-
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-3 sm:p-4">
-        <h3 className="font-display text-[12px] sm:text-sm font-semibold text-gray-900 dark:text-white tracking-wide mb-1 line-clamp-1">
-          {project.title}
-        </h3>
-        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-2 sm:mb-3 line-clamp-2">
-          {project.description}
-        </p>
-        {/* Tech chips */}
-        {project.technologies?.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-3">
-            {project.technologies.slice(0, 3).map((t) => (
-              <span key={t} className="text-[10px] px-1.5 py-0.5 rounded bg-primary-500/10 text-primary-600 dark:text-primary-400 font-medium">
-                {t}
-              </span>
-            ))}
-            {project.technologies.length > 3 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-400">
-                +{project.technologies.length - 3}
-              </span>
+  <motion.div variants={staggerItemBig} className="h-full">
+    <TiltCard intensity={5} className="h-full">
+      <div
+        onClick={() => onSelect(project)}
+        className="glass-panel h-full flex flex-col overflow-hidden group rounded-[2rem] cursor-pointer hover:border-primary-500/40 transition-colors duration-300"
+      >
+        {/* Thumbnail */}
+        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gray-100 dark:bg-gray-900/50">
+          {project.video ? (
+            <VideoCard
+              src={project.video}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+            />
+          ) : (project.coverImages?.[0] || project.image) ? (
+            <img
+              src={project.coverImages?.[0] ?? project.image}
+              alt={project.title}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-primary-800/40 to-accent-800/40" />
+          )}
+          
+          {/* Tags overlay */}
+          <div className="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
+            {project.category && (
+              <Badge variant="primary" size="sm" className="backdrop-blur-md bg-primary-500/80 text-white border-none shadow-lg">
+                {project.category}
+              </Badge>
+            )}
+            {project.status && (
+              <Badge
+                variant={project.status === 'Live' ? 'success' : project.status === 'In Progress' ? 'warning' : 'default'}
+                size="sm"
+                className="backdrop-blur-md shadow-lg"
+              >
+                {project.status}
+              </Badge>
             )}
           </div>
-        )}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-white/[0.06]">
-          <span className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-xs font-semibold">
-            View Case Study <ArrowRight size={12} />
-          </span>
-          {(project.webLiveLink || project.liveLink) && (
-            <a
-              href={project.webLiveLink ?? project.liveLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="text-gray-400 hover:text-primary-400 transition-colors"
-              aria-label="Live preview"
-            >
-              <ExternalLink size={13} />
-            </a>
+        </div>
+
+        {/* Body */}
+        <div className="flex flex-col flex-1 p-6 md:p-8">
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-2 line-clamp-1 group-hover:text-burgundy-500 transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-6 line-clamp-2">
+            {project.description}
+          </p>
+          
+          {/* Tech chips */}
+          {project.technologies?.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.technologies.slice(0, 3).map((t) => (
+                <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 font-semibold border border-burgundy-500/20">
+                  {t}
+                </span>
+              ))}
+              {project.technologies.length > 3 && (
+                <span className="text-xs px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 font-semibold">
+                  +{project.technologies.length - 3}
+                </span>
+              )}
+            </div>
           )}
+          
+          <div className="flex items-center justify-between pt-5 border-t border-gray-100 dark:border-white/[0.06]">
+            <span className="flex items-center gap-2 text-burgundy-600 dark:text-burgundy-500 text-sm font-bold group-hover:translate-x-1 transition-transform">
+              View Case Study <ArrowRight size={16} />
+            </span>
+            {(project.webLiveLink || project.liveLink) && (
+              <a
+                href={project.webLiveLink ?? project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:bg-burgundy-500 hover:text-white transition-colors"
+                aria-label="Live preview"
+              >
+                <ExternalLink size={16} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
-    </Card>
+    </TiltCard>
   </motion.div>
 );
 
@@ -120,26 +124,32 @@ const PortfolioOverview = () => {
       <div className="absolute inset-0 pointer-events-none opacity-20" style={patterns.dots} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: glows.bottomRight }} />
 
-      <div className="relative z-10 w-full max-w-[90rem] mx-auto px-3 sm:px-6 md:px-14">
+      <div className="page-shell relative z-10 w-full">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-10">
-          <span className={pill}>Portfolio</span>
-          <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-wide mt-3 sm:mt-4 mb-2">
+        <div className="text-center mb-12 md:mb-24">
+          <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-burgundy-500/10 text-burgundy-600 dark:text-burgundy-400 border border-burgundy-500/20">Portfolio</span>
+          <AnimatedHeading
+            as="h2"
+            className="editorial-title mt-6 mb-6 text-gray-900 dark:text-white"
+          >
             Featured Projects
-          </h2>
-          <div className={sectionDivider} />
+          </AnimatedHeading>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-primary-500/50 to-transparent mx-auto mb-6" />
+          <p className="editorial-copy mx-auto max-w-3xl text-gray-500 dark:text-gray-400">
+            Selected product work across web, mobile, and emerging technologies, presented with more space for visual storytelling.
+          </p>
         </div>
 
         {/* Filter tabs */}
-        <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-5 sm:mb-10">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12 md:mb-20">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-3 py-1 sm:px-5 sm:py-2 rounded-full font-display text-[10px] sm:text-xs font-semibold tracking-wide transition-all duration-200
+              className={`px-5 py-2 sm:px-8 sm:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300
                 ${category === cat
-                  ? 'bg-primary-600 text-white'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-primary-500 border border-gray-200 dark:border-white/10'
+                  ? 'bg-burgundy-600 text-white shadow-lg shadow-burgundy-600/30 scale-105'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-burgundy-500 border border-gray-200 dark:border-white/10 hover:border-burgundy-500/30 bg-white/50 dark:bg-white/5 backdrop-blur-sm'
                 }`}
             >
               {cat}
@@ -147,23 +157,25 @@ const PortfolioOverview = () => {
           ))}
         </div>
 
-        {/* Grid */}
+        {/* Grid — changed from 4 cols to 3 cols for bigger, bolder cards */}
         {isLoading ? (
-          <ProjectGridSkeleton count={PAGE_LIMIT} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+             <ProjectGridSkeleton count={3} />
+          </div>
         ) : visible.length === 0 ? (
           <EmptyState
             variant="search"
             title="No projects found"
             description="No projects in this category yet. Check back soon."
-            size="md"
+            size="lg"
           />
         ) : (
           <motion.div
-            variants={staggerContainer(0.07, 0.04)}
+            variants={staggerContainer(0.1, 0.05)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.05 }}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-10"
           >
             {visible.map((project, i) => (
               <ProjectCard
@@ -177,12 +189,13 @@ const PortfolioOverview = () => {
 
         {/* Show more */}
         {!isLoading && hasMore && (
-          <div className="text-center mt-6 sm:mt-12">
+          <div className="text-center mt-16 md:mt-24">
             <button
               onClick={() => navigate('/projects')}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-5 py-2 sm:px-7 sm:py-3 rounded-full border border-primary-500/40 text-primary-600 dark:text-primary-400 text-[11px] sm:text-sm font-semibold hover:bg-primary-500 hover:text-white transition-all duration-200"
+              className="inline-flex items-center gap-3 px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm md:text-base font-bold hover:border-burgundy-500 hover:text-burgundy-500 dark:hover:text-burgundy-400 transition-all duration-300 shadow-sm hover:shadow-xl hover:scale-105 group"
             >
-              Show more projects <ChevronRight size={14} />
+              Explore all projects 
+              <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         )}
@@ -191,10 +204,10 @@ const PortfolioOverview = () => {
       {/* FAB — admin only */}
       <button
         onClick={() => navigate('/auth/new')}
-        className="fixed bottom-[10%] lg:right-20 right-4 z-50 flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-primary-600 hover:bg-primary-700 text-white shadow-lg transition-colors"
+        className="fixed bottom-[10%] lg:right-20 right-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-burgundy-600 hover:bg-burgundy-700 text-white shadow-xl hover:scale-110 transition-all duration-300"
         aria-label="Add new project"
       >
-        <Plus size={18} />
+        <Plus size={24} />
       </button>
     </section>
   );

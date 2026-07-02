@@ -9,21 +9,15 @@ import {
 const footerData = [
   {
     title: "Web Development",
-    links: ["Frontend", "Full-Stack", "Mern Developer", "Django"],
+    links: ["Frontend", "Full-Stack", "MERN", "Django"],
   },
   {
     title: "Mobile Development",
-    links: ["React Native", "Flutter", "Cross Platform", "Deploymemts"],
+    links: ["React Native", "Flutter", "Cross Platform", "Deployments"],
   },
   {
     title: "Blockchain",
-    links: [
-      "Smart Contracts",
-      "Solidity",
-      "Decentralized Apps",
-      "Cryptocurrencies",
-      "Audits & Security",
-    ],
+    links: ["Smart Contracts", "Solidity", "dApps", "Audits"],
   },
   {
     title: "Achievements",
@@ -31,7 +25,7 @@ const footerData = [
   },
   {
     title: "Resources",
-    links: ["Blog", "Documentation", "Tutorials", "GitHub Repository"],
+    links: ["Blog", "Documentation", "Tutorials", "GitHub"],
   },
   {
     title: "Contact",
@@ -41,67 +35,66 @@ const footerData = [
 
 const Footer = () => {
   return (
-    <footer className="text-gray-600 body-font">
-      <div className="container px-3 sm:px-5 py-12 sm:py-24 mx-auto">
-        <div className="flex flex-wrap md:text-left text-center -mb-10 -mx-2 sm:-mx-4">
-          {footerData.map((section, index) => (
-            <div key={index} className="lg:w-1/6 md:w-1/3 w-1/2 px-2 sm:px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-[9px] md:text-sm mb-2 sm:mb-3">
-                {section.title}
-              </h2>
-              <nav className="list-none mb-6 sm:mb-10">
-                {section.links.map((link, idx) => (
-                  <li key={idx}>
-                    <a className="text-gray-600 hover:text-gray-800 text-[9px] md:text-sm ">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </nav>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="border-t border-gray-200">
-        <div className="container px-3 sm:px-5 py-4 sm:py-8 flex flex-wrap mx-auto items-center">
-          <div className="flex flex-col md:flex-row md:flex-nowrap w-full justify-center md:justify-between items-center">
-            <p className="text-gray-500 text-center text-[9px] md:text-sm mb-2 sm:mb-4 md:mb-0">
-              Stay connected with us - Follow us on social media
+    <footer className="relative overflow-hidden bg-[#050914] text-slate-300">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(159,37,65,0.15),transparent_28%)]" />
+
+      <div className="page-shell relative py-20 sm:py-24 lg:py-28">
+        <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)] lg:items-end">
+          <div className="max-w-2xl">
+            <p className="mb-4 font-mono text-[0.72rem] uppercase tracking-[0.34em] text-primary-300">
+              Creative engineering portfolio
             </p>
-            <span className="inline-flex justify-center md:justify-end w-full md:w-auto">
-              <a className="text-gray-500 hover:text-indigo-500">
-                <FaFacebookF className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
-              </a>
-              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
-                <FaTwitter className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
-              </a>
-              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
-                <FaInstagram className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
-              </a>
-              <a className="ml-2 sm:ml-3 text-gray-500 hover:text-indigo-500">
-                <FaLinkedinIn className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
-              </a>
-            </span>
+            <h2 className="font-display text-[clamp(2.8rem,5vw,5rem)] font-bold leading-[0.94] tracking-[-0.05em] text-burgundy-900 dark:text-burgundy-400">
+              Bold digital products, crafted with clarity and range.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-slate-400 sm:text-lg">
+              From interface systems to backend architecture and emerging tech, this studio focuses on work that feels modern, composed, and useful.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:gap-8">
+            {footerData.map((section, index) => (
+              <div key={index}>
+                <h3 className="mb-4 font-mono text-[0.72rem] uppercase tracking-[0.28em] text-slate-500">
+                  {section.title}
+                </h3>
+                <ul className="space-y-3">
+                  {section.links.map((link, idx) => (
+                    <li key={idx} className="text-sm text-slate-300/85 transition-colors hover:text-white sm:text-[0.95rem]">
+                      {link}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      <div className="bg-gray-100 dark:bg-[#1b2a5b53]">
-        <div className="container mx-auto md:py-4 md:px-5 py-2 px-2 flex flex-wrap flex-col sm:flex-row">
-          <p className="text-gray-500 text-[10px] md:text-sm text-center sm:text-left">
-             2025 andrewsCorp —
-            <a
-              href="https://twitter.com/company"
-              className="text-gray-600 ml-1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @unaware
-            </a>
+        <div className="flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-md text-sm leading-7 text-slate-400 sm:text-[0.95rem]">
+            Stay connected for product experiments, engineering notes, and selected case studies.
           </p>
-          <span className="sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-gray-500 text-[10px] md:text-sm">
-            Empowering innovation
+          <span className="inline-flex items-center gap-3">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition-all hover:border-primary-400 hover:text-white">
+              <FaFacebookF className="h-4 w-4" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition-all hover:border-primary-400 hover:text-white">
+              <FaTwitter className="h-4 w-4" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition-all hover:border-primary-400 hover:text-white">
+              <FaInstagram className="h-4 w-4" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition-all hover:border-primary-400 hover:text-white">
+              <FaLinkedinIn className="h-4 w-4" />
+            </a>
           </span>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            2025 andrewsCorp — <span className="text-slate-300">@unaware</span>
+          </p>
+          <span>Empowering innovation with polished software systems.</span>
         </div>
       </div>
     </footer>

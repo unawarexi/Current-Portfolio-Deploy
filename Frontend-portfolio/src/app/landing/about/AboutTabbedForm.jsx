@@ -5,6 +5,8 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, RefreshCw, User, Upload } from '@core/constants/icons';
 import { useAboutFormUsecase } from '@app/usecases/about-form-usecase';
+import DynamicFieldList from '@app/components/DynamicFieldList';
+import DynamicObjectList from '@app/components/DynamicObjectList';
 
 const TABS = [
   { id: 'identity',  label: 'Identity',  fields: ['name','headline','tagline','bio','openToWork','availabilityNote'] },
@@ -121,19 +123,11 @@ const AboutTabbedForm = ({ onSuccess }) => {
             {/* ── GOALS ── */}
             {activeTab === 'goals' && (
               <>
-                <Field label="Goals" hint="One goal per line">
-                  <textarea rows={4} className={textareaCls} value={uc.form.goals} onChange={(e) => uc.setField('goals', e.target.value)} placeholder={"Land senior role at a product company\nLaunch a SaaS product"} />
-                </Field>
+                <DynamicFieldList title="Goals" items={uc.form.goals} onChange={(v) => uc.setField('goals', v)} placeholder="E.g. Land senior role at a product company" />
                 <Field label="Current Focus"><input className={inputCls} value={uc.form.currentFocus} onChange={(e) => uc.setField('currentFocus', e.target.value)} placeholder="e.g. Blockchain development" /></Field>
-                <Field label="Core Values" hint="One per line">
-                  <textarea rows={3} className={textareaCls} value={uc.form.values} onChange={(e) => uc.setField('values', e.target.value)} placeholder={"Integrity\nExcellence\nContinuous learning"} />
-                </Field>
-                <Field label="Fun Facts" hint="One per line">
-                  <textarea rows={3} className={textareaCls} value={uc.form.funFacts} onChange={(e) => uc.setField('funFacts', e.target.value)} placeholder={"I can solve a Rubik's cube in 2 minutes\nI speak 3 languages"} />
-                </Field>
-                <Field label="Hobbies" hint="One per line">
-                  <textarea rows={2} className={textareaCls} value={uc.form.hobbies} onChange={(e) => uc.setField('hobbies', e.target.value)} placeholder={"Chess\nHiking"} />
-                </Field>
+                <DynamicFieldList title="Core Values" items={uc.form.values} onChange={(v) => uc.setField('values', v)} placeholder="E.g. Integrity" />
+                <DynamicFieldList title="Fun Facts" items={uc.form.funFacts} onChange={(v) => uc.setField('funFacts', v)} placeholder="E.g. I can solve a Rubik's cube in 2 minutes" />
+                <DynamicFieldList title="Hobbies" items={uc.form.hobbies} onChange={(v) => uc.setField('hobbies', v)} placeholder="E.g. Chess" />
               </>
             )}
 
@@ -146,15 +140,39 @@ const AboutTabbedForm = ({ onSuccess }) => {
                   <Field label="Clients Count"><input type="number" className={inputCls} value={uc.form.clientsCount} onChange={(e) => uc.setField('clientsCount', e.target.value)} /></Field>
                   <Field label="Rating (out of 5)"><input type="number" step="0.1" max="5" className={inputCls} value={uc.form.rating} onChange={(e) => uc.setField('rating', e.target.value)} /></Field>
                 </div>
-                <Field label="Education (JSON array or one per line)" hint='[{"institution":"...","degree":"...","year":"..."}] or just one per line'>
-                  <textarea rows={4} className={textareaCls} value={uc.form.education} onChange={(e) => uc.setField('education', e.target.value)} />
-                </Field>
-                <Field label="Certifications (JSON array or one per line)">
-                  <textarea rows={4} className={textareaCls} value={uc.form.certifications} onChange={(e) => uc.setField('certifications', e.target.value)} />
-                </Field>
-                <Field label="Languages" hint='[{"name":"English","level":"Native"}] or one per line'>
-                  <textarea rows={2} className={textareaCls} value={uc.form.languages} onChange={(e) => uc.setField('languages', e.target.value)} />
-                </Field>
+                <DynamicObjectList 
+                  title="Education" 
+                  items={uc.form.education} 
+                  onChange={(v) => uc.setField('education', v)}
+                  emptyItem={{ institution: '', degree: '', year: '' }}
+                  fields={[
+                    { name: 'institution', label: 'Institution', placeholder: 'Stanford University' },
+                    { name: 'degree', label: 'Degree', placeholder: 'BSc Computer Science' },
+                    { name: 'year', label: 'Year', placeholder: '2020 - 2024' }
+                  ]}
+                />
+                <DynamicObjectList 
+                  title="Certifications" 
+                  items={uc.form.certifications} 
+                  onChange={(v) => uc.setField('certifications', v)}
+                  emptyItem={{ name: '', issuer: '', year: '', url: '' }}
+                  fields={[
+                    { name: 'name', label: 'Name', placeholder: 'AWS Certified Solutions Architect' },
+                    { name: 'issuer', label: 'Issuer', placeholder: 'Amazon Web Services' },
+                    { name: 'year', label: 'Year', placeholder: '2023' },
+                    { name: 'url', label: 'URL', placeholder: 'https://...' }
+                  ]}
+                />
+                <DynamicObjectList 
+                  title="Languages" 
+                  items={uc.form.languages} 
+                  onChange={(v) => uc.setField('languages', v)}
+                  emptyItem={{ name: '', level: '' }}
+                  fields={[
+                    { name: 'name', label: 'Language', placeholder: 'English' },
+                    { name: 'level', label: 'Level', placeholder: 'Native / Fluent' }
+                  ]}
+                />
               </>
             )}
 

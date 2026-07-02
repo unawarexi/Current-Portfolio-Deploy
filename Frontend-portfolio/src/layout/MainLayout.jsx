@@ -6,7 +6,7 @@ import { ToastContainer } from '@components/ui/ToastContainer';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-[#070b18] transition-colors duration-300">
+    <div className="flex min-h-screen flex-col bg-transparent transition-colors duration-300">
       <NavBar />
       <FloatingNavBar />
       <ToastContainer />

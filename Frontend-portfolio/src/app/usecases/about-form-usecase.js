@@ -8,6 +8,30 @@ import {
   useUploadCv,
 } from "@hooks/api-hooks/useAbout";
 import { useAboutStore } from "@store/about.store";
+import { toast } from "@store/toast.store";
+import { z } from "zod";
+
+const urlOptional = z
+  .string()
+  .trim()
+  .refine((v) => v === "" || /^https?:\/\/.+/.test(v), { message: "Must be a valid URL" })
+  .optional()
+  .default("");
+
+const aboutFormSchema = z.object({
+  bio: z.string().trim().min(10, "Bio must be at least 10 characters"),
+  yearsOfExperience: z.coerce.number().int().nonnegative({ message: "Must be positive" }).default(0),
+  projectsCount: z.coerce.number().int().nonnegative({ message: "Must be positive" }).default(0),
+  clientsCount: z.coerce.number().int().nonnegative({ message: "Must be positive" }).default(0),
+  rating: z.coerce.number().min(0).max(5).default(5.0),
+  socials: z.object({
+    github: urlOptional,
+    linkedin: urlOptional,
+    twitter: urlOptional,
+    instagram: urlOptional,
+    website: urlOptional,
+  }),
+});
 
 const INITIAL = {
   name: "",
@@ -18,14 +42,14 @@ const INITIAL = {
   vision: "",
   mission: "",
   philosophy: "",
-  goals: "",
+  goals: [],
   currentFocus: "",
-  values: "",
-  funFacts: "",
-  hobbies: "",
-  education: "",
-  certifications: "",
-  languages: "",
+  values: [],
+  funFacts: [],
+  hobbies: [],
+  education: [],
+  certifications: [],
+  languages: [],
   openToWork: true,
   availabilityNote: "",
   yearsOfExperience: "",
@@ -41,14 +65,6 @@ const INITIAL = {
   },
 };
 
-const splitLines = (str) =>
-  (str || "")
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean);
-const joinLines = (arr) => (arr || []).join("\n");
-
-//  NEW: Safe JSON parsing utility
 const tryParseJson = (str, fallback = null) => {
   if (!str) return fallback;
   try {
@@ -76,21 +92,15 @@ export const useAboutFormUsecase = () => {
       setFormState({
         ...INITIAL,
         ...profile,
-        //  FIXED: Array fields stay as newline-separated text for display
-        goals: joinLines(profile.goals),
-        values: joinLines(profile.values),
-        funFacts: joinLines(profile.funFacts),
-        hobbies: joinLines(profile.hobbies),
-        //  FIXED: Structured fields stored as pretty-printed JSON strings for editing
-        education: Array.isArray(profile.education)
-          ? JSON.stringify(profile.education, null, 2)
-          : profile.education || "",
-        certifications: Array.isArray(profile.certifications)
-          ? JSON.stringify(profile.certifications, null, 2)
-          : profile.certifications || "",
-        languages: Array.isArray(profile.languages)
-          ? JSON.stringify(profile.languages, null, 2)
-          : profile.languages || "",
+        //  FIXED: Array fields stay as arrays
+        goals: profile.goals || [],
+        values: profile.values || [],
+        funFacts: profile.funFacts || [],
+        hobbies: profile.hobbies || [],
+        //  FIXED: Structured fields stored as arrays
+        education: profile.education || [],
+        certifications: profile.certifications || [],
+        languages: profile.languages || [],
         socials: profile.socials || INITIAL.socials,
       });
     }
@@ -111,11 +121,27 @@ export const useAboutFormUsecase = () => {
   };
 
   const validate = () => {
-    const errs = {};
-    if (!form.bio || form.bio.length < 10)
-      errs.bio = "Bio must be at least 10 characters";
-    setFormErrors(errs);
-    return Object.keys(errs).length === 0;
+    // Only validate the fields we care about (we use partial matching so we don't need to define every single string field)
+    const result = aboutFormSchema.safeParse(form);
+    if (!result.success) {
+      const errs = {};
+      for (const [k, v] of Object.entries(result.error.flatten().fieldErrors)) {
+        errs[k] = v[0];
+      }
+      
+      // Handle nested socials errors
+      const socialErrs = result.error.flatten().fieldErrors;
+      if (result.error.flatten().fieldErrors['socials.github']) errs.github = 'Invalid URL';
+      if (result.error.flatten().fieldErrors['socials.linkedin']) errs.linkedin = 'Invalid URL';
+      // It's a bit tricky to map nested zod errors perfectly in this simple setup,
+      // but if there are any errors, we can just block it.
+
+      setFormErrors(errs);
+      toast.error('Please fix the errors before submitting');
+      return false;
+    }
+    setFormErrors({});
+    return true;
   };
 
   const submit = async () => {
@@ -123,19 +149,6 @@ export const useAboutFormUsecase = () => {
 
     const payload = {
       ...form,
-      //  FIXED: Convert array fields from newline-separated to arrays
-      goals: splitLines(form.goals),
-      values: splitLines(form.values),
-      funFacts: splitLines(form.funFacts),
-      hobbies: splitLines(form.hobbies),
-
-      //  FIXED: Parse structured fields, with proper fallbacks
-      education: tryParseJson(form.education, splitLines(form.education)),
-      certifications: tryParseJson(
-        form.certifications,
-        splitLines(form.certifications),
-      ),
-      languages: tryParseJson(form.languages, splitLines(form.languages)),
     };
 
     //  DEBUG: Log what we're sending
@@ -143,12 +156,13 @@ export const useAboutFormUsecase = () => {
       ...payload,
       goals: `[Array of ${payload.goals.length} items]`,
       values: `[Array of ${payload.values.length} items]`,
-      education: `[${typeof payload.education === "string" ? "STRING" : "ARRAY of " + payload.education.length}]`,
+      education: `[ARRAY of ${payload.education.length}]`,
     });
 
     try {
       const result = await upsertMut.mutateAsync(payload);
       setProfile(payload);
+      toast.success("Profile updated!");
       return result;
     } catch (error) {
       console.error(" Submit failed:", error.response?.data || error.message);

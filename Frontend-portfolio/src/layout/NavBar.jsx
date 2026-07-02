@@ -63,22 +63,32 @@ const NavBar = () => {
   return (
     <section className="relative">
       {/* ── Fixed bar ─────────────────────────────────────────────────────── */}
-      <header className="fixed top-0 w-full z-40 h-12 sm:h-16 md:h-20
-        bg-black/30 backdrop-blur-md border-b border-white/5 shadow-lg">
-        <div className="container mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
+      {/* Outer strip: in light mode add a thin top-edge gradient so content
+          doesn't bleed through the transparent padding above the pill */}
+      <header className="fixed top-0 z-40 w-full px-3 pt-3 sm:px-4 sm:pt-4
+        bg-gradient-to-b from-white/80 via-white/30 to-transparent
+        dark:from-[#070b18]/80 dark:via-[#070b18]/20 dark:to-transparent">
+        <div className="page-shell flex h-14 items-center justify-between rounded-full
+          border border-gray-200/70 dark:border-white/10
+          bg-white/90 dark:bg-[#070b18]/80
+          px-5
+          shadow-[0_6px_36px_rgba(15,23,42,0.10)] dark:shadow-[0_18px_60px_rgba(0,0,0,0.28)]
+          backdrop-blur-2xl
+          transition-colors duration-300
+          sm:h-16 sm:px-7">
 
           {/* Logo */}
-          <Link to="/" className="text-base sm:text-xl lg:text-2xl font-bold text-gray-100 dark:text-white z-50">
+          <Link to="/" className="z-50 font-display text-lg font-bold tracking-tight text-gray-900 dark:text-white sm:text-xl lg:text-2xl">
             D<span style={{ color: colors.primary[500] }}>r.</span> Dre
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium">
+          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 to={hrefFor(item)}
-                className="text-gray-300 hover:text-indigo-400 transition-colors duration-200"
+                className="font-sans text-[0.95rem] text-gray-600 dark:text-gray-300 transition-colors duration-200 hover:text-gray-900 dark:hover:text-white"
               >
                 {item.label}
               </Link>
@@ -92,8 +102,8 @@ const NavBar = () => {
             aria-label="Open menu"
             className="md:hidden z-50 flex items-center justify-center
               w-8 h-8 sm:w-10 sm:h-10 rounded-xl
-              bg-gradient-to-br from-indigo-600 to-indigo-800
-              shadow-lg shadow-indigo-900/40
+              bg-gradient-to-br from-indigo-500 to-indigo-700
+              shadow-lg shadow-indigo-500/30
               text-white"
           >
             <Menu size={16} />
@@ -121,17 +131,18 @@ const NavBar = () => {
               initial="hidden" animate="visible" exit="exit"
               className="fixed top-0 left-0 w-full z-50 md:hidden
                 min-h-[70vh] rounded-b-[2.5rem] overflow-hidden
-                bg-[#0b0f1e] border-b border-white/8 shadow-2xl"
+                bg-white dark:bg-[#0b0f1e]
+                border-b border-gray-200/80 dark:border-white/[0.08] shadow-2xl"
             >
               {/* Circuit pattern background */}
               <div
-                className="absolute inset-0 opacity-40 pointer-events-none"
+                className="absolute inset-0 opacity-20 dark:opacity-40 pointer-events-none"
                 style={patterns.circuit}
               />
 
               {/* Glow atmosphere */}
               <div
-                className="absolute inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none dark:block hidden"
                 style={{ background: glows.dual }}
               />
 
@@ -143,7 +154,7 @@ const NavBar = () => {
                   <Link
                     to="/"
                     onClick={() => setOpen(false)}
-                    className="text-base font-bold text-white"
+                    className="text-base font-bold text-gray-900 dark:text-white"
                   >
                     D<span style={{ color: colors.primary[400] }}>r.</span> Dre
                   </Link>
@@ -162,8 +173,9 @@ const NavBar = () => {
                     onClick={() => setOpen(false)}
                     aria-label="Close menu"
                     className="flex items-center justify-center w-9 h-9 rounded-full
-                      bg-white/5 border border-white/10 text-gray-300
-                      hover:bg-white/10 transition-colors"
+                      bg-gray-100/80 border border-gray-200/80 text-gray-600
+                      dark:bg-white/5 dark:border-white/10 dark:text-gray-300
+                      hover:bg-gray-200/80 dark:hover:bg-white/10 transition-colors"
                   >
                     <X size={16} />
                   </button>
@@ -186,27 +198,29 @@ const NavBar = () => {
                         to={hrefFor(item)}
                         onClick={() => setOpen(false)}
                         className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl
-                          bg-white/[0.03] border border-white/[0.06]
-                          hover:bg-indigo-500/10 hover:border-indigo-500/20
+                          bg-gray-50/80 border border-gray-200/60
+                          dark:bg-white/[0.03] dark:border-white/[0.06]
+                          hover:bg-indigo-50 hover:border-indigo-200/80
+                          dark:hover:bg-indigo-500/10 dark:hover:border-indigo-500/20
                           transition-all duration-200"
                       >
                         {/* Icon bubble */}
                         <div className="flex items-center justify-center w-7 h-7 rounded-xl
                           bg-indigo-500/10 border border-indigo-500/15
-                          text-indigo-400 group-hover:bg-indigo-500/20
+                          text-indigo-500 dark:text-indigo-400 group-hover:bg-indigo-500/20
                           transition-colors shrink-0">
                           <item.Icon size={14} />
                         </div>
 
-                        <span className="text-[12px] font-medium text-gray-200
-                          group-hover:text-indigo-300 transition-colors">
+                        <span className="text-[12px] font-medium text-gray-700 dark:text-gray-200
+                          group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors">
                           {item.label}
                         </span>
 
                         {/* Arrow */}
                         <svg
-                          className="ml-auto w-3.5 h-3.5 text-gray-600
-                            group-hover:text-indigo-400 transition-colors"
+                          className="ml-auto w-3.5 h-3.5 text-gray-400 dark:text-gray-600
+                            group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors"
                           fill="none" stroke="currentColor" strokeWidth="2"
                           viewBox="0 0 24 24"
                         >
@@ -225,14 +239,16 @@ const NavBar = () => {
                   transition={{ delay: 0.45 }}
                   className="flex items-center justify-between
                     px-3 py-2.5 rounded-2xl
-                    bg-white/[0.03] border border-white/[0.06]"
+                    bg-gray-50/80 border border-gray-200/60
+                    dark:bg-white/[0.03] dark:border-white/[0.06]"
                 >
                     <div className="flex items-center gap-2">
                     <div className="w-7 h-7 rounded-xl flex items-center justify-center
-                      bg-indigo-500/10 border border-indigo-500/15 text-indigo-400">
+                      bg-indigo-500/10 border border-indigo-500/15
+                      text-indigo-500 dark:text-indigo-400">
                       <Moon size={14} />
                     </div>
-                    <span className="text-[12px] font-medium text-gray-300">Appearance</span>
+                    <span className="text-[12px] font-medium text-gray-700 dark:text-gray-300">Appearance</span>
                   </div>
                   <ThemeToggle />
                 </motion.div>
