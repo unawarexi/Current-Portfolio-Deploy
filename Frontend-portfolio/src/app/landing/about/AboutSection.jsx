@@ -323,7 +323,7 @@ const AboutSection = () => {
             </div>
 
             {/* Card 2: Top Horizontal (Right top) */}
-            <div className="col-span-1 md:col-span-2 row-span-1 rounded-md md:rounded-[2rem] overflow-hidden relative bg-gradient-to-br from-burgundy-600 to-burgundy-900 p-6 sm:p-8 flex flex-col justify-center group shadow-2xl dark:shadow-black/50">
+            <div className="col-span-1 md:col-span-2 row-span-1 rounded-md md:rounded-[2rem] overflow-hidden relative bg-gradient-to-br from-burgundy-600 to-burgundy-900 px-3 md:px-0 md:p-6 sm:p-8 flex flex-col justify-center group shadow-2xl dark:shadow-black/50">
               <div
                 className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500 mix-blend-overlay"
                 style={patterns.circuit}
