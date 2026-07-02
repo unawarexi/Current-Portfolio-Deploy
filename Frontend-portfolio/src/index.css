@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -21,7 +21,7 @@
 
   html {
     scroll-behavior: smooth;
-    font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+    font-family: "Inter", "Space Grotesk", system-ui, sans-serif;
   }
 
   body {
@@ -42,14 +42,21 @@
       linear-gradient(180deg, #070b18 0%, #09101f 36%, #070b18 100%);
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Syne', 'Rajdhani', 'Space Grotesk', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Syne", "Rajdhani", "Space Grotesk", sans-serif;
     letter-spacing: -0.03em;
     line-height: 0.98;
   }
 
-  code, pre, .font-mono {
-    font-family: 'Share Tech Mono', monospace;
+  code,
+  pre,
+  .font-mono {
+    font-family: "Share Tech Mono", monospace;
   }
 
   p {
@@ -113,16 +120,107 @@
   }
 
   .glass-panel {
-    background: linear-gradient(180deg, var(--surface-soft), rgba(255, 255, 255, 0.55));
+    background: linear-gradient(
+      180deg,
+      var(--surface-soft),
+      rgba(255, 255, 255, 0.55)
+    );
     border: 1px solid var(--surface-border);
     box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
     backdrop-filter: blur(22px);
   }
 
   .dark .glass-panel {
-    background: linear-gradient(180deg, var(--surface-soft-dark), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(
+      180deg,
+      var(--surface-soft-dark),
+      rgba(255, 255, 255, 0.02)
+    );
     border-color: var(--surface-border-dark);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
   }
 }
 /* Add similar classes for other elements as needed */
+/* Tablet / large phones */
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: clamp(1rem, 4vw, 1.75rem);
+    --section-space-y: clamp(3.5rem, 12vw, 5.5rem);
+    --headline-xl: clamp(2.4rem, 9vw, 4rem);
+    --headline-lg: clamp(2rem, 8vw, 3.25rem);
+    --headline-md: clamp(1.7rem, 6vw, 2.5rem);
+    --body-lg: clamp(1rem, 3.2vw, 1.125rem);
+  }
+
+  .editorial-title,
+  .editorial-title-xl {
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  .editorial-copy {
+    line-height: 1.6;
+  }
+
+  .editorial-eyebrow {
+    @apply px-3 py-1.5 text-[0.62rem] tracking-[0.24em] gap-2;
+  }
+
+  .glass-panel {
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+    backdrop-filter: blur(14px);
+  }
+
+  .dark .glass-panel {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  :root {
+    --page-gutter: 1rem;
+    --section-space-y: clamp(2.75rem, 14vw, 4rem);
+    --headline-xl: clamp(2rem, 10vw, 2.75rem);
+    --headline-lg: clamp(1.75rem, 9vw, 2.25rem);
+    --headline-md: clamp(1.5rem, 7vw, 2rem);
+    --body-lg: clamp(0.95rem, 4vw, 1.0625rem);
+  }
+
+  .editorial-title,
+  .editorial-title-xl {
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    word-break: break-word;
+  }
+
+  .editorial-eyebrow {
+    @apply px-2.5 py-1 text-[0.58rem] tracking-[0.2em];
+    flex-wrap: wrap;
+  }
+
+  .glass-panel {
+    /* border-radius: 1rem; */
+    backdrop-filter: blur(10px);
+  }
+
+  .page-shell {
+    padding-inline: var(--page-gutter);
+  }
+}
+
+/* Extra-small phones (older iPhones, small Android) */
+@media (max-width: 360px) {
+  :root {
+    --headline-xl: clamp(1.75rem, 11vw, 2.25rem);
+    --headline-lg: clamp(1.5rem, 10vw, 1.9rem);
+    --section-space-y: clamp(2.25rem, 15vw, 3.25rem);
+  }
+}
+
+/* Respect reduced motion on touch devices */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

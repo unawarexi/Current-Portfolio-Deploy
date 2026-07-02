@@ -108,7 +108,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-12 xl:gap-16 items-start px-3 sm:px-[2%] lg:px-[10%]">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-12 xl:gap-16 items-start sm:px-[2%] lg:px-[10%]">
           {/* ── Contact form (3 cols) ──────────────────────────────── */}
           <motion.div
             variants={fadeInLeft}
